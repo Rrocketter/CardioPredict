@@ -1,0 +1,55 @@
+NASA OSDR Download Log - Started: 2025-06-25 14:06:45.131674
+================================================================================
+
+2025-06-25 14:06:45.131775: Starting download of all cardiovascular risk datasets...
+2025-06-25 14:06:45.131834: Download directory: /Users/rahulgupta/Developer/CardioPredict/cardiovascular_risk_data
+2025-06-25 14:06:45.131864: 
+============================================================
+2025-06-25 14:06:45.131891: Processing OSD-575: SpaceX Inspiration4 Blood Serum Metabolic Panel and Immune/Cardiac Cytokine Arrays
+2025-06-25 14:06:45.131916: ============================================================
+2025-06-25 14:06:45.131992: Fetching metadata for OSD-575...
+2025-06-25 14:06:45.672709: Saved metadata to: cardiovascular_risk_data/OSD-575/OSD-575_metadata.json
+2025-06-25 14:06:45.673509: Fetching file list for OSD-575...
+2025-06-25 14:06:46.170827: No study data found for OSD-575
+2025-06-25 14:06:46.171183: 
+============================================================
+2025-06-25 14:06:46.171482: Processing OSD-635: Spaceflight effects on human vascular smooth muscle cell phenotype and function
+2025-06-25 14:06:46.172015: ============================================================
+2025-06-25 14:06:46.172555: Fetching metadata for OSD-635...
+2025-06-25 14:06:46.581738: Saved metadata to: cardiovascular_risk_data/OSD-635/OSD-635_metadata.json
+2025-06-25 14:06:46.582455: Fetching file list for OSD-635...
+2025-06-25 14:06:47.018783: No study data found for OSD-635
+2025-06-25 14:06:47.018999: 
+============================================================
+2025-06-25 14:06:47.019147: Processing OSD-484: Astronauts plasma-derived exosomes induced gene expression in AC16 cells
+2025-06-25 14:06:47.019218: ============================================================
+2025-06-25 14:06:47.019446: Fetching metadata for OSD-484...
+2025-06-25 14:06:47.481921: Saved metadata to: cardiovascular_risk_data/OSD-484/OSD-484_metadata.json
+2025-06-25 14:06:47.482420: Fetching file list for OSD-484...
+2025-06-25 14:06:47.906032: No study data found for OSD-484
+2025-06-25 14:06:47.906384: 
+============================================================
+2025-06-25 14:06:47.906650: Processing OSD-258: Effects of Spaceflight on Human Induced Pluripotent Stem Cell-Derived Cardiomyocyte
+2025-06-25 14:06:47.906832: ============================================================
+2025-06-25 14:06:47.907388: Fetching metadata for OSD-258...
+2025-06-25 14:06:48.345633: Saved metadata to: cardiovascular_risk_data/OSD-258/OSD-258_metadata.json
+2025-06-25 14:06:48.346445: Fetching file list for OSD-258...
+2025-06-25 14:06:48.800046: No study data found for OSD-258
+2025-06-25 14:06:48.800363: 
+============================================================
+2025-06-25 14:06:48.800767: Processing OSD-51: Woman skeletal muscle transcriptome with bed rest and countermeasures
+2025-06-25 14:06:48.800847: ============================================================
+2025-06-25 14:06:48.801135: Fetching metadata for OSD-51...
+2025-06-25 14:06:49.233255: Saved metadata to: cardiovascular_risk_data/OSD-51/OSD-51_metadata.json
+2025-06-25 14:06:49.233514: Fetching file list for OSD-51...
+2025-06-25 14:06:49.650227: No study data found for OSD-51
+2025-06-25 14:06:49.651948: Study summary created: cardiovascular_risk_data/study_summary.txt
+2025-06-25 14:06:49.652698: 
+============================================================
+2025-06-25 14:06:49.653059: DOWNLOAD COMPLETE
+2025-06-25 14:06:49.653196: ============================================================
+2025-06-25 14:06:49.653348: Total studies processed: 5
+2025-06-25 14:06:49.653453: Successful downloads: 0
+2025-06-25 14:06:49.653551: Failed downloads: 5
+2025-06-25 14:06:49.653725: Data directory: /Users/rahulgupta/Developer/CardioPredict/cardiovascular_risk_data
+2025-06-25 14:06:49.653963: Log file: /Users/rahulgupta/Developer/CardioPredict/download_log.txt

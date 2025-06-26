@@ -1,0 +1,72 @@
+{
+  "assessments": [
+    {
+      "dataset": "OSD-575",
+      "subjects": 4,
+      "cardiovascular_markers": 9,
+      "timepoints": 7,
+      "suitable_for_project": true,
+      "notes": "Excellent longitudinal data with pre/post flight measurements"
+    },
+    {
+      "dataset": "OSD-258",
+      "data_type": "RNA-seq",
+      "samples": 7,
+      "suitable_for_project": true,
+      "notes": "Gene expression data from cardiomyocytes - good for molecular markers"
+    },
+    {
+      "dataset": "OSD-635",
+      "data_type": "RNA-seq",
+      "samples": 6,
+      "suitable_for_project": true,
+      "notes": "Vascular smooth muscle gene expression - directly relevant to cardiovascular function"
+    },
+    {
+      "dataset": "OSD-51",
+      "data_type": "Microarray",
+      "suitable_for_project": true,
+      "notes": "Bed rest data - perfect Earth analog for microgravity cardiovascular effects"
+    },
+    {
+      "dataset": "OSD-484",
+      "data_type": "Microarray",
+      "samples": 5,
+      "suitable_for_project": true,
+      "notes": "Exosome-induced gene expression in cardiac cells - novel biomarker approach"
+    }
+  ],
+  "integration_plan": {
+    "primary_biomarker_dataset": {
+      "dataset": "OSD-575",
+      "use": "Primary cardiovascular risk prediction model",
+      "features": [
+        "Cardiovascular protein markers",
+        "Metabolic panel markers",
+        "Longitudinal changes (pre/post flight)",
+        "Subject demographics"
+      ]
+    },
+    "validation_dataset": {
+      "dataset": "OSD-51",
+      "use": "Earth analog validation",
+      "features": [
+        "Bed rest gene expression changes",
+        "Comparison with spaceflight effects"
+      ]
+    },
+    "mechanistic_datasets": {
+      "datasets": [
+        "OSD-258",
+        "OSD-635",
+        "OSD-484"
+      ],
+      "use": "Understand molecular mechanisms",
+      "features": [
+        "Cardiomyocyte gene expression",
+        "Vascular smooth muscle responses",
+        "Exosome-mediated signaling"
+      ]
+    }
+  }
+}
