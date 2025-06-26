@@ -1,0 +1,42 @@
+{
+  "target_variable": "total_cv_risk_score",
+  "risk_categories": "risk_category",
+  "baseline_features": [
+    "a-2 Macroglobulin_baseline",
+    "CRP_baseline",
+    "Fibrinogen_baseline",
+    "Haptoglobin_baseline",
+    "PF4_baseline"
+  ],
+  "change_features": [
+    "CRP_immediate_change_pct",
+    "CRP_recovery_change_pct",
+    "Fibrinogen_immediate_change_pct",
+    "Fibrinogen_recovery_change_pct",
+    "Haptoglobin_immediate_change_pct",
+    "Haptoglobin_recovery_change_pct",
+    "PF4_immediate_change_pct",
+    "PF4_recovery_change_pct",
+    "a-2 Macroglobulin_immediate_change_pct",
+    "a-2 Macroglobulin_recovery_change_pct"
+  ],
+  "engineered_features": [
+    "biomarker_volatility",
+    "recovery_efficiency",
+    "inflammation_score",
+    "thrombosis_risk_score"
+  ],
+  "demographic_features": [
+    "gender_encoded",
+    "mission_duration_category"
+  ],
+  "bedrest_integration": {
+    "study_type": "bedrest_analog",
+    "intervention": "bed_rest_immobilization",
+    "duration_days": "variable",
+    "data_type": "gene_expression_microarray",
+    "subjects": "to_be_extracted",
+    "timepoints": "pre_post_bedrest",
+    "integration_plan": "compare_with_spaceflight_signatures"
+  }
+}

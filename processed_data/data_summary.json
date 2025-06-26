@@ -1,0 +1,11 @@
+{
+  "processing_date": "2025-06-26T12:39:51.713705",
+  "total_subjects": 4,
+  "total_features": 34,
+  "missing_data_percentage": 0.0,
+  "risk_score_range": {
+    "min": 0.9297515824982998,
+    "max": 21.417785961492296,
+    "mean": 6.373119342543335
+  }
+}

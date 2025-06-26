@@ -1,0 +1,42 @@
+{
+  "project_overview": {
+    "title": "Microgravity-Induced Cardiovascular Risk Prediction",
+    "data_source": "NASA OSDR SpaceX Inspiration4 Mission",
+    "study_population": "4 civilian astronauts",
+    "mission_duration": "3 days",
+    "follow_up_period": "6+ months"
+  },
+  "dataset_characteristics": {
+    "total_samples": 28,
+    "unique_subjects": 4,
+    "temporal_coverage": "-92 to 194 days",
+    "feature_count": 102,
+    "biomarkers_measured": 50,
+    "data_completeness": "100.0%"
+  },
+  "key_findings": {
+    "risk_score_range": "32.3 - 71.7",
+    "pre_flight_risk": "48.1",
+    "post_flight_risk": "51.4",
+    "demographics": {
+      "age_range": "29-51 years",
+      "gender_distribution": {
+        "0": 2,
+        "1": 2
+      }
+    }
+  },
+  "clinical_relevance": {
+    "biomarkers_validated": [
+      "C-Reactive Protein (CRP) - inflammation",
+      "Fibrinogen - coagulation risk",
+      "Haptoglobin - cardiovascular complications",
+      "Alpha-2 Macroglobulin - atherosclerosis"
+    ],
+    "risk_categories": {
+      "Moderate": 15,
+      "High": 13
+    },
+    "temporal_patterns": "Significant changes observed post-flight"
+  }
+}
