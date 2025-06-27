@@ -1,0 +1,19 @@
+{
+  "Ridge Regression": {
+    "r2_score": 0.7504654443755969,
+    "mae": 0.0,
+    "rmse": 0.0,
+    "best_params": {
+      "alpha": 1.0
+    }
+  },
+  "Elastic Net": {
+    "r2_score": 0.7696882891110463,
+    "mae": 0.0,
+    "rmse": 0.0,
+    "best_params": {
+      "alpha": 0.1,
+      "l1_ratio": 0.5
+    }
+  }
+}
