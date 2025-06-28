@@ -1,0 +1,113 @@
+{
+  "validation_date": "2025-06-28T10:02:40.936091",
+  "overall_validation_score": -0.6999859368360133,
+  "validation_criteria_passed": "1",
+  "validation_status": "REQUIRES ADDITIONAL VALIDATION",
+  "detailed_results": {
+    "published_studies": {
+      "overall_performance": {
+        "r2_score": -2.3099139174439,
+        "mae": 16.964878044675814,
+        "rmse": 17.572257368923367,
+        "correlation": 0.8804221303342186,
+        "p_value": 9.256480260794659e-22
+      },
+      "study_specific_validation": {
+        "14_day_bedrest": {
+          "predicted_cv_increase": 14.32419672768427,
+          "expected_cv_increase": 12.552,
+          "validation_accuracy": 0.8588116055063519,
+          "meets_threshold": "True"
+        },
+        "84_day_bedrest": {
+          "predicted_cv_increase": 20.237604472355322,
+          "expected_cv_increase": 17.7,
+          "validation_accuracy": 0.85663251568614,
+          "meets_threshold": "True"
+        }
+      }
+    },
+    "hospital_applications": {
+      "r2_score": -0.15088271002621112,
+      "mae": 8.610836727290444,
+      "correlation": 0.08695445130859657,
+      "bedrest_cv_correlation": 0.44474087819979496,
+      "clinically_relevant": false
+    },
+    "cross_domain": {
+      "space_to_bedrest_r2": -2.871274269933173,
+      "space_to_bedrest_correlation": 0.8895893197156677,
+      "bedrest_to_space_r2": -2.837861137616025,
+      "bedrest_to_space_correlation": 0.9053736346137328,
+      "avg_correlation": 0.8974814771647002,
+      "benchmark_correlation": 0.85,
+      "meets_benchmark": "True"
+    }
+  },
+  "published_benchmarks": {
+    "bedrest_14_day": {
+      "study_reference": "Pavy-Le Traon et al. (2007) - 14-day bedrest cardiovascular effects",
+      "sample_size": 12,
+      "duration_days": 14,
+      "expected_changes": {
+        "heart_rate_increase_percent": 15.2,
+        "stroke_volume_decrease_percent": -18.5,
+        "cardiac_output_decrease_percent": -8.3,
+        "orthostatic_intolerance_incidence": 0.75,
+        "plasma_volume_decrease_percent": -12.8,
+        "vo2_max_decrease_percent": -8.1
+      },
+      "biomarker_changes": {
+        "crp_fold_increase": 1.8,
+        "fibrinogen_mg_dl_increase": 45,
+        "haptoglobin_fold_change": 1.2,
+        "pf4_fold_increase": 1.6
+      }
+    },
+    "bedrest_60_90_day": {
+      "study_reference": "Convertino (1997) - Long duration bedrest effects",
+      "sample_size": 8,
+      "duration_days": 84,
+      "expected_changes": {
+        "heart_rate_increase_percent": 28.4,
+        "stroke_volume_decrease_percent": -25.1,
+        "orthostatic_intolerance_incidence": 1.0,
+        "plasma_volume_decrease_percent": -16.2,
+        "vo2_max_decrease_percent": -15.3
+      },
+      "biomarker_changes": {
+        "crp_fold_increase": 2.4,
+        "fibrinogen_mg_dl_increase": 78,
+        "haptoglobin_fold_change": 1.4,
+        "pf4_fold_increase": 2.1
+      }
+    },
+    "hospitalized_patients": {
+      "study_reference": "Krumholz et al. (2013) - Hospital bedrest cardiovascular effects",
+      "description": "Patients spending 71-83% time lying down",
+      "sample_characteristics": {
+        "age_range": [
+          65,
+          85
+        ],
+        "comorbidities": [
+          "diabetes",
+          "hypertension",
+          "heart_disease"
+        ],
+        "avg_bedrest_hours_per_day": 18.2
+      },
+      "cardiovascular_deterioration": {
+        "daily_heart_rate_increase": 0.8,
+        "weekly_orthostatic_risk_increase": 0.12,
+        "thrombotic_risk_multiplier": 1.15
+      }
+    },
+    "space_analog_comparison": {
+      "study_reference": "Hargens & Vico (2016) - Space-Bedrest cardiovascular parallels",
+      "cardiovascular_changes_correlation": 0.85,
+      "biomarker_pattern_similarity": 0.78,
+      "recovery_timeline_similarity": 0.72
+    }
+  }
+}
