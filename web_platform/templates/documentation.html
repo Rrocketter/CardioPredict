@@ -1,0 +1,997 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Documentation - CardioPredict API Reference & Technical Guide</title>
+
+    <!-- Meta tags -->
+    <meta
+      name="description"
+      content="Complete API documentation and technical guide for integrating CardioPredict's cardiovascular risk prediction system into clinical and research applications."
+    />
+    <meta
+      name="keywords"
+      content="API documentation, CardioPredict integration, cardiovascular prediction API, technical guide, space medicine API"
+    />
+    <meta name="author" content="CardioPredict Research Team" />
+
+    <!-- Professional fonts and icons -->
+    <link
+      href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=JetBrains+Mono:wght@400;500&display=swap"
+      rel="stylesheet"
+    />
+    <link
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css"
+      rel="stylesheet"
+    />
+
+    <!-- CSS Framework and Custom Styles -->
+    <link
+      href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css"
+      rel="stylesheet"
+    />
+    <link
+      rel="stylesheet"
+      href="{{ url_for('static', filename='css/style.css') }}"
+    />
+
+    <style>
+      .sidebar {
+        position: sticky;
+        top: calc(var(--navbar-height) + 1rem);
+        height: calc(100vh - var(--navbar-height) - 2rem);
+        overflow-y: auto;
+        background: var(--off-white);
+        border-radius: var(--border-radius);
+        padding: 1.5rem;
+      }
+
+      .sidebar-nav {
+        list-style: none;
+        padding: 0;
+      }
+
+      .sidebar-nav li {
+        margin-bottom: 0.5rem;
+      }
+
+      .sidebar-nav a {
+        color: var(--medium-gray);
+        text-decoration: none;
+        padding: 0.5rem 0.75rem;
+        border-radius: var(--border-radius);
+        display: block;
+        transition: all 0.3s ease;
+        font-size: 0.9rem;
+      }
+
+      .sidebar-nav a:hover,
+      .sidebar-nav a.active {
+        background: var(--accent-blue);
+        color: white;
+      }
+
+      .sidebar-nav .section-title {
+        font-weight: 600;
+        color: var(--primary-blue);
+        padding: 1rem 0.75rem 0.5rem 0.75rem;
+        font-size: 0.8rem;
+        text-transform: uppercase;
+        letter-spacing: 0.5px;
+      }
+
+      .doc-content {
+        padding-top: calc(var(--navbar-height) + 2rem);
+      }
+
+      .code-block {
+        background: var(--dark-gray);
+        color: white;
+        padding: 1.5rem;
+        border-radius: var(--border-radius);
+        font-family: var(--font-mono);
+        font-size: 0.9rem;
+        overflow-x: auto;
+        margin: 1rem 0;
+        position: relative;
+      }
+
+      .code-block .language-label {
+        position: absolute;
+        top: 0.5rem;
+        right: 0.75rem;
+        background: var(--accent-blue);
+        color: white;
+        padding: 0.25rem 0.5rem;
+        border-radius: 4px;
+        font-size: 0.7rem;
+        text-transform: uppercase;
+      }
+
+      .endpoint-card {
+        border: 1px solid var(--light-gray);
+        border-radius: var(--border-radius);
+        margin-bottom: 2rem;
+        overflow: hidden;
+      }
+
+      .endpoint-header {
+        background: var(--primary-blue);
+        color: white;
+        padding: 1rem 1.5rem;
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+      }
+
+      .endpoint-method {
+        background: var(--success-green);
+        color: white;
+        padding: 0.25rem 0.75rem;
+        border-radius: 4px;
+        font-size: 0.8rem;
+        font-weight: 600;
+      }
+
+      .endpoint-method.post {
+        background: var(--warning-orange);
+      }
+
+      .endpoint-method.put {
+        background: var(--info-cyan);
+      }
+
+      .endpoint-method.delete {
+        background: var(--cardio-red);
+      }
+
+      .endpoint-body {
+        padding: 1.5rem;
+      }
+
+      .parameter-table {
+        margin-top: 1rem;
+      }
+
+      .parameter-table th {
+        background: var(--light-blue);
+        color: var(--primary-blue);
+        border: none;
+        padding: 0.75rem;
+        font-weight: 600;
+      }
+
+      .parameter-table td {
+        border: 1px solid var(--light-gray);
+        padding: 0.75rem;
+        vertical-align: top;
+      }
+
+      .required-badge {
+        background: var(--cardio-red);
+        color: white;
+        padding: 0.15rem 0.4rem;
+        border-radius: 3px;
+        font-size: 0.7rem;
+        font-weight: 600;
+      }
+
+      .optional-badge {
+        background: var(--medium-gray);
+        color: white;
+        padding: 0.15rem 0.4rem;
+        border-radius: 3px;
+        font-size: 0.7rem;
+        font-weight: 600;
+      }
+
+      .response-example {
+        background: var(--light-blue);
+        padding: 1rem;
+        border-radius: var(--border-radius);
+        margin-top: 1rem;
+      }
+
+      .integration-card {
+        background: linear-gradient(135deg, var(--light-blue), var(--white));
+        border: 1px solid var(--accent-blue);
+        border-radius: var(--border-radius);
+        padding: 2rem;
+        margin-bottom: 2rem;
+      }
+
+      .language-tabs {
+        display: flex;
+        margin-bottom: 1rem;
+        border-bottom: 1px solid var(--light-gray);
+      }
+
+      .language-tab {
+        padding: 0.75rem 1.5rem;
+        background: none;
+        border: none;
+        color: var(--medium-gray);
+        cursor: pointer;
+        transition: all 0.3s ease;
+        border-bottom: 2px solid transparent;
+      }
+
+      .language-tab.active {
+        color: var(--primary-blue);
+        border-bottom-color: var(--accent-blue);
+      }
+
+      .tab-content {
+        display: none;
+      }
+
+      .tab-content.active {
+        display: block;
+      }
+    </style>
+  </head>
+  <body>
+    <!-- Navigation -->
+    <nav class="navbar navbar-expand-lg navbar-dark fixed-top">
+      <div class="container">
+        <a
+          class="navbar-brand d-flex align-items-center"
+          href="{{ url_for('homepage') }}"
+        >
+          <i class="fas fa-heartbeat me-2"></i>
+          <span class="brand-text">CardioPredict</span>
+        </a>
+
+        <button
+          class="navbar-toggler"
+          type="button"
+          data-bs-toggle="collapse"
+          data-bs-target="#navbarNav"
+        >
+          <span class="navbar-toggler-icon"></span>
+        </button>
+
+        <div class="collapse navbar-collapse" id="navbarNav">
+          <ul class="navbar-nav ms-auto">
+            <li class="nav-item">
+              <a class="nav-link" href="{{ url_for('homepage') }}">Home</a>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link" href="{{ url_for('research') }}">Research</a>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link" href="{{ url_for('demo') }}">Live Demo</a>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link active" href="{{ url_for('documentation') }}"
+                >Documentation</a
+              >
+            </li>
+            <li class="nav-item">
+              <a class="nav-link" href="{{ url_for('about') }}">About</a>
+            </li>
+          </ul>
+        </div>
+      </div>
+    </nav>
+
+    <!-- Documentation Content -->
+    <div class="doc-content">
+      <div class="container-fluid">
+        <div class="row">
+          <!-- Sidebar Navigation -->
+          <div class="col-lg-3">
+            <div class="sidebar">
+              <h6 class="sidebar-title">
+                <i class="fas fa-book me-2"></i>Documentation
+              </h6>
+              <ul class="sidebar-nav">
+                <li class="section-title">Getting Started</li>
+                <li><a href="#overview" class="active">Overview</a></li>
+                <li><a href="#authentication">Authentication</a></li>
+                <li><a href="#quick-start">Quick Start</a></li>
+
+                <li class="section-title">API Reference</li>
+                <li><a href="#prediction-api">Prediction API</a></li>
+                <li><a href="#stats-api">Statistics API</a></li>
+                <li><a href="#validation-api">Validation API</a></li>
+
+                <li class="section-title">Integration</li>
+                <li><a href="#python-sdk">Python SDK</a></li>
+                <li><a href="#javascript-sdk">JavaScript</a></li>
+                <li><a href="#clinical-integration">Clinical Systems</a></li>
+
+                <li class="section-title">Resources</li>
+                <li><a href="#biomarkers">Biomarkers Reference</a></li>
+                <li><a href="#models">Model Information</a></li>
+                <li><a href="#examples">Code Examples</a></li>
+                <li><a href="#support">Support</a></li>
+              </ul>
+            </div>
+          </div>
+
+          <!-- Main Content -->
+          <div class="col-lg-9">
+            <div class="container">
+              <!-- Overview Section -->
+              <section id="overview" class="mb-5">
+                <div class="research-highlight">
+                  <h1><i class="fas fa-code me-2"></i>API Documentation</h1>
+                  <p class="lead">
+                    Integrate CardioPredict's AI-powered cardiovascular risk
+                    prediction into your clinical workflows, research
+                    applications, and healthcare systems.
+                  </p>
+
+                  <div class="row mt-4">
+                    <div class="col-md-4">
+                      <div class="text-center">
+                        <div class="feature-icon mb-2">
+                          <i class="fas fa-rocket"></i>
+                        </div>
+                        <h6>RESTful API</h6>
+                        <p class="small text-muted">
+                          Simple HTTP endpoints for all prediction services
+                        </p>
+                      </div>
+                    </div>
+                    <div class="col-md-4">
+                      <div class="text-center">
+                        <div class="feature-icon mb-2">
+                          <i class="fas fa-shield-alt"></i>
+                        </div>
+                        <h6>Secure & Compliant</h6>
+                        <p class="small text-muted">
+                          HIPAA-compliant with enterprise security
+                        </p>
+                      </div>
+                    </div>
+                    <div class="col-md-4">
+                      <div class="text-center">
+                        <div class="feature-icon mb-2">
+                          <i class="fas fa-chart-line"></i>
+                        </div>
+                        <h6>Real-time Prediction</h6>
+                        <p class="small text-muted">
+                          Sub-second response times for clinical use
+                        </p>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </section>
+
+              <!-- Authentication Section -->
+              <section id="authentication" class="mb-5">
+                <h2>Authentication</h2>
+                <p>
+                  CardioPredict API uses API keys for authentication. Include
+                  your API key in the request headers.
+                </p>
+
+                <div class="code-block">
+                  <div class="language-label">HTTP</div>
+                  <pre><code>Authorization: Bearer YOUR_API_KEY
+Content-Type: application/json</code></pre>
+                </div>
+
+                <div class="alert alert-info">
+                  <i class="fas fa-info-circle me-2"></i>
+                  <strong>Getting an API Key:</strong> Contact our team at
+                  <a href="mailto:api@cardiopredict.org"
+                    >api@cardiopredict.org</a
+                  >
+                  for research or clinical API access.
+                </div>
+              </section>
+
+              <!-- Quick Start Section -->
+              <section id="quick-start" class="mb-5">
+                <h2>Quick Start</h2>
+                <p>
+                  Get started with CardioPredict in minutes using our simple
+                  REST API.
+                </p>
+
+                <div class="integration-card">
+                  <h5><i class="fas fa-play me-2"></i>5-Minute Integration</h5>
+
+                  <div class="language-tabs">
+                    <button
+                      class="language-tab active"
+                      onclick="showTab('curl')"
+                    >
+                      cURL
+                    </button>
+                    <button class="language-tab" onclick="showTab('python')">
+                      Python
+                    </button>
+                    <button
+                      class="language-tab"
+                      onclick="showTab('javascript')"
+                    >
+                      JavaScript
+                    </button>
+                  </div>
+
+                  <div id="curl-tab" class="tab-content active">
+                    <div class="code-block">
+                      <div class="language-label">Bash</div>
+                      <pre><code>curl -X POST "https://api.cardiopredict.org/v1/predict" \
+  -H "Authorization: Bearer YOUR_API_KEY" \
+  -H "Content-Type: application/json" \
+  -d '{
+    "biomarkers": {
+      "crp": 2.1,
+      "pf4": 12.5,
+      "troponin_i": 0.012,
+      "bnp": 45
+    },
+    "environment": "space",
+    "mission_duration": 14
+  }'</code></pre>
+                    </div>
+                  </div>
+
+                  <div id="python-tab" class="tab-content">
+                    <div class="code-block">
+                      <div class="language-label">Python</div>
+                      <pre><code>import requests
+
+# Configure API
+api_key = "YOUR_API_KEY"
+base_url = "https://api.cardiopredict.org/v1"
+
+headers = {
+    "Authorization": f"Bearer {api_key}",
+    "Content-Type": "application/json"
+}
+
+# Predict cardiovascular risk
+data = {
+    "biomarkers": {
+        "crp": 2.1,
+        "pf4": 12.5,
+        "troponin_i": 0.012,
+        "bnp": 45
+    },
+    "environment": "space",
+    "mission_duration": 14
+}
+
+response = requests.post(f"{base_url}/predict", 
+                        headers=headers, 
+                        json=data)
+
+result = response.json()
+print(f"Risk Score: {result['risk_score']}")
+print(f"Risk Level: {result['risk_level']}")</code></pre>
+                    </div>
+                  </div>
+
+                  <div id="javascript-tab" class="tab-content">
+                    <div class="code-block">
+                      <div class="language-label">JavaScript</div>
+                      <pre><code>const apiKey = 'YOUR_API_KEY';
+const baseUrl = 'https://api.cardiopredict.org/v1';
+
+async function predictRisk(biomarkers, environment = 'space') {
+  const response = await fetch(`${baseUrl}/predict`, {
+    method: 'POST',
+    headers: {
+      'Authorization': `Bearer ${apiKey}`,
+      'Content-Type': 'application/json'
+    },
+    body: JSON.stringify({
+      biomarkers,
+      environment,
+      mission_duration: 14
+    })
+  });
+  
+  const result = await response.json();
+  return result;
+}
+
+// Usage
+const biomarkers = {
+  crp: 2.1,
+  pf4: 12.5,
+  troponin_i: 0.012,
+  bnp: 45
+};
+
+predictRisk(biomarkers)
+  .then(result => {
+    console.log('Risk Score:', result.risk_score);
+    console.log('Risk Level:', result.risk_level);
+  });</code></pre>
+                    </div>
+                  </div>
+                </div>
+              </section>
+
+              <!-- Prediction API Section -->
+              <section id="prediction-api" class="mb-5">
+                <h2>Prediction API</h2>
+                <p>
+                  Core endpoint for cardiovascular risk prediction using
+                  biomarker data.
+                </p>
+
+                <div class="endpoint-card">
+                  <div class="endpoint-header">
+                    <div>
+                      <h5 class="mb-0">Predict Cardiovascular Risk</h5>
+                      <code>/v1/predict</code>
+                    </div>
+                    <span class="endpoint-method post">POST</span>
+                  </div>
+                  <div class="endpoint-body">
+                    <p>
+                      Analyzes biomarker profile and returns comprehensive
+                      cardiovascular risk assessment with recommendations.
+                    </p>
+
+                    <h6>Request Parameters</h6>
+                    <table class="table parameter-table">
+                      <thead>
+                        <tr>
+                          <th>Parameter</th>
+                          <th>Type</th>
+                          <th>Required</th>
+                          <th>Description</th>
+                        </tr>
+                      </thead>
+                      <tbody>
+                        <tr>
+                          <td><code>biomarkers</code></td>
+                          <td>Object</td>
+                          <td><span class="required-badge">Required</span></td>
+                          <td>Key cardiovascular biomarker values</td>
+                        </tr>
+                        <tr>
+                          <td><code>environment</code></td>
+                          <td>String</td>
+                          <td><span class="optional-badge">Optional</span></td>
+                          <td>
+                            Environment type: "space", "bedrest", "hospital"
+                          </td>
+                        </tr>
+                        <tr>
+                          <td><code>mission_duration</code></td>
+                          <td>Integer</td>
+                          <td><span class="optional-badge">Optional</span></td>
+                          <td>Duration in days (for temporal modeling)</td>
+                        </tr>
+                        <tr>
+                          <td><code>model_type</code></td>
+                          <td>String</td>
+                          <td><span class="optional-badge">Optional</span></td>
+                          <td>"clinical" (default) or "research"</td>
+                        </tr>
+                      </tbody>
+                    </table>
+
+                    <h6>Biomarker Parameters</h6>
+                    <table class="table parameter-table">
+                      <thead>
+                        <tr>
+                          <th>Biomarker</th>
+                          <th>Key</th>
+                          <th>Unit</th>
+                          <th>Normal Range</th>
+                        </tr>
+                      </thead>
+                      <tbody>
+                        <tr>
+                          <td>C-Reactive Protein</td>
+                          <td><code>crp</code></td>
+                          <td>mg/L</td>
+                          <td>< 3.0</td>
+                        </tr>
+                        <tr>
+                          <td>Platelet Factor 4</td>
+                          <td><code>pf4</code></td>
+                          <td>ng/mL</td>
+                          <td>4-20</td>
+                        </tr>
+                        <tr>
+                          <td>Troponin I</td>
+                          <td><code>troponin_i</code></td>
+                          <td>ng/mL</td>
+                          <td>< 0.04</td>
+                        </tr>
+                        <tr>
+                          <td>B-type Natriuretic Peptide</td>
+                          <td><code>bnp</code></td>
+                          <td>pg/mL</td>
+                          <td>< 100</td>
+                        </tr>
+                        <tr>
+                          <td>Fetuin A36</td>
+                          <td><code>fetuin_a36</code></td>
+                          <td>μg/mL</td>
+                          <td>200-400</td>
+                        </tr>
+                      </tbody>
+                    </table>
+
+                    <h6>Response Format</h6>
+                    <div class="code-block">
+                      <div class="language-label">JSON</div>
+                      <pre><code>{
+  "risk_score": 42.3,
+  "risk_level": "Moderate",
+  "confidence": 87.5,
+  "model_used": "ElasticNet Clinical Model",
+  "environment": "space",
+  "recommendations": [
+    "Continue regular cardiovascular monitoring",
+    "Maintain exercise countermeasures",
+    "Monitor inflammatory markers"
+  ],
+  "analysis": {
+    "inflammation": "Normal",
+    "platelet_function": "Normal", 
+    "cardiac_injury": "None",
+    "heart_function": "Normal"
+  },
+  "prediction_id": "pred_1234567890",
+  "timestamp": "2025-06-28T14:30:00Z"
+}</code></pre>
+                    </div>
+                  </div>
+                </div>
+              </section>
+
+              <!-- Statistics API Section -->
+              <section id="stats-api" class="mb-5">
+                <h2>Statistics API</h2>
+                <p>
+                  Access model performance metrics and validation statistics.
+                </p>
+
+                <div class="endpoint-card">
+                  <div class="endpoint-header">
+                    <div>
+                      <h5 class="mb-0">Get Model Statistics</h5>
+                      <code>/v1/stats</code>
+                    </div>
+                    <span class="endpoint-method">GET</span>
+                  </div>
+                  <div class="endpoint-body">
+                    <p>
+                      Returns comprehensive model performance metrics and
+                      validation results.
+                    </p>
+
+                    <div class="code-block">
+                      <div class="language-label">JSON Response</div>
+                      <pre><code>{
+  "model_performance": {
+    "clinical_model": {
+      "name": "ElasticNet",
+      "r_squared": 0.820,
+      "accuracy": 82.0,
+      "interpretability": "High"
+    },
+    "research_model": {
+      "name": "Weighted Average Ensemble", 
+      "r_squared": 0.999,
+      "accuracy": 99.9,
+      "interpretability": "Medium"
+    }
+  },
+  "validation_results": {
+    "space_accuracy": 82.0,
+    "bedrest_accuracy": 85.2,
+    "hospital_accuracy": 78.5,
+    "cross_domain_correlation": 89.7
+  },
+  "dataset_info": {
+    "total_subjects": 148,
+    "nasa_datasets": 4,
+    "biomarkers_analyzed": 45
+  }
+}</code></pre>
+                    </div>
+                  </div>
+                </div>
+              </section>
+
+              <!-- Biomarkers Reference -->
+              <section id="biomarkers" class="mb-5">
+                <h2>Biomarkers Reference</h2>
+                <p>
+                  Complete reference guide for all supported cardiovascular
+                  biomarkers.
+                </p>
+
+                <div class="research-highlight">
+                  <h5><i class="fas fa-dna me-2"></i>Supported Biomarkers</h5>
+
+                  <div class="row">
+                    <div class="col-lg-6">
+                      <h6>High-Impact Markers</h6>
+                      <div class="biomarker-grid">
+                        <div class="biomarker-item">
+                          <span class="biomarker-name"
+                            >C-Reactive Protein (CRP)</span
+                          >
+                          <span class="biomarker-importance">Primary</span>
+                        </div>
+                        <div class="biomarker-item">
+                          <span class="biomarker-name"
+                            >Platelet Factor 4 (PF4)</span
+                          >
+                          <span class="biomarker-importance">Primary</span>
+                        </div>
+                        <div class="biomarker-item">
+                          <span class="biomarker-name">Fetuin A36</span>
+                          <span class="biomarker-importance">Primary</span>
+                        </div>
+                      </div>
+                    </div>
+                    <div class="col-lg-6">
+                      <h6>Clinical Standards</h6>
+                      <div class="biomarker-grid">
+                        <div class="biomarker-item">
+                          <span class="biomarker-name">Troponin I</span>
+                          <span class="biomarker-importance">Clinical</span>
+                        </div>
+                        <div class="biomarker-item">
+                          <span class="biomarker-name">BNP</span>
+                          <span class="biomarker-importance">Clinical</span>
+                        </div>
+                        <div class="biomarker-item">
+                          <span class="biomarker-name">Fibrinogen</span>
+                          <span class="biomarker-importance">Secondary</span>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </section>
+
+              <!-- Clinical Integration -->
+              <section id="clinical-integration" class="mb-5">
+                <h2>Clinical Integration</h2>
+                <p>
+                  Guidelines for integrating CardioPredict into clinical
+                  workflows and EHR systems.
+                </p>
+
+                <div class="integration-card">
+                  <h5>
+                    <i class="fas fa-hospital me-2"></i>Electronic Health
+                    Records (EHR)
+                  </h5>
+                  <p>
+                    CardioPredict supports integration with major EHR systems
+                    through FHIR-compliant APIs and HL7 messaging standards.
+                  </p>
+
+                  <div class="row">
+                    <div class="col-md-4">
+                      <h6>Epic</h6>
+                      <ul class="list-unstyled">
+                        <li>
+                          <i class="fas fa-check text-success me-2"></i>SMART on
+                          FHIR
+                        </li>
+                        <li>
+                          <i class="fas fa-check text-success me-2"></i>Epic App
+                          Orchard
+                        </li>
+                        <li>
+                          <i class="fas fa-check text-success me-2"></i>MyChart
+                          Integration
+                        </li>
+                      </ul>
+                    </div>
+                    <div class="col-md-4">
+                      <h6>Cerner</h6>
+                      <ul class="list-unstyled">
+                        <li>
+                          <i class="fas fa-check text-success me-2"></i
+                          >PowerChart
+                        </li>
+                        <li>
+                          <i class="fas fa-check text-success me-2"></i>FHIR R4
+                        </li>
+                        <li>
+                          <i class="fas fa-check text-success me-2"></i>CDS
+                          Hooks
+                        </li>
+                      </ul>
+                    </div>
+                    <div class="col-md-4">
+                      <h6>Allscripts</h6>
+                      <ul class="list-unstyled">
+                        <li>
+                          <i class="fas fa-check text-success me-2"></i
+                          >Developer Program
+                        </li>
+                        <li>
+                          <i class="fas fa-check text-success me-2"></i
+                          >TouchWorks
+                        </li>
+                        <li>
+                          <i class="fas fa-check text-success me-2"></i>API
+                          Gateway
+                        </li>
+                      </ul>
+                    </div>
+                  </div>
+                </div>
+              </section>
+
+              <!-- Support Section -->
+              <section id="support" class="mb-5">
+                <h2>Support & Resources</h2>
+
+                <div class="row g-4">
+                  <div class="col-md-6">
+                    <div class="feature-card">
+                      <div class="feature-icon">
+                        <i class="fas fa-life-ring"></i>
+                      </div>
+                      <h4>Technical Support</h4>
+                      <p>
+                        Get help with API integration, troubleshooting, and
+                        implementation guidance.
+                      </p>
+                      <a
+                        href="mailto:support@cardiopredict.org"
+                        class="btn btn-outline-primary"
+                      >
+                        <i class="fas fa-envelope me-2"></i>Contact Support
+                      </a>
+                    </div>
+                  </div>
+
+                  <div class="col-md-6">
+                    <div class="feature-card">
+                      <div class="feature-icon">
+                        <i class="fas fa-users"></i>
+                      </div>
+                      <h4>Developer Community</h4>
+                      <p>
+                        Join our community of researchers and developers
+                        building with CardioPredict.
+                      </p>
+                      <a href="#" class="btn btn-outline-primary">
+                        <i class="fab fa-github me-2"></i>GitHub Community
+                      </a>
+                    </div>
+                  </div>
+                </div>
+
+                <div class="research-highlight mt-4">
+                  <h5><i class="fas fa-book me-2"></i>Additional Resources</h5>
+                  <div class="row">
+                    <div class="col-md-6">
+                      <ul class="list-unstyled">
+                        <li>
+                          <i class="fas fa-file-code me-2"></i
+                          ><a href="#">SDK Downloads</a>
+                        </li>
+                        <li>
+                          <i class="fas fa-graduation-cap me-2"></i
+                          ><a href="#">Tutorials & Guides</a>
+                        </li>
+                        <li>
+                          <i class="fas fa-video me-2"></i
+                          ><a href="#">Video Documentation</a>
+                        </li>
+                      </ul>
+                    </div>
+                    <div class="col-md-6">
+                      <ul class="list-unstyled">
+                        <li>
+                          <i class="fas fa-bug me-2"></i
+                          ><a href="#">Report Issues</a>
+                        </li>
+                        <li>
+                          <i class="fas fa-lightbulb me-2"></i
+                          ><a href="#">Feature Requests</a>
+                        </li>
+                        <li>
+                          <i class="fas fa-newspaper me-2"></i
+                          ><a href="#">API Changelog</a>
+                        </li>
+                      </ul>
+                    </div>
+                  </div>
+                </div>
+              </section>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- JavaScript -->
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+    <script src="{{ url_for('static', filename='js/main.js') }}"></script>
+
+    <script>
+      // Tab switching functionality
+      function showTab(language) {
+        // Hide all tab contents
+        document.querySelectorAll(".tab-content").forEach((tab) => {
+          tab.classList.remove("active");
+        });
+
+        // Remove active class from all tabs
+        document.querySelectorAll(".language-tab").forEach((tab) => {
+          tab.classList.remove("active");
+        });
+
+        // Show selected tab content
+        document.getElementById(language + "-tab").classList.add("active");
+
+        // Add active class to clicked tab
+        event.target.classList.add("active");
+      }
+
+      // Sidebar navigation
+      document.addEventListener("DOMContentLoaded", function () {
+        // Smooth scrolling for sidebar links
+        const sidebarLinks = document.querySelectorAll(".sidebar-nav a");
+
+        sidebarLinks.forEach((link) => {
+          link.addEventListener("click", function (e) {
+            e.preventDefault();
+
+            // Remove active class from all links
+            sidebarLinks.forEach((l) => l.classList.remove("active"));
+
+            // Add active class to clicked link
+            this.classList.add("active");
+
+            // Scroll to target section
+            const targetId = this.getAttribute("href");
+            const targetElement = document.querySelector(targetId);
+
+            if (targetElement) {
+              targetElement.scrollIntoView({
+                behavior: "smooth",
+                block: "start",
+              });
+            }
+          });
+        });
+
+        // Update active link on scroll
+        const observer = new IntersectionObserver(
+          (entries) => {
+            entries.forEach((entry) => {
+              if (entry.isIntersecting) {
+                const id = entry.target.getAttribute("id");
+                const activeLink = document.querySelector(
+                  `.sidebar-nav a[href="#${id}"]`
+                );
+
+                if (activeLink) {
+                  sidebarLinks.forEach((l) => l.classList.remove("active"));
+                  activeLink.classList.add("active");
+                }
+              }
+            });
+          },
+          {
+            threshold: 0.3,
+          }
+        );
+
+        // Observe all sections
+        document.querySelectorAll("section[id]").forEach((section) => {
+          observer.observe(section);
+        });
+      });
+    </script>
+  </body>
+</html>

@@ -312,6 +312,16 @@ def documentation():
     """Technical documentation and API reference"""
     return render_template('documentation.html')
 
+@app.route('/contact')
+def contact():
+    """Contact page for collaboration and support inquiries"""
+    return render_template('contact.html')
+
+@app.route('/publications')
+def publications():
+    """Scientific publications and research outputs"""
+    return render_template('publications.html')
+
 @app.errorhandler(404)
 def not_found_error(error):
     return render_template('404.html'), 404
