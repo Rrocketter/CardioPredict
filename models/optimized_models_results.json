@@ -1,6 +1,6 @@
 {
   "Ridge Regression": {
-    "r2_score": 0.7504654443755969,
+    "r2_score": 0.7504654443755968,
     "mae": 0.0,
     "rmse": 0.0,
     "best_params": {

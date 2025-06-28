@@ -1,0 +1,97 @@
+{
+  "system_info": {
+    "name": "CardioPredict Clinical System",
+    "version": "1.0.0",
+    "build_date": "2025-06-27T21:26:25.045423",
+    "model_type": "Unified Space-Earth Cardiovascular Risk Predictor",
+    "deployment_environment": "Clinical Production"
+  },
+  "technical_specifications": {
+    "minimum_requirements": {
+      "python_version": "\u2265 3.8",
+      "memory": "\u2265 4GB RAM",
+      "storage": "\u2265 10GB available",
+      "network": "Secure clinical network connection"
+    },
+    "dependencies": {
+      "core": [
+        "numpy>=1.21",
+        "pandas>=1.3",
+        "scikit-learn>=1.0"
+      ],
+      "optional": [
+        "matplotlib>=3.4",
+        "seaborn>=0.11",
+        "shap>=0.40"
+      ]
+    },
+    "security": {
+      "data_encryption": "AES-256",
+      "transmission": "TLS 1.3",
+      "authentication": "Multi-factor authentication required",
+      "audit_logging": "All predictions logged with timestamp and user"
+    }
+  },
+  "clinical_workflow": {
+    "data_input": {
+      "biomarkers_required": [
+        "CRP",
+        "Fetuin A36",
+        "PF4",
+        "SAP",
+        "a-2 Macroglobulin",
+        "Fibrinogen_mg_dl",
+        "Haptoglobin"
+      ],
+      "patient_demographics": [
+        "Age",
+        "Sex",
+        "Days_From_Launch"
+      ],
+      "data_validation": "Automatic range and consistency checking",
+      "missing_data_handling": "Median imputation with uncertainty quantification"
+    },
+    "prediction_process": {
+      "preprocessing": "Standard scaling using training population statistics",
+      "model_inference": "ElasticNet regression with confidence intervals",
+      "risk_stratification": "Low (<40), Moderate (40-60), High (>60)",
+      "uncertainty_quantification": "Bootstrap confidence intervals"
+    },
+    "clinical_output": {
+      "risk_score": "Numerical score 0-100",
+      "risk_category": "Color-coded risk level",
+      "confidence_interval": "95% CI for risk score",
+      "biomarker_contributions": "Feature importance breakdown",
+      "clinical_recommendations": "Evidence-based action items",
+      "trend_analysis": "Longitudinal risk progression if available"
+    }
+  },
+  "monitoring_and_maintenance": {
+    "performance_monitoring": {
+      "metrics_tracked": [
+        "Prediction accuracy",
+        "System uptime",
+        "Response time"
+      ],
+      "alert_thresholds": {
+        "accuracy_drop": "> 10% from baseline",
+        "system_downtime": "> 5 minutes",
+        "response_time": "> 30 seconds"
+      },
+      "reporting_frequency": "Daily performance reports",
+      "escalation_procedures": "Automatic notification to technical team"
+    },
+    "model_updates": {
+      "update_frequency": "Quarterly assessment for model drift",
+      "retraining_triggers": "Performance degradation > 15%",
+      "validation_requirements": "New data validation before deployment",
+      "rollback_procedures": "Automatic rollback if performance degrades"
+    },
+    "data_governance": {
+      "data_retention": "Patient data encrypted and retained per institutional policy",
+      "data_sharing": "De-identified data sharing for research with IRB approval",
+      "patient_consent": "Explicit consent for AI-assisted risk assessment",
+      "right_to_explanation": "Patients can request prediction explanations"
+    }
+  }
+}

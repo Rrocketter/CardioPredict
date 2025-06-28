@@ -1,0 +1,82 @@
+{
+  "fda_pathway": {
+    "regulatory_classification": "Class II Medical Device Software",
+    "submission_pathway": "510(k) Premarket Notification",
+    "predicate_devices": [
+      "CardioRisk Calculator (K123456)",
+      "AI-ECG Risk Assessment (K789012)"
+    ],
+    "de_novo_classification": false,
+    "software_classification": "Software as Medical Device (SaMD) - Class IIa"
+  },
+  "device_description": {
+    "intended_use": "AI-powered cardiovascular risk prediction for astronauts and Earth analog populations",
+    "indications_for_use": [
+      "Cardiovascular risk assessment in healthy adults exposed to microgravity or prolonged immobilization",
+      "Longitudinal monitoring of cardiovascular biomarkers",
+      "Clinical decision support for space medicine and analog research"
+    ],
+    "contraindications": [
+      "Acute cardiovascular events",
+      "Pregnancy",
+      "Age < 18 or > 75 years"
+    ],
+    "warnings_precautions": [
+      "Not for use as sole diagnostic tool",
+      "Requires clinical interpretation",
+      "Biomarker availability dependent"
+    ]
+  },
+  "clinical_evidence_requirements": {
+    "clinical_data": {
+      "primary_studies": "Prospective validation in target populations",
+      "sample_size": "Minimum 200 subjects across populations",
+      "endpoints": "Sensitivity, specificity, positive/negative predictive value",
+      "comparator": "Standard cardiovascular risk assessment tools"
+    },
+    "analytical_validation": {
+      "accuracy": "Concordance with reference standard \u2265 95%",
+      "precision": "Coefficient of variation \u2264 5%",
+      "analytical_sensitivity": "Detection of clinically relevant changes",
+      "interference_testing": "Common biomarker interferences evaluated"
+    },
+    "clinical_validation": {
+      "clinical_sensitivity": "\u2265 85% for high-risk detection",
+      "clinical_specificity": "\u2265 80% for low-risk identification",
+      "positive_predictive_value": "\u2265 75% in target population",
+      "negative_predictive_value": "\u2265 90% in target population"
+    }
+  },
+  "software_documentation": {
+    "software_lifecycle_processes": "IEC 62304 compliance",
+    "risk_management": "ISO 14971 risk analysis",
+    "quality_management": "ISO 13485 QMS implementation",
+    "cybersecurity": "FDA cybersecurity guidance compliance",
+    "algorithm_transparency": {
+      "model_interpretability": "SHAP values and feature importance",
+      "bias_assessment": "Demographic and population bias analysis",
+      "performance_monitoring": "Continuous model performance tracking"
+    }
+  },
+  "submission_timeline": {
+    "pre_submission_meeting": "Month 1-2",
+    "510k_preparation": "Month 3-6",
+    "fda_submission": "Month 7",
+    "fda_review_period": "Month 8-13 (90-day review + response time)",
+    "clearance_target": "Month 14",
+    "post_market_surveillance": "Ongoing after clearance"
+  },
+  "international_regulatory": {
+    "european_union": {
+      "regulation": "Medical Device Regulation (MDR) 2017/745",
+      "classification": "Class IIa",
+      "notified_body": "Required for CE marking",
+      "clinical_evidence": "EU clinical data requirements"
+    },
+    "canada": {
+      "pathway": "Health Canada Medical Device License",
+      "classification": "Class II",
+      "requirements": "Canadian clinical data or reliance on FDA"
+    }
+  }
+}

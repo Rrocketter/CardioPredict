@@ -1,0 +1,57 @@
+{
+  "dataset_summary": {
+    "space_samples": 28,
+    "earth_samples": 120,
+    "total_samples": 148,
+    "common_features": 18
+  },
+  "cross_domain_performance": {
+    "Space \u2192 Earth": {
+      "r2_score": -2120257704.5092309,
+      "mae": 291774.11726232123,
+      "rmse": 334350.1170540944,
+      "correlation": 0.13257515111556978,
+      "n_train": 28,
+      "n_test": 120
+    },
+    "Earth \u2192 Space": {
+      "r2_score": -67362956.2506623,
+      "mae": 63082.95162017476,
+      "rmse": 92884.03564641766,
+      "correlation": 0.6261994790978269,
+      "n_train": 120,
+      "n_test": 28
+    }
+  },
+  "unified_model_performance": {
+    "Unified_ElasticNet": {
+      "overall_r2": 0.40018571022900123,
+      "overall_std": 0.08791792417351121,
+      "space_r2": 0.5136245674507431,
+      "earth_r2": 0.3054477234420694,
+      "n_folds": 5
+    },
+    "Unified_RandomForest": {
+      "overall_r2": 0.376955216089031,
+      "overall_std": 0.12482983780475876,
+      "space_r2": 0.5012459233189996,
+      "earth_r2": 0.273503036615944,
+      "n_folds": 5
+    },
+    "Unified_GradientBoosting": {
+      "overall_r2": 0.322635211462355,
+      "overall_std": 0.2080017176408652,
+      "space_r2": 0.5248376439000946,
+      "earth_r2": 0.17817646303198192,
+      "n_folds": 5
+    },
+    "Unified_XGBoost": {
+      "overall_r2": 0.26973860232791036,
+      "overall_std": 0.17170671616388392,
+      "space_r2": 0.3843942989312396,
+      "earth_r2": 0.1983132782147942,
+      "n_folds": 5
+    }
+  },
+  "integration_date": "2025-06-27T21:22:38.299111"
+}

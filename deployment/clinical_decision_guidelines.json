@@ -1,0 +1,82 @@
+{
+  "risk_interpretation": {
+    "low_risk": {
+      "score_range": "0-39",
+      "clinical_significance": "Low cardiovascular risk",
+      "recommendations": [
+        "Continue routine monitoring",
+        "Standard exercise and nutrition protocols",
+        "Reassess in 30 days or per protocol"
+      ],
+      "alert_level": "Green"
+    },
+    "moderate_risk": {
+      "score_range": "40-59",
+      "clinical_significance": "Moderate cardiovascular risk",
+      "recommendations": [
+        "Increase monitoring frequency",
+        "Consider additional cardiovascular assessments",
+        "Implement targeted interventions",
+        "Reassess in 14 days"
+      ],
+      "alert_level": "Yellow"
+    },
+    "high_risk": {
+      "score_range": "60-100",
+      "clinical_significance": "High cardiovascular risk",
+      "recommendations": [
+        "Immediate clinical evaluation",
+        "Consider medical intervention",
+        "Daily monitoring recommended",
+        "Cardiology consultation if available"
+      ],
+      "alert_level": "Red"
+    }
+  },
+  "biomarker_alerts": {
+    "CRP": {
+      "normal_range": "< 3 mg/L",
+      "moderate_elevation": "3-10 mg/L",
+      "high_elevation": "> 10 mg/L",
+      "clinical_significance": "Systemic inflammation marker"
+    },
+    "PF4": {
+      "normal_range": "< 20 IU/mL",
+      "elevated": "> 20 IU/mL",
+      "clinical_significance": "Platelet activation and thrombotic risk"
+    },
+    "Fibrinogen": {
+      "normal_range": "200-400 mg/dL",
+      "elevated": "> 400 mg/dL",
+      "clinical_significance": "Coagulation and inflammatory marker"
+    }
+  },
+  "population_specific_considerations": {
+    "astronauts": {
+      "baseline_adjustments": "Higher baseline fitness expected",
+      "risk_factors": [
+        "Microgravity exposure",
+        "Radiation",
+        "Isolation stress"
+      ],
+      "intervention_options": [
+        "Exercise countermeasures",
+        "Nutrition optimization",
+        "Stress management"
+      ]
+    },
+    "bedrest_patients": {
+      "baseline_adjustments": "Deconditioning expected",
+      "risk_factors": [
+        "Immobilization",
+        "Muscle atrophy",
+        "Bone loss"
+      ],
+      "intervention_options": [
+        "Physical therapy",
+        "Mobilization protocols",
+        "Pharmacological support"
+      ]
+    }
+  }
+}

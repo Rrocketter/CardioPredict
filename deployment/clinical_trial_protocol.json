@@ -1,0 +1,113 @@
+{
+  "trial_info": {
+    "title": "Validation of AI-Powered Cardiovascular Risk Prediction in Space and Earth Analogs",
+    "phase": "Phase II Clinical Validation",
+    "type": "Prospective, Multi-center, Comparative Effectiveness Study",
+    "primary_endpoint": "Accuracy of CV risk prediction vs. standard clinical assessment",
+    "secondary_endpoints": [
+      "Time to cardiovascular event detection",
+      "Clinical decision support effectiveness",
+      "User acceptance and usability",
+      "Cost-effectiveness analysis"
+    ],
+    "duration": "24 months",
+    "estimated_enrollment": 200
+  },
+  "study_populations": {
+    "astronauts": {
+      "target_n": 50,
+      "inclusion_criteria": [
+        "Active astronaut status",
+        "Age 25-65 years",
+        "Cleared for spaceflight",
+        "Baseline cardiovascular assessment completed"
+      ],
+      "exclusion_criteria": [
+        "Pre-existing cardiovascular disease",
+        "Pregnancy",
+        "Contraindications to biomarker collection"
+      ],
+      "primary_sites": [
+        "NASA Johnson Space Center",
+        "ESA European Astronaut Centre"
+      ]
+    },
+    "bedrest_analogs": {
+      "target_n": 100,
+      "inclusion_criteria": [
+        "Healthy volunteers age 25-65",
+        "Participating in 30+ day bedrest study",
+        "Normal baseline cardiovascular function"
+      ],
+      "exclusion_criteria": [
+        "History of cardiovascular disease",
+        "Diabetes mellitus",
+        "Current medication affecting cardiovascular system"
+      ],
+      "primary_sites": [
+        "DLR Institute of Aerospace Medicine",
+        "NASA Flight Analogs Research Unit"
+      ]
+    },
+    "clinical_controls": {
+      "target_n": 50,
+      "inclusion_criteria": [
+        "Hospital patients with CV risk factors",
+        "Age-matched to space populations",
+        "Standard CV risk assessment indicated"
+      ],
+      "exclusion_criteria": [
+        "Acute cardiovascular events",
+        "Unable to provide informed consent"
+      ],
+      "primary_sites": [
+        "Mayo Clinic",
+        "Cleveland Clinic",
+        "Johns Hopkins"
+      ]
+    }
+  },
+  "intervention_protocol": {
+    "ai_prediction_arm": {
+      "description": "CV risk assessment using AI model",
+      "biomarker_collection": "Blood samples at baseline, weekly during intervention, post-intervention",
+      "prediction_frequency": "Daily risk score calculation",
+      "clinical_integration": "Risk scores provided to clinical team with decision support"
+    },
+    "standard_care_arm": {
+      "description": "Standard cardiovascular risk assessment",
+      "assessment_tools": [
+        "Framingham Risk Score",
+        "ASCVD Risk Calculator"
+      ],
+      "frequency": "Weekly clinical assessment",
+      "biomarkers": "Standard lipid panel, basic metabolic panel"
+    }
+  },
+  "outcome_measures": {
+    "primary": {
+      "measure": "Concordance between AI prediction and clinical outcomes",
+      "metric": "Area Under ROC Curve (AUC)",
+      "target_performance": "AUC \u2265 0.80",
+      "non_inferiority_margin": 0.1
+    },
+    "secondary": [
+      "Sensitivity and specificity for high-risk detection",
+      "Time to risk elevation detection",
+      "Clinical workflow integration success",
+      "Healthcare provider satisfaction scores",
+      "Cost per quality-adjusted life year (QALY)"
+    ]
+  },
+  "statistical_plan": {
+    "primary_analysis": "Intention-to-treat comparison of AUC values",
+    "sample_size_calculation": {
+      "power": 0.8,
+      "alpha": 0.05,
+      "effect_size": 0.15,
+      "estimated_n_per_group": 100
+    },
+    "interim_analyses": "At 50% enrollment for futility and safety",
+    "multiple_comparisons": "Bonferroni correction for secondary endpoints"
+  }
+}

@@ -1,0 +1,165 @@
+{
+  "overview_training": {
+    "title": "CardioPredict AI System Overview",
+    "duration": "2 hours",
+    "target_audience": "All clinical staff",
+    "learning_objectives": [
+      "Understand AI-based cardiovascular risk prediction",
+      "Learn system capabilities and limitations",
+      "Recognize appropriate use cases",
+      "Understand patient safety considerations"
+    ],
+    "modules": [
+      {
+        "module": "Introduction to AI in Healthcare",
+        "duration": "30 minutes",
+        "content": [
+          "Basic machine learning concepts",
+          "Benefits and limitations of AI",
+          "Regulatory considerations",
+          "Patient privacy and ethics"
+        ]
+      },
+      {
+        "module": "CardioPredict System Overview",
+        "duration": "45 minutes",
+        "content": [
+          "System architecture and components",
+          "Input biomarkers and requirements",
+          "Risk prediction methodology",
+          "Output interpretation"
+        ]
+      },
+      {
+        "module": "Clinical Integration",
+        "duration": "30 minutes",
+        "content": [
+          "Workflow integration",
+          "Clinical decision support features",
+          "Documentation requirements",
+          "Quality assurance procedures"
+        ]
+      },
+      {
+        "module": "Case Studies and Q&A",
+        "duration": "15 minutes",
+        "content": [
+          "Real-world case examples",
+          "Common questions and concerns",
+          "Troubleshooting guide",
+          "Support resources"
+        ]
+      }
+    ]
+  },
+  "hands_on_training": {
+    "title": "CardioPredict System Operation",
+    "duration": "4 hours",
+    "target_audience": "Direct system users",
+    "prerequisites": "Completion of overview training",
+    "learning_objectives": [
+      "Operate CardioPredict system safely and effectively",
+      "Interpret system outputs correctly",
+      "Integrate predictions into clinical workflow",
+      "Troubleshoot common issues"
+    ],
+    "practical_exercises": [
+      {
+        "exercise": "System Login and Navigation",
+        "duration": "30 minutes",
+        "skills": [
+          "Authentication",
+          "Interface navigation",
+          "Patient selection"
+        ]
+      },
+      {
+        "exercise": "Data Entry and Validation",
+        "duration": "60 minutes",
+        "skills": [
+          "Biomarker data entry",
+          "Data quality checks",
+          "Error handling"
+        ]
+      },
+      {
+        "exercise": "Risk Prediction and Interpretation",
+        "duration": "90 minutes",
+        "skills": [
+          "Running predictions",
+          "Interpreting results",
+          "Confidence intervals"
+        ]
+      },
+      {
+        "exercise": "Clinical Decision Making",
+        "duration": "60 minutes",
+        "skills": [
+          "Risk stratification",
+          "Action planning",
+          "Documentation"
+        ]
+      }
+    ]
+  },
+  "competency_assessment": {
+    "title": "CardioPredict Competency Evaluation",
+    "duration": "1 hour",
+    "format": "Practical assessment",
+    "passing_score": "80%",
+    "reassessment_policy": "Annual recertification required",
+    "evaluation_criteria": [
+      {
+        "skill": "System operation",
+        "weight": 30,
+        "assessment": "Practical demonstration"
+      },
+      {
+        "skill": "Result interpretation",
+        "weight": 40,
+        "assessment": "Case-based scenarios"
+      },
+      {
+        "skill": "Clinical integration",
+        "weight": 20,
+        "assessment": "Workflow simulation"
+      },
+      {
+        "skill": "Safety and quality",
+        "weight": 10,
+        "assessment": "Written examination"
+      }
+    ]
+  },
+  "reference_materials": {
+    "quick_reference_guide": {
+      "format": "Laminated card",
+      "content": [
+        "Normal biomarker ranges",
+        "Risk score interpretation",
+        "Common troubleshooting steps",
+        "Emergency contact information"
+      ]
+    },
+    "detailed_user_manual": {
+      "format": "Digital PDF",
+      "sections": [
+        "System overview and theory",
+        "Step-by-step operating procedures",
+        "Troubleshooting guide",
+        "Clinical interpretation guidelines",
+        "Technical specifications",
+        "Regulatory information"
+      ]
+    },
+    "clinical_scenarios": {
+      "format": "Interactive cases",
+      "content": [
+        "Astronaut pre-flight assessment",
+        "In-flight risk monitoring",
+        "Bedrest patient evaluation",
+        "Emergency response scenarios"
+      ]
+    }
+  }
+}
