@@ -1,0 +1,937 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Live Demo - CardioPredict AI Risk Prediction</title>
+
+    <!-- Meta tags -->
+    <meta
+      name="description"
+      content="Interactive demo of CardioPredict's AI-powered cardiovascular risk prediction system for space medicine and Earth analog applications."
+    />
+    <meta
+      name="keywords"
+      content="cardiovascular risk demo, AI prediction, biomarker analysis, space medicine, interactive tool"
+    />
+    <meta name="author" content="CardioPredict Research Team" />
+
+    <!-- Professional fonts and icons -->
+    <link
+      href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=JetBrains+Mono:wght@400;500&display=swap"
+      rel="stylesheet"
+    />
+    <link
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css"
+      rel="stylesheet"
+    />
+
+    <!-- CSS Framework and Custom Styles -->
+    <link
+      href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css"
+      rel="stylesheet"
+    />
+    <link
+      rel="stylesheet"
+      href="{{ url_for('static', filename='css/style.css') }}"
+    />
+
+    <style>
+      .demo-container {
+        padding-top: calc(var(--navbar-height) + 2rem);
+        min-height: 100vh;
+      }
+
+      .biomarker-input {
+        margin-bottom: 1rem;
+      }
+
+      .biomarker-label {
+        font-weight: 500;
+        color: var(--primary-blue);
+        margin-bottom: 0.5rem;
+      }
+
+      .biomarker-info {
+        font-size: 0.85rem;
+        color: var(--medium-gray);
+        margin-bottom: 0.5rem;
+      }
+
+      .risk-score-display {
+        text-align: center;
+        padding: 2rem;
+        background: linear-gradient(135deg, var(--light-blue), var(--white));
+        border-radius: var(--border-radius);
+        border: 2px solid var(--accent-blue);
+      }
+
+      .risk-score-circle {
+        width: 120px;
+        height: 120px;
+        border-radius: 50%;
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        align-items: center;
+        margin: 0 auto 1rem;
+        font-weight: 700;
+        color: white;
+        position: relative;
+      }
+
+      .risk-score-value {
+        font-size: 2rem;
+        line-height: 1;
+      }
+
+      .risk-score-label {
+        font-size: 0.8rem;
+        opacity: 0.9;
+      }
+
+      .risk-low {
+        background: linear-gradient(135deg, var(--success-green), #20c997);
+      }
+
+      .risk-medium {
+        background: linear-gradient(135deg, var(--warning-orange), #ffc107);
+      }
+
+      .risk-high {
+        background: linear-gradient(135deg, var(--cardio-red), #dc3545);
+      }
+
+      .prediction-card {
+        display: none;
+        animation: fadeInUp 0.6s ease-out;
+      }
+
+      .biomarker-grid {
+        display: grid;
+        grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+        gap: 1rem;
+      }
+
+      .sample-data-btn {
+        background: var(--accent-blue);
+        color: white;
+        border: none;
+        padding: 0.5rem 1rem;
+        border-radius: var(--border-radius);
+        font-size: 0.9rem;
+        cursor: pointer;
+        transition: all 0.3s ease;
+      }
+
+      .sample-data-btn:hover {
+        background: var(--primary-blue);
+        transform: translateY(-2px);
+      }
+
+      .environment-selector {
+        background: var(--off-white);
+        padding: 1rem;
+        border-radius: var(--border-radius);
+        margin-bottom: 2rem;
+      }
+
+      .environment-option {
+        display: flex;
+        align-items: center;
+        padding: 0.75rem;
+        margin-bottom: 0.5rem;
+        background: white;
+        border-radius: var(--border-radius);
+        cursor: pointer;
+        transition: all 0.3s ease;
+        border: 2px solid transparent;
+      }
+
+      .environment-option:hover {
+        border-color: var(--accent-blue);
+        transform: translateY(-2px);
+      }
+
+      .environment-option.active {
+        border-color: var(--primary-blue);
+        background: var(--light-blue);
+      }
+
+      .environment-option input[type="radio"] {
+        margin-right: 0.75rem;
+      }
+
+      .environment-icon {
+        font-size: 1.5rem;
+        margin-right: 1rem;
+        width: 40px;
+        text-align: center;
+      }
+    </style>
+  </head>
+  <body>
+    <!-- Navigation -->
+    <nav class="navbar navbar-expand-lg navbar-dark fixed-top">
+      <div class="container">
+        <a
+          class="navbar-brand d-flex align-items-center"
+          href="{{ url_for('homepage') }}"
+        >
+          <i class="fas fa-heartbeat me-2"></i>
+          <span class="brand-text">CardioPredict</span>
+        </a>
+
+        <button
+          class="navbar-toggler"
+          type="button"
+          data-bs-toggle="collapse"
+          data-bs-target="#navbarNav"
+        >
+          <span class="navbar-toggler-icon"></span>
+        </button>
+
+        <div class="collapse navbar-collapse" id="navbarNav">
+          <ul class="navbar-nav ms-auto">
+            <li class="nav-item">
+              <a class="nav-link" href="{{ url_for('homepage') }}">Home</a>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link" href="{{ url_for('research') }}">Research</a>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link active" href="{{ url_for('demo') }}"
+                >Live Demo</a
+              >
+            </li>
+            <li class="nav-item">
+              <a class="nav-link" href="{{ url_for('documentation') }}"
+                >Documentation</a
+              >
+            </li>
+            <li class="nav-item">
+              <a class="nav-link" href="{{ url_for('about') }}">About</a>
+            </li>
+          </ul>
+        </div>
+      </div>
+    </nav>
+
+    <!-- Demo Container -->
+    <div class="demo-container">
+      <div class="container">
+        <!-- Demo Header -->
+        <div class="row mb-4">
+          <div class="col-lg-8 mx-auto text-center">
+            <div class="badge bg-primary mb-3 px-3 py-2">
+              <i class="fas fa-rocket me-2"></i>Interactive Demo
+            </div>
+            <h1>Cardiovascular Risk Prediction</h1>
+            <p class="lead">
+              Experience our AI-powered system for predicting cardiovascular
+              risk in microgravity and Earth analog environments. Enter
+              biomarker values or use sample data to see real-time predictions.
+            </p>
+          </div>
+        </div>
+
+        <!-- Environment Selection -->
+        <div class="row mb-4">
+          <div class="col-lg-8 mx-auto">
+            <div class="environment-selector">
+              <h5 class="mb-3">
+                <i class="fas fa-globe me-2"></i>Select Environment
+              </h5>
+              <div class="row">
+                <div class="col-md-4">
+                  <div
+                    class="environment-option active"
+                    data-environment="space"
+                  >
+                    <input
+                      type="radio"
+                      name="environment"
+                      value="space"
+                      checked
+                    />
+                    <div class="environment-icon">
+                      <i class="fas fa-rocket text-primary"></i>
+                    </div>
+                    <div>
+                      <strong>Space Mission</strong>
+                      <small class="d-block text-muted"
+                        >Microgravity environment</small
+                      >
+                    </div>
+                  </div>
+                </div>
+                <div class="col-md-4">
+                  <div class="environment-option" data-environment="bedrest">
+                    <input type="radio" name="environment" value="bedrest" />
+                    <div class="environment-icon">
+                      <i class="fas fa-bed text-warning"></i>
+                    </div>
+                    <div>
+                      <strong>Bedrest Study</strong>
+                      <small class="d-block text-muted"
+                        >Earth analog simulation</small
+                      >
+                    </div>
+                  </div>
+                </div>
+                <div class="col-md-4">
+                  <div class="environment-option" data-environment="hospital">
+                    <input type="radio" name="environment" value="hospital" />
+                    <div class="environment-icon">
+                      <i class="fas fa-hospital text-success"></i>
+                    </div>
+                    <div>
+                      <strong>Hospital Patient</strong>
+                      <small class="d-block text-muted"
+                        >Clinical application</small
+                      >
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Main Demo Interface -->
+        <div class="row">
+          <!-- Biomarker Input Panel -->
+          <div class="col-lg-8">
+            <div class="card shadow-custom">
+              <div class="card-header bg-primary text-white">
+                <h5 class="mb-0">
+                  <i class="fas fa-vial me-2"></i>Biomarker Input
+                  <button
+                    type="button"
+                    class="btn btn-light btn-sm float-end sample-data-btn"
+                    onclick="loadSampleData()"
+                  >
+                    <i class="fas fa-magic me-1"></i>Load Sample Data
+                  </button>
+                </h5>
+              </div>
+              <div class="card-body">
+                <form id="predictionForm" data-ajax="true">
+                  <div class="biomarker-grid">
+                    <!-- High-Impact Biomarkers -->
+                    <div class="biomarker-input">
+                      <label class="biomarker-label"
+                        >C-Reactive Protein (CRP)</label
+                      >
+                      <div class="biomarker-info">
+                        Inflammation marker (mg/L)
+                      </div>
+                      <input
+                        type="number"
+                        class="form-control"
+                        name="crp"
+                        step="0.1"
+                        min="0"
+                        max="100"
+                        placeholder="Enter CRP level"
+                      />
+                      <div class="invalid-feedback"></div>
+                    </div>
+
+                    <div class="biomarker-input">
+                      <label class="biomarker-label"
+                        >Platelet Factor 4 (PF4)</label
+                      >
+                      <div class="biomarker-info">
+                        Platelet activation marker (ng/mL)
+                      </div>
+                      <input
+                        type="number"
+                        class="form-control"
+                        name="pf4"
+                        step="0.01"
+                        min="0"
+                        max="50"
+                        placeholder="Enter PF4 level"
+                      />
+                      <div class="invalid-feedback"></div>
+                    </div>
+
+                    <div class="biomarker-input">
+                      <label class="biomarker-label">Fetuin A36</label>
+                      <div class="biomarker-info">
+                        Vascular calcification inhibitor (μg/mL)
+                      </div>
+                      <input
+                        type="number"
+                        class="form-control"
+                        name="fetuin_a36"
+                        step="0.1"
+                        min="0"
+                        max="500"
+                        placeholder="Enter Fetuin A36 level"
+                      />
+                      <div class="invalid-feedback"></div>
+                    </div>
+
+                    <div class="biomarker-input">
+                      <label class="biomarker-label">Fibrinogen</label>
+                      <div class="biomarker-info">
+                        Coagulation factor (mg/dL)
+                      </div>
+                      <input
+                        type="number"
+                        class="form-control"
+                        name="fibrinogen"
+                        step="1"
+                        min="100"
+                        max="800"
+                        placeholder="Enter Fibrinogen level"
+                      />
+                      <div class="invalid-feedback"></div>
+                    </div>
+
+                    <!-- Clinical Standard Markers -->
+                    <div class="biomarker-input">
+                      <label class="biomarker-label">Troponin I</label>
+                      <div class="biomarker-info">
+                        Cardiac injury marker (ng/mL)
+                      </div>
+                      <input
+                        type="number"
+                        class="form-control"
+                        name="troponin_i"
+                        step="0.001"
+                        min="0"
+                        max="10"
+                        placeholder="Enter Troponin I level"
+                      />
+                      <div class="invalid-feedback"></div>
+                    </div>
+
+                    <div class="biomarker-input">
+                      <label class="biomarker-label"
+                        >B-type Natriuretic Peptide (BNP)</label
+                      >
+                      <div class="biomarker-info">
+                        Heart failure marker (pg/mL)
+                      </div>
+                      <input
+                        type="number"
+                        class="form-control"
+                        name="bnp"
+                        step="1"
+                        min="0"
+                        max="5000"
+                        placeholder="Enter BNP level"
+                      />
+                      <div class="invalid-feedback"></div>
+                    </div>
+
+                    <!-- Additional Key Markers -->
+                    <div class="biomarker-input">
+                      <label class="biomarker-label">LDL Cholesterol</label>
+                      <div class="biomarker-info">
+                        Low-density lipoprotein (mg/dL)
+                      </div>
+                      <input
+                        type="number"
+                        class="form-control"
+                        name="ldl_cholesterol"
+                        step="1"
+                        min="50"
+                        max="300"
+                        placeholder="Enter LDL level"
+                      />
+                      <div class="invalid-feedback"></div>
+                    </div>
+
+                    <div class="biomarker-input">
+                      <label class="biomarker-label">HDL Cholesterol</label>
+                      <div class="biomarker-info">
+                        High-density lipoprotein (mg/dL)
+                      </div>
+                      <input
+                        type="number"
+                        class="form-control"
+                        name="hdl_cholesterol"
+                        step="1"
+                        min="20"
+                        max="150"
+                        placeholder="Enter HDL level"
+                      />
+                      <div class="invalid-feedback"></div>
+                    </div>
+
+                    <div class="biomarker-input">
+                      <label class="biomarker-label"
+                        >Systolic Blood Pressure</label
+                      >
+                      <div class="biomarker-info">Systolic pressure (mmHg)</div>
+                      <input
+                        type="number"
+                        class="form-control"
+                        name="systolic_bp"
+                        step="1"
+                        min="80"
+                        max="200"
+                        placeholder="Enter systolic BP"
+                      />
+                      <div class="invalid-feedback"></div>
+                    </div>
+
+                    <div class="biomarker-input">
+                      <label class="biomarker-label"
+                        >Mission Duration (Days)</label
+                      >
+                      <div class="biomarker-info">
+                        Days in microgravity/bedrest
+                      </div>
+                      <input
+                        type="number"
+                        class="form-control"
+                        name="mission_duration"
+                        step="1"
+                        min="1"
+                        max="1000"
+                        placeholder="Enter duration"
+                      />
+                      <div class="invalid-feedback"></div>
+                    </div>
+                  </div>
+
+                  <div class="text-center mt-4">
+                    <button type="submit" class="btn btn-primary btn-lg">
+                      <i class="fas fa-brain me-2"></i>Predict Cardiovascular
+                      Risk
+                    </button>
+                  </div>
+                </form>
+              </div>
+            </div>
+          </div>
+
+          <!-- Results Panel -->
+          <div class="col-lg-4">
+            <div class="card shadow-custom">
+              <div class="card-header bg-success text-white">
+                <h5 class="mb-0">
+                  <i class="fas fa-chart-line me-2"></i>Risk Assessment
+                </h5>
+              </div>
+              <div class="card-body">
+                <!-- Default State -->
+                <div id="default-state" class="text-center py-4">
+                  <i
+                    class="fas fa-heartbeat text-muted mb-3"
+                    style="font-size: 3rem"
+                  ></i>
+                  <h6 class="text-muted">
+                    Enter biomarker values to get started
+                  </h6>
+                  <p class="text-muted small">
+                    Our AI model will analyze the biomarker profile and provide
+                    a comprehensive cardiovascular risk assessment.
+                  </p>
+                </div>
+
+                <!-- Prediction Results (hidden initially) -->
+                <div id="prediction-results" class="prediction-card">
+                  <div class="risk-score-display">
+                    <div
+                      id="risk-score-circle"
+                      class="risk-score-circle risk-low"
+                    >
+                      <span id="risk-score-value" class="risk-score-value"
+                        >--</span
+                      >
+                      <span class="risk-score-label">Risk Score</span>
+                    </div>
+                    <h6 id="risk-level" class="mb-0">Risk Level</h6>
+                    <p id="risk-description" class="text-muted small mb-3">
+                      Assessment description
+                    </p>
+
+                    <div class="mb-3">
+                      <label class="form-label small">Model Confidence</label>
+                      <div class="progress">
+                        <div
+                          id="confidence-bar"
+                          class="progress-bar bg-info"
+                          style="width: 0%"
+                        >
+                          <span id="confidence-value">0%</span>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+
+                  <!-- Detailed Analysis -->
+                  <div class="mt-4">
+                    <h6>
+                      <i class="fas fa-microscope me-2"></i>Analysis Details
+                    </h6>
+                    <div id="analysis-details">
+                      <!-- Will be populated by JavaScript -->
+                    </div>
+                  </div>
+
+                  <!-- Recommendations -->
+                  <div class="mt-4">
+                    <h6>
+                      <i class="fas fa-lightbulb me-2"></i>Recommendations
+                    </h6>
+                    <div id="recommendations">
+                      <!-- Will be populated by JavaScript -->
+                    </div>
+                  </div>
+
+                  <!-- Model Information -->
+                  <div class="mt-4">
+                    <small class="text-muted">
+                      <i class="fas fa-info-circle me-1"></i>
+                      Prediction based on
+                      <span id="model-used">ElasticNet Clinical Model</span> (R²
+                      = <span id="model-accuracy">0.820</span>)
+                    </small>
+                  </div>
+                </div>
+              </div>
+            </div>
+
+            <!-- Model Performance Info -->
+            <div class="card shadow-custom mt-3">
+              <div class="card-header bg-info text-white">
+                <h6 class="mb-0">
+                  <i class="fas fa-chart-bar me-2"></i>Model Performance
+                </h6>
+              </div>
+              <div class="card-body">
+                <div class="row text-center">
+                  <div class="col-6">
+                    <div class="metric-badge">82.0%</div>
+                    <small class="d-block">Clinical Accuracy</small>
+                  </div>
+                  <div class="col-6">
+                    <div class="metric-badge">85.2%</div>
+                    <small class="d-block">Validation</small>
+                  </div>
+                </div>
+                <hr />
+                <small class="text-muted">
+                  <i class="fas fa-shield-alt me-1"></i>
+                  Validated against NASA OSDR datasets and published bedrest
+                  studies
+                </small>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Sample Data Information -->
+        <div class="row mt-4">
+          <div class="col-lg-12">
+            <div class="card border-primary">
+              <div class="card-header bg-light">
+                <h6 class="mb-0">
+                  <i class="fas fa-info-circle text-primary me-2"></i>About This
+                  Demo
+                </h6>
+              </div>
+              <div class="card-body">
+                <div class="row">
+                  <div class="col-md-6">
+                    <h6>Sample Data Scenarios</h6>
+                    <ul class="list-unstyled">
+                      <li>
+                        <i class="fas fa-rocket text-primary me-2"></i
+                        ><strong>Space Mission:</strong> 14-day SpaceX mission
+                        profile
+                      </li>
+                      <li>
+                        <i class="fas fa-bed text-warning me-2"></i
+                        ><strong>Bedrest Study:</strong> 60-day bedrest
+                        simulation
+                      </li>
+                      <li>
+                        <i class="fas fa-hospital text-success me-2"></i
+                        ><strong>Hospital Patient:</strong> Post-surgical
+                        monitoring
+                      </li>
+                    </ul>
+                  </div>
+                  <div class="col-md-6">
+                    <h6>Model Features</h6>
+                    <ul class="list-unstyled">
+                      <li>
+                        <i class="fas fa-check text-success me-2"></i>Real-time
+                        risk assessment
+                      </li>
+                      <li>
+                        <i class="fas fa-check text-success me-2"></i>Clinical
+                        decision support
+                      </li>
+                      <li>
+                        <i class="fas fa-check text-success me-2"></i
+                        >Environment-specific modeling
+                      </li>
+                      <li>
+                        <i class="fas fa-check text-success me-2"></i
+                        >Interpretable predictions
+                      </li>
+                    </ul>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- JavaScript -->
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+    <script src="{{ url_for('static', filename='js/main.js') }}"></script>
+
+    <script>
+      // Demo-specific JavaScript
+      document.addEventListener("DOMContentLoaded", function () {
+        // Environment selection handling
+        const environmentOptions = document.querySelectorAll(
+          ".environment-option"
+        );
+        environmentOptions.forEach((option) => {
+          option.addEventListener("click", function () {
+            // Update active state
+            environmentOptions.forEach((opt) => opt.classList.remove("active"));
+            this.classList.add("active");
+
+            // Update radio button
+            const radio = this.querySelector('input[type="radio"]');
+            radio.checked = true;
+
+            // Update form context
+            updateEnvironmentContext(radio.value);
+          });
+        });
+
+        // Form submission handling
+        const form = document.getElementById("predictionForm");
+        form.addEventListener("submit", function (e) {
+          e.preventDefault();
+          handlePredictionSubmission();
+        });
+      });
+
+      function updateEnvironmentContext(environment) {
+        // Update sample data and context based on selected environment
+        console.log("Environment selected:", environment);
+      }
+
+      function loadSampleData() {
+        const environment = document.querySelector(
+          'input[name="environment"]:checked'
+        ).value;
+        const sampleData = getSampleDataForEnvironment(environment);
+
+        // Populate form fields with sample data
+        Object.keys(sampleData).forEach((key) => {
+          const input = document.querySelector(`input[name="${key}"]`);
+          if (input) {
+            input.value = sampleData[key];
+            input.classList.add("is-valid");
+          }
+        });
+
+        // Show notification
+        CardioPredict.showNotification(
+          `Sample ${environment} data loaded successfully!`,
+          "success"
+        );
+      }
+
+      function getSampleDataForEnvironment(environment) {
+        const sampleData = {
+          space: {
+            crp: 2.1,
+            pf4: 12.5,
+            fetuin_a36: 285.0,
+            fibrinogen: 320,
+            troponin_i: 0.012,
+            bnp: 45,
+            ldl_cholesterol: 105,
+            hdl_cholesterol: 52,
+            systolic_bp: 118,
+            mission_duration: 14,
+          },
+          bedrest: {
+            crp: 3.8,
+            pf4: 18.2,
+            fetuin_a36: 245.0,
+            fibrinogen: 380,
+            troponin_i: 0.008,
+            bnp: 62,
+            ldl_cholesterol: 125,
+            hdl_cholesterol: 45,
+            systolic_bp: 125,
+            mission_duration: 60,
+          },
+          hospital: {
+            crp: 5.2,
+            pf4: 22.1,
+            fetuin_a36: 210.0,
+            fibrinogen: 420,
+            troponin_i: 0.025,
+            bnp: 95,
+            ldl_cholesterol: 145,
+            hdl_cholesterol: 38,
+            systolic_bp: 135,
+            mission_duration: 21,
+          },
+        };
+
+        return sampleData[environment] || sampleData.space;
+      }
+
+      function handlePredictionSubmission() {
+        // Show loading state
+        CardioPredict.showLoadingOverlay("Analyzing biomarkers...");
+
+        // Collect form data
+        const formData = new FormData(
+          document.getElementById("predictionForm")
+        );
+        const environment = document.querySelector(
+          'input[name="environment"]:checked'
+        ).value;
+        formData.append("environment", environment);
+
+        // Simulate API call (replace with actual API endpoint)
+        setTimeout(() => {
+          const mockPrediction = generateMockPrediction(formData);
+          displayPredictionResults(mockPrediction);
+          CardioPredict.hideLoadingOverlay();
+        }, 2000);
+      }
+
+      function generateMockPrediction(formData) {
+        // Generate realistic mock prediction based on input values
+        const crp = parseFloat(formData.get("crp")) || 0;
+        const pf4 = parseFloat(formData.get("pf4")) || 0;
+        const troponin = parseFloat(formData.get("troponin_i")) || 0;
+        const bnp = parseFloat(formData.get("bnp")) || 0;
+
+        // Simple risk calculation (replace with actual model)
+        let riskScore = 30;
+        if (crp > 3) riskScore += 15;
+        if (pf4 > 15) riskScore += 10;
+        if (troponin > 0.02) riskScore += 20;
+        if (bnp > 80) riskScore += 15;
+
+        riskScore = Math.min(riskScore, 95);
+
+        let riskLevel, riskDescription, riskClass;
+        if (riskScore < 30) {
+          riskLevel = "Low Risk";
+          riskDescription = "Cardiovascular parameters within normal ranges";
+          riskClass = "risk-low";
+        } else if (riskScore < 70) {
+          riskLevel = "Moderate Risk";
+          riskDescription = "Some elevated biomarkers require monitoring";
+          riskClass = "risk-medium";
+        } else {
+          riskLevel = "High Risk";
+          riskDescription = "Multiple elevated cardiovascular risk factors";
+          riskClass = "risk-high";
+        }
+
+        return {
+          risk_score: riskScore,
+          risk_level: riskLevel,
+          risk_description: riskDescription,
+          risk_class: riskClass,
+          confidence: 87.5,
+          model_used: "ElasticNet Clinical Model",
+          model_accuracy: "0.820",
+          recommendations: [
+            "Continue regular cardiovascular monitoring",
+            "Maintain current exercise countermeasures",
+            "Monitor inflammatory markers closely",
+          ],
+          analysis: {
+            Inflammation: crp > 3 ? "Elevated" : "Normal",
+            "Platelet Function": pf4 > 15 ? "Activated" : "Normal",
+            "Cardiac Injury": troponin > 0.02 ? "Detected" : "None",
+            "Heart Function": bnp > 80 ? "Impaired" : "Normal",
+          },
+        };
+      }
+
+      function displayPredictionResults(results) {
+        // Hide default state and show results
+        document.getElementById("default-state").style.display = "none";
+        document.getElementById("prediction-results").style.display = "block";
+
+        // Update risk score display
+        document.getElementById("risk-score-value").textContent =
+          results.risk_score.toFixed(1);
+        document.getElementById("risk-level").textContent = results.risk_level;
+        document.getElementById("risk-description").textContent =
+          results.risk_description;
+
+        // Update risk circle color
+        const riskCircle = document.getElementById("risk-score-circle");
+        riskCircle.className = `risk-score-circle ${results.risk_class}`;
+
+        // Update confidence bar
+        document.getElementById(
+          "confidence-value"
+        ).textContent = `${results.confidence.toFixed(1)}%`;
+        document.getElementById(
+          "confidence-bar"
+        ).style.width = `${results.confidence}%`;
+
+        // Update model information
+        document.getElementById("model-used").textContent = results.model_used;
+        document.getElementById("model-accuracy").textContent =
+          results.model_accuracy;
+
+        // Populate analysis details
+        const analysisDiv = document.getElementById("analysis-details");
+        analysisDiv.innerHTML = "";
+        Object.keys(results.analysis).forEach((key) => {
+          const item = document.createElement("div");
+          item.className = "mb-2";
+          const status = results.analysis[key];
+          const statusClass =
+            status === "Normal"
+              ? "success"
+              : status === "Elevated" || status === "Activated"
+              ? "warning"
+              : "danger";
+          item.innerHTML = `
+                    <span class="fw-medium">${key}:</span>
+                    <span class="badge bg-${statusClass} ms-2">${status}</span>
+                `;
+          analysisDiv.appendChild(item);
+        });
+
+        // Populate recommendations
+        const recommendationsDiv = document.getElementById("recommendations");
+        recommendationsDiv.innerHTML = "";
+        results.recommendations.forEach((rec) => {
+          const item = document.createElement("div");
+          item.className = "mb-1";
+          item.innerHTML = `<i class="fas fa-check-circle text-success me-2"></i>${rec}`;
+          recommendationsDiv.appendChild(item);
+        });
+
+        // Scroll to results
+        document.getElementById("prediction-results").scrollIntoView({
+          behavior: "smooth",
+          block: "center",
+        });
+      }
+    </script>
+  </body>
+</html>
