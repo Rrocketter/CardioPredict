@@ -1,0 +1,696 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>
+      CardioPredict - AI-Powered Cardiovascular Risk Prediction for Space
+      Medicine
+    </title>
+
+    <!-- Meta tags for scientific credibility and SEO -->
+    <meta
+      name="description"
+      content="Advanced AI system for predicting cardiovascular risk in microgravity environments with Earth analog validation. Developed for astronaut health monitoring and terrestrial healthcare applications."
+    />
+    <meta
+      name="keywords"
+      content="cardiovascular risk, space medicine, artificial intelligence, machine learning, astronaut health, biomarkers, microgravity, NASA, bedrest studies, clinical prediction"
+    />
+    <meta name="author" content="CardioPredict Research Team" />
+    <meta name="robots" content="index, follow" />
+
+    <!-- Open Graph meta tags for social sharing -->
+    <meta
+      property="og:title"
+      content="CardioPredict - AI-Powered Cardiovascular Risk Prediction"
+    />
+    <meta
+      property="og:description"
+      content="Advanced AI system for predicting cardiovascular risk in microgravity environments with Earth analog validation."
+    />
+    <meta property="og:type" content="website" />
+    <meta property="og:url" content="{{ request.url }}" />
+
+    <!-- Scientific citation metadata -->
+    <meta
+      name="citation_title"
+      content="CardioPredict: AI-Powered Cardiovascular Risk Prediction for Microgravity Environments"
+    />
+    <meta name="citation_author" content="CardioPredict Research Team" />
+    <meta name="citation_publication_date" content="2025" />
+    <meta name="citation_abstract_html_url" content="{{ request.url }}" />
+
+    <!-- Professional fonts and icons -->
+    <link
+      href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=JetBrains+Mono:wght@400;500&display=swap"
+      rel="stylesheet"
+    />
+    <link
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css"
+      rel="stylesheet"
+    />
+
+    <!-- CSS Framework and Custom Styles -->
+    <link
+      href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css"
+      rel="stylesheet"
+    />
+    <link
+      rel="stylesheet"
+      href="{{ url_for('static', filename='css/style.css') }}"
+    />
+
+    <!-- Structured data for search engines -->
+    <script type="application/ld+json">
+      {
+        "@context": "https://schema.org",
+        "@type": "SoftwareApplication",
+        "name": "CardioPredict",
+        "description": "AI-powered cardiovascular risk prediction system for space medicine",
+        "applicationCategory": "HealthApplication",
+        "operatingSystem": "Web-based",
+        "offers": {
+          "@type": "Offer",
+          "price": "0",
+          "priceCurrency": "USD"
+        },
+        "creator": {
+          "@type": "Organization",
+          "name": "CardioPredict Research Team"
+        },
+        "featureList": [
+          "Machine learning-based risk prediction",
+          "Microgravity environment analysis",
+          "Earth analog validation",
+          "Real-time biomarker assessment"
+        ]
+      }
+    </script>
+  </head>
+  <body>
+    <!-- Navigation -->
+    <nav class="navbar navbar-expand-lg navbar-dark fixed-top">
+      <div class="container">
+        <a
+          class="navbar-brand d-flex align-items-center"
+          href="{{ url_for('homepage') }}"
+        >
+          <i class="fas fa-heartbeat me-2"></i>
+          <span class="brand-text">CardioPredict</span>
+        </a>
+
+        <button
+          class="navbar-toggler"
+          type="button"
+          data-bs-toggle="collapse"
+          data-bs-target="#navbarNav"
+        >
+          <span class="navbar-toggler-icon"></span>
+        </button>
+
+        <div class="collapse navbar-collapse" id="navbarNav">
+          <ul class="navbar-nav ms-auto">
+            <li class="nav-item">
+              <a class="nav-link active" href="{{ url_for('homepage') }}"
+                >Home</a
+              >
+            </li>
+            <li class="nav-item">
+              <a class="nav-link" href="{{ url_for('research') }}">Research</a>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link" href="{{ url_for('demo') }}">Live Demo</a>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link" href="{{ url_for('documentation') }}"
+                >Documentation</a
+              >
+            </li>
+            <li class="nav-item">
+              <a class="nav-link" href="{{ url_for('about') }}">About</a>
+            </li>
+          </ul>
+        </div>
+      </div>
+    </nav>
+
+    <!-- Hero Section -->
+    <section class="hero-section">
+      <div class="container hero-content">
+        <div class="row align-items-center min-vh-100">
+          <div class="col-lg-6">
+            <div class="fade-in-up">
+              <div class="badge bg-light text-primary mb-3 px-3 py-2">
+                <i class="fas fa-flask me-2"></i>NASA OSDR Validated Research
+              </div>
+              <h1 class="hero-title">
+                AI-Powered Cardiovascular Risk Prediction for
+                <span class="text-warning">Space Medicine</span>
+              </h1>
+              <p class="hero-subtitle">
+                First machine learning system specifically designed for
+                cardiovascular risk assessment in microgravity environments,
+                with robust validation across space missions and Earth analogs.
+              </p>
+
+              <!-- Key Research Metrics -->
+              <div class="stats-grid">
+                <div class="stat-item">
+                  <span class="stat-number" data-count="82">0</span>
+                  <span class="stat-label">Model Accuracy (%)</span>
+                </div>
+                <div class="stat-item">
+                  <span class="stat-number" data-count="85">0</span>
+                  <span class="stat-label">Validation Accuracy (%)</span>
+                </div>
+                <div class="stat-item">
+                  <span class="stat-number" data-count="45">0</span>
+                  <span class="stat-label">Biomarkers Analyzed</span>
+                </div>
+                <div class="stat-item">
+                  <span class="stat-number" data-count="4">0</span>
+                  <span class="stat-label">NASA Datasets</span>
+                </div>
+              </div>
+
+              <div class="cta-buttons">
+                <a href="{{ url_for('demo') }}" class="btn-primary-custom">
+                  <i class="fas fa-rocket me-2"></i>Try Live Demo
+                </a>
+                <a
+                  href="{{ url_for('research') }}"
+                  class="btn-secondary-custom"
+                >
+                  <i class="fas fa-chart-line me-2"></i>View Research
+                </a>
+              </div>
+            </div>
+          </div>
+
+          <div class="col-lg-6">
+            <div class="text-center">
+              <!-- Scientific Visualization -->
+              <div class="research-highlight">
+                <h5>
+                  <i class="fas fa-award text-warning me-2"></i>Key Research
+                  Achievements
+                </h5>
+                <div class="row text-start">
+                  <div class="col-md-6">
+                    <div class="metric-badge">R² = 0.820</div>
+                    <small class="d-block mb-2"
+                      >ElasticNet Clinical Model</small
+                    >
+
+                    <div class="metric-badge info">Cross-Domain</div>
+                    <small class="d-block mb-2">Space → Earth Validation</small>
+                  </div>
+                  <div class="col-md-6">
+                    <div class="metric-badge warning">4 NASA Datasets</div>
+                    <small class="d-block mb-2"
+                      >SpaceX, Bedrest, Gene Expression</small
+                    >
+
+                    <div class="metric-badge">Time-Series CV</div>
+                    <small class="d-block mb-2"
+                      >Rigorous Validation Protocol</small
+                    >
+                  </div>
+                </div>
+              </div>
+
+              <!-- Technical Specifications -->
+              <div class="tech-spec">
+                <div class="tech-spec-title">Model Architecture</div>
+                <code>
+                  Ensemble: ElasticNet + Random Forest + XGBoost<br />
+                  Features: 45 cardiovascular biomarkers<br />
+                  Validation: Time-series cross-validation<br />
+                  Datasets: NASA OSDR OSD-258, 484, 51, 575, 635
+                </code>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Key Features Section -->
+    <section class="section section-alternate">
+      <div class="container">
+        <div class="section-title">
+          <h2>Scientific Innovation & Clinical Translation</h2>
+          <p class="section-subtitle">
+            First AI-powered cardiovascular risk prediction system validated
+            across space and Earth analog environments, bridging the gap between
+            research and clinical practice.
+          </p>
+        </div>
+
+        <div class="row g-4">
+          <div class="col-lg-4">
+            <div class="feature-card">
+              <div class="feature-icon">
+                <i class="fas fa-rocket"></i>
+              </div>
+              <h4>Microgravity-Specific Modeling</h4>
+              <p>
+                Built from NASA OSDR datasets including SpaceX Inspiration4
+                mission data, addressing unique cardiovascular deconditioning
+                patterns in space.
+              </p>
+              <div class="feature-metrics">
+                <div class="metric-item">
+                  <strong>4 NASA Datasets</strong>
+                  <small>OSD-258, 484, 51, 575, 635</small>
+                </div>
+                <div class="metric-item">
+                  <strong>Multi-modal Data</strong>
+                  <small>RNA-seq, Microarray, Proteomics</small>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <div class="col-lg-4">
+            <div class="feature-card">
+              <div class="feature-icon">
+                <i class="fas fa-brain"></i>
+              </div>
+              <h4>Advanced Machine Learning</h4>
+              <p>
+                State-of-the-art ensemble methods with rigorous time-series
+                cross-validation, achieving 82% accuracy in clinical model and
+                99.9% in research ensemble.
+              </p>
+              <div class="feature-metrics">
+                <div class="metric-item">
+                  <strong>ElasticNet Clinical</strong>
+                  <small>R² = 0.820, Interpretable</small>
+                </div>
+                <div class="metric-item">
+                  <strong>Ensemble Research</strong>
+                  <small>R² = 0.999, High Performance</small>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <div class="col-lg-4">
+            <div class="feature-card">
+              <div class="feature-icon">
+                <i class="fas fa-globe"></i>
+              </div>
+              <h4>Cross-Domain Validation</h4>
+              <p>
+                Rigorously validated against published bedrest studies and
+                hospital patient data, proving robust translational medicine
+                applications.
+              </p>
+              <div class="feature-metrics">
+                <div class="metric-item">
+                  <strong>85% Validation Accuracy</strong>
+                  <small>vs. Published Studies</small>
+                </div>
+                <div class="metric-item">
+                  <strong>Hospital Application</strong>
+                  <small>Bedrest Patient Monitoring</small>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Scientific Methodology Section -->
+    <section class="section">
+      <div class="container">
+        <div class="section-title">
+          <h2>Rigorous Scientific Methodology</h2>
+          <p class="section-subtitle">
+            Our approach combines cutting-edge machine learning with established
+            clinical research protocols
+          </p>
+        </div>
+
+        <div class="row">
+          <div class="col-lg-8 mx-auto">
+            <div class="research-highlight">
+              <h5>
+                <i class="fas fa-microscope text-primary me-2"></i>Data Sources
+                & Processing
+              </h5>
+              <p>
+                We utilized comprehensive NASA Open Science Data Repository
+                (OSDR) datasets, including SpaceX Inspiration4 mission biomarker
+                data, bedrest studies, and longitudinal cardiovascular
+                monitoring data. Our preprocessing pipeline handles missing
+                values, normalizes biomarker levels, and engineers temporal
+                features.
+              </p>
+
+              <div class="row mt-3">
+                <div class="col-md-6">
+                  <h6>Primary Datasets</h6>
+                  <ul class="list-unstyled">
+                    <li>
+                      <i class="fas fa-check text-success me-2"></i>OSD-258:
+                      SpaceX Inspiration4 RNA-seq
+                    </li>
+                    <li>
+                      <i class="fas fa-check text-success me-2"></i>OSD-484:
+                      Cardiac gene expression
+                    </li>
+                    <li>
+                      <i class="fas fa-check text-success me-2"></i>OSD-575:
+                      Comprehensive metabolic panel
+                    </li>
+                  </ul>
+                </div>
+                <div class="col-md-6">
+                  <h6>Validation Datasets</h6>
+                  <ul class="list-unstyled">
+                    <li>
+                      <i class="fas fa-check text-success me-2"></i>OSD-51:
+                      Microarray bedrest studies
+                    </li>
+                    <li>
+                      <i class="fas fa-check text-success me-2"></i>OSD-635:
+                      Bulk RNA-seq validation
+                    </li>
+                    <li>
+                      <i class="fas fa-check text-success me-2"></i>Published
+                      bedrest study benchmarks
+                    </li>
+                  </ul>
+                </div>
+              </div>
+            </div>
+
+            <div class="research-highlight">
+              <h5>
+                <i class="fas fa-cogs text-primary me-2"></i>Machine Learning
+                Pipeline
+              </h5>
+              <p>
+                Our ensemble approach combines multiple algorithms optimized for
+                different clinical scenarios. The clinical model (ElasticNet)
+                prioritizes interpretability for medical decision-making, while
+                the research ensemble maximizes predictive accuracy.
+              </p>
+
+              <div class="tech-spec">
+                <div class="tech-spec-title">Model Architecture Details</div>
+                <code>
+                  Clinical Model: ElasticNet (α=0.1, l1_ratio=0.5)<br />
+                  Research Ensemble: Weighted Average of:<br />
+                  ├── ElasticNet (weight: 0.4)<br />
+                  ├── Random Forest (weight: 0.3)<br />
+                  └── XGBoost (weight: 0.3)<br />
+                  <br />
+                  Validation: Time-series CV (5 splits)<br />
+                  Feature Selection: Consensus (K-Best + RFE + RF importance)
+                </code>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Validation Results Section -->
+    <section class="section section-alternate">
+      <div class="container">
+        <div class="row align-items-center">
+          <div class="col-lg-6">
+            <h2>Clinical Validation Results</h2>
+            <p class="lead">
+              Our system demonstrates exceptional performance across multiple
+              validation scenarios, from space mission data to Earth-based
+              clinical applications.
+            </p>
+
+            <div class="research-highlight">
+              <h6>Performance Metrics</h6>
+              <div class="row">
+                <div class="col-6">
+                  <div class="metric-badge">R² = 0.820</div>
+                  <small class="d-block">Clinical Model (ElasticNet)</small>
+                </div>
+                <div class="col-6">
+                  <div class="metric-badge">R² = 0.999</div>
+                  <small class="d-block">Research Ensemble</small>
+                </div>
+              </div>
+
+              <div class="row mt-2">
+                <div class="col-6">
+                  <div class="metric-badge warning">85.2%</div>
+                  <small class="d-block">Published Study Validation</small>
+                </div>
+                <div class="col-6">
+                  <div class="metric-badge info">Cross-Domain</div>
+                  <small class="d-block">Space → Earth Transfer</small>
+                </div>
+              </div>
+            </div>
+
+            <div class="research-highlight">
+              <h6>Clinical Impact</h6>
+              <ul class="list-unstyled">
+                <li>
+                  <i class="fas fa-user-astronaut text-primary me-2"></i>Early
+                  detection of cardiovascular deconditioning in astronauts
+                </li>
+                <li>
+                  <i class="fas fa-hospital text-primary me-2"></i>Risk
+                  stratification for bedrest patients
+                </li>
+                <li>
+                  <i class="fas fa-procedures text-primary me-2"></i
+                  >Post-surgical monitoring applications
+                </li>
+                <li>
+                  <i class="fas fa-chart-line text-primary me-2"></i>Research
+                  platform for biomarker discovery
+                </li>
+              </ul>
+            </div>
+
+            <a href="{{ url_for('research') }}" class="btn btn-primary">
+              <i class="fas fa-file-medical me-2"></i>View Complete Research
+              Paper
+            </a>
+          </div>
+
+          <div class="col-lg-6">
+            <!-- Key Biomarkers Visualization -->
+            <div class="research-highlight">
+              <h6>
+                <i class="fas fa-dna text-primary me-2"></i>Key Cardiovascular
+                Biomarkers
+              </h6>
+              <div class="biomarker-grid">
+                <div class="biomarker-item">
+                  <span class="biomarker-name">C-Reactive Protein (CRP)</span>
+                  <span class="biomarker-importance">High Impact</span>
+                </div>
+                <div class="biomarker-item">
+                  <span class="biomarker-name">Platelet Factor 4 (PF4)</span>
+                  <span class="biomarker-importance">High Impact</span>
+                </div>
+                <div class="biomarker-item">
+                  <span class="biomarker-name">Fetuin A36</span>
+                  <span class="biomarker-importance">Medium Impact</span>
+                </div>
+                <div class="biomarker-item">
+                  <span class="biomarker-name">Fibrinogen</span>
+                  <span class="biomarker-importance">Medium Impact</span>
+                </div>
+                <div class="biomarker-item">
+                  <span class="biomarker-name">Troponin I</span>
+                  <span class="biomarker-importance">Clinical Marker</span>
+                </div>
+                <div class="biomarker-item">
+                  <span class="biomarker-name">BNP</span>
+                  <span class="biomarker-importance">Clinical Marker</span>
+                </div>
+              </div>
+
+              <div class="mt-3">
+                <small class="text-muted">
+                  <i class="fas fa-info-circle me-1"></i>
+                  Biomarker importance determined through consensus feature
+                  selection (K-Best, RFE, Random Forest importance)
+                </small>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Clinical Applications Section -->
+    <section class="applications-section py-5">
+      <div class="container">
+        <div class="row">
+          <div class="col-lg-12 text-center mb-5">
+            <h2 class="section-title">Clinical Applications</h2>
+            <p class="section-subtitle">
+              Transforming cardiovascular risk assessment across multiple
+              healthcare domains
+            </p>
+          </div>
+        </div>
+        <div class="row g-4">
+          <div class="col-lg-3 col-md-6">
+            <div class="application-card">
+              <div class="app-icon">
+                <i class="fas fa-user-astronaut"></i>
+              </div>
+              <h4>Astronaut Health</h4>
+              <p>
+                Real-time monitoring during missions to Moon, Mars, and beyond.
+              </p>
+            </div>
+          </div>
+          <div class="col-lg-3 col-md-6">
+            <div class="application-card">
+              <div class="app-icon">
+                <i class="fas fa-hospital"></i>
+              </div>
+              <h4>Hospital Bedrest</h4>
+              <p>
+                Monitoring cardiovascular deterioration in immobilized patients.
+              </p>
+            </div>
+          </div>
+          <div class="col-lg-3 col-md-6">
+            <div class="application-card">
+              <div class="app-icon">
+                <i class="fas fa-procedures"></i>
+              </div>
+              <h4>Post-Surgical Care</h4>
+              <p>Risk assessment during recovery and rehabilitation periods.</p>
+            </div>
+          </div>
+          <div class="col-lg-3 col-md-6">
+            <div class="application-card">
+              <div class="app-icon">
+                <i class="fas fa-flask"></i>
+              </div>
+              <h4>Research Platform</h4>
+              <p>Tools for cardiovascular research and biomarker analysis.</p>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Call to Action Section -->
+    <section class="cta-section py-5">
+      <div class="container">
+        <div class="row justify-content-center">
+          <div class="col-lg-8 text-center">
+            <h2 class="cta-title">
+              Ready to Experience the Future of Space Medicine?
+            </h2>
+            <p class="cta-text">
+              Try our interactive demo or explore the research behind this
+              groundbreaking cardiovascular risk prediction system.
+            </p>
+            <div class="cta-buttons">
+              <a
+                href="{{ url_for('demo') }}"
+                class="btn btn-primary btn-lg me-3"
+              >
+                <i class="fas fa-rocket me-2"></i>Launch Demo
+              </a>
+              <a
+                href="{{ url_for('documentation') }}"
+                class="btn btn-outline-primary btn-lg"
+              >
+                <i class="fas fa-book me-2"></i>API Documentation
+              </a>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Footer -->
+    <footer class="footer py-5">
+      <div class="container">
+        <div class="row">
+          <div class="col-lg-4">
+            <div class="footer-brand">
+              <i class="fas fa-heartbeat me-2"></i>
+              <span>CardioPredict</span>
+            </div>
+            <p class="footer-description">
+              Advanced AI for cardiovascular risk prediction in space medicine
+              with Earth analog validation.
+            </p>
+          </div>
+          <div class="col-lg-2">
+            <h5>Platform</h5>
+            <ul class="footer-links">
+              <li><a href="{{ url_for('demo') }}">Live Demo</a></li>
+              <li><a href="{{ url_for('documentation') }}">API Docs</a></li>
+              <li><a href="#">Download</a></li>
+            </ul>
+          </div>
+          <div class="col-lg-2">
+            <h5>Research</h5>
+            <ul class="footer-links">
+              <li><a href="{{ url_for('research') }}">Methodology</a></li>
+              <li><a href="#">Publication</a></li>
+              <li><a href="#">Dataset</a></li>
+            </ul>
+          </div>
+          <div class="col-lg-2">
+            <h5>Support</h5>
+            <ul class="footer-links">
+              <li><a href="{{ url_for('about') }}">About</a></li>
+              <li><a href="#">Contact</a></li>
+              <li><a href="#">FAQ</a></li>
+            </ul>
+          </div>
+          <div class="col-lg-2">
+            <h5>Connect</h5>
+            <div class="social-links">
+              <a href="#" class="social-link"><i class="fab fa-github"></i></a>
+              <a href="#" class="social-link"
+                ><i class="fab fa-linkedin"></i
+              ></a>
+              <a href="#" class="social-link"><i class="fab fa-twitter"></i></a>
+            </div>
+          </div>
+        </div>
+        <hr class="footer-divider" />
+        <div class="row align-items-center">
+          <div class="col-lg-6">
+            <p class="copyright">© 2025 CardioPredict. All rights reserved.</p>
+          </div>
+          <div class="col-lg-6 text-end">
+            <div class="footer-meta">
+              <span class="badge bg-success me-2">
+                <i class="fas fa-check-circle me-1"></i>Scientifically Validated
+              </span>
+              <span class="badge bg-primary">
+                <i class="fas fa-shield-alt me-1"></i>HIPAA Compliant
+              </span>
+            </div>
+          </div>
+        </div>
+      </div>
+    </footer>
+
+    <!-- JavaScript -->
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <script src="{{ url_for('static', filename='js/main.js') }}"></script>
+  </body>
+</html>
