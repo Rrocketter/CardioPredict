@@ -1,0 +1,56 @@
+{
+  "timestamp": "2025-06-27T18:16:16.406508",
+  "dataset_summary": {
+    "total_samples": 28,
+    "unique_subjects": 4,
+    "temporal_range_days": {
+      "min": -92.0,
+      "max": 194.0,
+      "span": 286.0
+    },
+    "cv_risk_range": {
+      "min": 32.2545593810005,
+      "max": 71.65344919138091,
+      "mean": 50.00000000000001,
+      "std": 11.316978848549264
+    },
+    "selected_biomarkers": 13
+  },
+  "model_performance": {
+    "Week1_ElasticNet": {
+      "r2_mean": 0.8196759492428158,
+      "r2_std": 0.03929755300843725,
+      "mae_mean": 3.3370168679213306,
+      "mae_std": 0.6861781589843319,
+      "statistical_significance": 0.001,
+      "significant": true
+    },
+    "Week2_GradientBoosting": {
+      "r2_mean": 0.722509957580917,
+      "r2_std": 0.21638499165944866,
+      "mae_mean": 3.8628345211932165,
+      "mae_std": 2.5020686164404844,
+      "statistical_significance": 0.001,
+      "significant": true
+    }
+  },
+  "clinical_readiness": {
+    "best_model": "Week1_ElasticNet",
+    "performance_score": 0.8196759492428158,
+    "meets_performance": true,
+    "statistically_significant": true,
+    "acceptable_precision": true,
+    "interpretable": true,
+    "overall_ready": true
+  },
+  "recommendations": [
+    "\u2705 Model is ready for clinical validation studies",
+    "\u2705 Proceed with Earth analog (bedrest) validation",
+    "\u2705 Implement real-time monitoring system",
+    "\u2705 Train clinical staff on biomarker interpretation",
+    "\ud83c\udfe5 Validate with larger astronaut cohort",
+    "\ud83d\udd2c Establish clinical decision thresholds",
+    "\ud83d\udcc8 Implement continuous model monitoring",
+    "\ud83c\udf0d Test with Earth analog populations"
+  ]
+}

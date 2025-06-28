@@ -1,0 +1,119 @@
+{
+  "timestamp": "2025-06-27T18:16:17.661415",
+  "version": "1.0.0",
+  "models": {
+    "Week1_ElasticNet": {
+      "path": "results/week1_elasticnet_deployment.joblib",
+      "type": "ElasticNet",
+      "performance": 0.7696882891110463
+    },
+    "Week2_GradientBoosting": {
+      "path": "results/week2_gradientboosting_deployment.joblib",
+      "type": "GradientBoostingRegressor",
+      "performance": 0.723
+    }
+  },
+  "preprocessing": {
+    "scaler_path": "results/feature_scaler_deployment.joblib",
+    "input_features": [
+      "CRP",
+      "Fetuin A36",
+      "PF4",
+      "SAP",
+      "a-2 Macroglobulin",
+      "AGP_Change_From_Baseline",
+      "AGP_Pct_Change_From_Baseline",
+      "PF4_Change_From_Baseline",
+      "CRP_zscore",
+      "a-2 Macroglobulin_zscore",
+      "PF4_zscore",
+      "SAP_zscore",
+      "PF4_Change_From_Baseline.1"
+    ],
+    "scaling_method": "StandardScaler"
+  },
+  "features": {
+    "selected_features": [
+      "CRP",
+      "Fetuin A36",
+      "PF4",
+      "SAP",
+      "a-2 Macroglobulin",
+      "AGP_Change_From_Baseline",
+      "AGP_Pct_Change_From_Baseline",
+      "PF4_Change_From_Baseline",
+      "CRP_zscore",
+      "a-2 Macroglobulin_zscore",
+      "PF4_zscore",
+      "SAP_zscore",
+      "PF4_Change_From_Baseline.1"
+    ],
+    "feature_importance_ranking": [
+      "CRP",
+      "Fetuin A36",
+      "PF4",
+      "SAP",
+      "a-2 Macroglobulin",
+      "AGP_Change_From_Baseline",
+      "AGP_Pct_Change_From_Baseline",
+      "PF4_Change_From_Baseline",
+      "CRP_zscore",
+      "a-2 Macroglobulin_zscore",
+      "PF4_zscore",
+      "SAP_zscore",
+      "PF4_Change_From_Baseline.1"
+    ],
+    "clinical_biomarkers": [
+      "CRP",
+      "PF4",
+      "SAP",
+      "AGP_Change_From_Baseline"
+    ]
+  },
+  "clinical_guidelines": {
+    "risk_thresholds": {
+      "low_risk": "< 33 points",
+      "moderate_risk": "33-67 points",
+      "high_risk": "> 67 points"
+    },
+    "monitoring_frequency": {
+      "pre_flight": "Weekly for 4 weeks before launch",
+      "in_flight": "Every 2 weeks during mission",
+      "post_flight": "Weekly for 8 weeks after return"
+    },
+    "intervention_triggers": {
+      "moderate_risk": "Increase monitoring frequency, review biomarkers",
+      "high_risk": "Immediate medical consultation, consider countermeasures"
+    },
+    "biomarker_interpretation": {
+      "CRP": {
+        "full_name": "C-Reactive Protein",
+        "clinical_significance": "Gold standard inflammation marker, strong predictor of cardiovascular events",
+        "normal_range": "<3 mg/L",
+        "cv_risk_threshold": ">3 mg/L (high risk)",
+        "mechanism": "Acute phase protein indicating systemic inflammation"
+      },
+      "PF4": {
+        "full_name": "Platelet Factor 4",
+        "clinical_significance": "Platelet activation marker, indicator of thrombotic risk",
+        "normal_range": "<20 IU/mL",
+        "cv_risk_threshold": ">20 IU/mL (thrombotic risk)",
+        "mechanism": "Released by activated platelets, promotes coagulation"
+      },
+      "SAP": {
+        "full_name": "Serum Amyloid P",
+        "clinical_significance": "Inflammatory marker, complement system component",
+        "normal_range": "30-50 mg/L",
+        "cv_risk_threshold": ">50 mg/L (inflammatory)",
+        "mechanism": "Calcium-dependent lectin involved in inflammation"
+      },
+      "AGP_Change_From_Baseline": {
+        "full_name": "Alpha-1 Acid Glycoprotein",
+        "clinical_significance": "Acute phase protein, indicator of inflammatory response",
+        "normal_range": "50-120 mg/dL",
+        "cv_risk_threshold": ">120 mg/dL (inflammatory state)",
+        "mechanism": "Responds to tissue injury and inflammation"
+      }
+    }
+  }
+}

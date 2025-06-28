@@ -1,0 +1,38 @@
+{
+  "selected_features": [
+    "CRP",
+    "Fetuin A36",
+    "PF4",
+    "SAP",
+    "a-2 Macroglobulin",
+    "AGP_Change_From_Baseline",
+    "AGP_Pct_Change_From_Baseline",
+    "PF4_Change_From_Baseline",
+    "CRP_zscore",
+    "a-2 Macroglobulin_zscore",
+    "PF4_zscore",
+    "SAP_zscore",
+    "PF4_Change_From_Baseline.1"
+  ],
+  "feature_importance_ranking": [
+    "CRP",
+    "Fetuin A36",
+    "PF4",
+    "SAP",
+    "a-2 Macroglobulin",
+    "AGP_Change_From_Baseline",
+    "AGP_Pct_Change_From_Baseline",
+    "PF4_Change_From_Baseline",
+    "CRP_zscore",
+    "a-2 Macroglobulin_zscore",
+    "PF4_zscore",
+    "SAP_zscore",
+    "PF4_Change_From_Baseline.1"
+  ],
+  "clinical_biomarkers": [
+    "CRP",
+    "PF4",
+    "SAP",
+    "AGP_Change_From_Baseline"
+  ]
+}

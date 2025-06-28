@@ -1,6 +1,7 @@
 #!/usr/bin/env python3
 """
 
+
 This module implements hyperparameter optimization and ensemble methods:
 - Extensive hyperparameter tuning for promising models
 - Advanced ensemble techniques (Voting, Bagging, Stacking)
@@ -522,16 +523,21 @@ class AdvancedMLOptimizer:
                 if 'model' in info:
                     model = info['model']
                     
-                    # Get predictions on full dataset (for ensemble)
-                    model.fit(self.X, self.y)
-                    full_pred = model.predict(self.X)
+                    # Get cross-validated predictions
+                    cv_preds = []
+                    cv_scores_local = []
                     
-                    # Get cross-validated score for weighting
-                    cv_scores_local = cross_val_score(model, self.X, self.y, 
-                                                    cv=self.cv_splitter, 
-                                                    scoring='r2')
+                    for train_idx, val_idx in self.cv_splitter.split(self.X):
+                        X_train, X_val = self.X[train_idx], self.X[val_idx]
+                        y_train, y_val = self.y[train_idx], self.y[val_idx]
+                        
+                        model.fit(X_train, y_train)
+                        val_pred = model.predict(X_val)
+                        
+                        cv_preds.extend(val_pred)
+                        cv_scores_local.append(r2_score(y_val, val_pred))
                     
-                    model_predictions[name] = full_pred
+                    model_predictions[name] = np.array(cv_preds)
                     model_scores[name] = np.mean(cv_scores_local)
             
             if len(model_predictions) >= 2:
