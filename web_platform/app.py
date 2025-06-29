@@ -322,6 +322,82 @@ def publications():
     """Scientific publications and research outputs"""
     return render_template('publications.html')
 
+@app.route('/login')
+def login():
+    """Login and signup page for user authentication"""
+    return render_template('login.html')
+
+@app.route('/dashboard')
+def dashboard():
+    """User dashboard for research platform access"""
+    # In a real application, you would check authentication here
+    # For demo purposes, we'll show the dashboard directly
+    
+    # Sample user data
+    user_data = {
+        'name': 'Dr. Research User',
+        'role': 'Principal Investigator',
+        'organization': 'Research University',
+        'total_predictions': 1247,
+        'model_accuracy': 82.3,
+        'active_projects': 8,
+        'collaborators': 24
+    }
+    
+    # Sample dashboard data
+    dashboard_data = {
+        'recent_predictions': [
+            {
+                'patient_id': 'AST-001',
+                'risk_score': 23.4,
+                'risk_level': 'Low',
+                'environment': 'Space Station',
+                'date': '2025-06-28',
+                'status': 'Complete'
+            },
+            {
+                'patient_id': 'AST-002', 
+                'risk_score': 67.8,
+                'risk_level': 'High',
+                'environment': 'Mars Mission',
+                'date': '2025-06-27',
+                'status': 'Review'
+            },
+            {
+                'patient_id': 'BED-045',
+                'risk_score': 41.2,
+                'risk_level': 'Medium', 
+                'environment': 'Bedrest Study',
+                'date': '2025-06-26',
+                'status': 'Complete'
+            }
+        ],
+        'recent_activity': [
+            {
+                'action': 'New dataset uploaded: OSD-687',
+                'time': '2 hours ago',
+                'icon': 'upload',
+                'type': 'blue'
+            },
+            {
+                'action': 'Model training completed',
+                'time': '4 hours ago', 
+                'icon': 'check',
+                'type': 'green'
+            },
+            {
+                'action': 'Dr. Smith joined project "Mars-2027"',
+                'time': '1 day ago',
+                'icon': 'users', 
+                'type': 'purple'
+            }
+        ]
+    }
+    
+    return render_template('dashboard.html', 
+                         user=user_data,
+                         dashboard=dashboard_data)
+
 @app.errorhandler(404)
 def not_found_error(error):
     return render_template('404.html'), 404

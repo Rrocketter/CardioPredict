@@ -1,0 +1,1378 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Dashboard - CardioPredict Research Platform</title>
+
+    <!-- Meta tags -->
+    <meta
+      name="description"
+      content="CardioPredict research dashboard for cardiovascular risk prediction analysis and space medicine research."
+    />
+    <meta name="robots" content="noindex, nofollow" />
+
+    <!-- Professional fonts and icons -->
+    <link
+      href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=JetBrains+Mono:wght@400;500&display=swap"
+      rel="stylesheet"
+    />
+    <link
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css"
+      rel="stylesheet"
+    />
+
+    <!-- Chart.js for data visualization -->
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+
+    <!-- Custom styles -->
+    <link
+      rel="stylesheet"
+      href="{{ url_for('static', filename='css/style.css') }}"
+    />
+
+    <style>
+      body {
+        background: #f8fafc;
+        font-family: "Inter", sans-serif;
+        margin: 0;
+        overflow-x: hidden;
+      }
+
+      .dashboard-container {
+        display: flex;
+        min-height: 100vh;
+      }
+
+      .sidebar {
+        width: 280px;
+        background: linear-gradient(135deg, #1e40af 0%, #3b82f6 100%);
+        color: white;
+        position: fixed;
+        height: 100vh;
+        overflow-y: auto;
+        z-index: 1000;
+        transition: transform 0.3s ease;
+      }
+
+      .sidebar.collapsed {
+        transform: translateX(-280px);
+      }
+
+      .sidebar-header {
+        padding: 2rem 1.5rem;
+        border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+      }
+
+      .sidebar-brand {
+        display: flex;
+        align-items: center;
+        font-size: 1.5rem;
+        font-weight: 700;
+      }
+
+      .sidebar-brand i {
+        margin-right: 0.75rem;
+        font-size: 2rem;
+      }
+
+      .sidebar-nav {
+        padding: 2rem 0;
+      }
+
+      .nav-section {
+        margin-bottom: 2rem;
+      }
+
+      .nav-section-title {
+        padding: 0 1.5rem;
+        font-size: 0.8rem;
+        font-weight: 600;
+        text-transform: uppercase;
+        letter-spacing: 0.05em;
+        color: rgba(255, 255, 255, 0.7);
+        margin-bottom: 0.5rem;
+      }
+
+      .nav-item {
+        display: block;
+        padding: 0.75rem 1.5rem;
+        color: rgba(255, 255, 255, 0.9);
+        text-decoration: none;
+        transition: all 0.3s ease;
+        border-left: 3px solid transparent;
+      }
+
+      .nav-item:hover,
+      .nav-item.active {
+        background: rgba(255, 255, 255, 0.1);
+        color: white;
+        border-left-color: #93c5fd;
+      }
+
+      .nav-item i {
+        width: 20px;
+        margin-right: 0.75rem;
+      }
+
+      .main-content {
+        flex: 1;
+        margin-left: 280px;
+        transition: margin-left 0.3s ease;
+      }
+
+      .main-content.expanded {
+        margin-left: 0;
+      }
+
+      .top-bar {
+        background: white;
+        padding: 1rem 2rem;
+        box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        position: sticky;
+        top: 0;
+        z-index: 100;
+      }
+
+      .top-bar-left {
+        display: flex;
+        align-items: center;
+        gap: 1rem;
+      }
+
+      .sidebar-toggle {
+        background: none;
+        border: none;
+        font-size: 1.2rem;
+        color: #6b7280;
+        cursor: pointer;
+        padding: 0.5rem;
+        border-radius: 8px;
+        transition: all 0.3s ease;
+      }
+
+      .sidebar-toggle:hover {
+        background: #f3f4f6;
+        color: #3b82f6;
+      }
+
+      .breadcrumb {
+        color: #6b7280;
+        font-size: 1.1rem;
+      }
+
+      .breadcrumb .current {
+        color: #1f2937;
+        font-weight: 600;
+      }
+
+      .top-bar-right {
+        display: flex;
+        align-items: center;
+        gap: 1rem;
+      }
+
+      .notification-btn {
+        position: relative;
+        background: none;
+        border: none;
+        font-size: 1.2rem;
+        color: #6b7280;
+        cursor: pointer;
+        padding: 0.5rem;
+        border-radius: 8px;
+        transition: all 0.3s ease;
+      }
+
+      .notification-btn:hover {
+        background: #f3f4f6;
+        color: #3b82f6;
+      }
+
+      .notification-badge {
+        position: absolute;
+        top: 0.25rem;
+        right: 0.25rem;
+        background: #ef4444;
+        color: white;
+        border-radius: 50%;
+        width: 12px;
+        height: 12px;
+        font-size: 0.7rem;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+      }
+
+      .user-menu {
+        display: flex;
+        align-items: center;
+        gap: 0.75rem;
+        cursor: pointer;
+        padding: 0.5rem;
+        border-radius: 8px;
+        transition: all 0.3s ease;
+      }
+
+      .user-menu:hover {
+        background: #f3f4f6;
+      }
+
+      .user-avatar {
+        width: 40px;
+        height: 40px;
+        border-radius: 50%;
+        background: linear-gradient(135deg, #3b82f6, #1e40af);
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        color: white;
+        font-weight: 600;
+      }
+
+      .user-info {
+        display: flex;
+        flex-direction: column;
+      }
+
+      .user-name {
+        font-weight: 600;
+        color: #1f2937;
+        font-size: 0.9rem;
+      }
+
+      .user-role {
+        font-size: 0.8rem;
+        color: #6b7280;
+      }
+
+      .dashboard-content {
+        padding: 2rem;
+      }
+
+      .dashboard-grid {
+        display: grid;
+        grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+        gap: 2rem;
+        margin-bottom: 2rem;
+      }
+
+      .stat-card {
+        background: white;
+        border-radius: 16px;
+        padding: 2rem;
+        box-shadow: 0 4px 20px rgba(0, 0, 0, 0.08);
+        border: 1px solid #e5e7eb;
+        transition: transform 0.3s ease;
+      }
+
+      .stat-card:hover {
+        transform: translateY(-5px);
+      }
+
+      .stat-header {
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        margin-bottom: 1.5rem;
+      }
+
+      .stat-title {
+        font-size: 0.9rem;
+        font-weight: 600;
+        color: #6b7280;
+        text-transform: uppercase;
+        letter-spacing: 0.05em;
+      }
+
+      .stat-icon {
+        width: 50px;
+        height: 50px;
+        border-radius: 12px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        font-size: 1.5rem;
+        color: white;
+      }
+
+      .stat-icon.blue {
+        background: linear-gradient(135deg, #3b82f6, #1e40af);
+      }
+      .stat-icon.green {
+        background: linear-gradient(135deg, #10b981, #059669);
+      }
+      .stat-icon.purple {
+        background: linear-gradient(135deg, #8b5cf6, #7c3aed);
+      }
+      .stat-icon.orange {
+        background: linear-gradient(135deg, #f59e0b, #d97706);
+      }
+
+      .stat-value {
+        font-size: 2.5rem;
+        font-weight: 700;
+        color: #1f2937;
+        margin-bottom: 0.5rem;
+      }
+
+      .stat-change {
+        display: flex;
+        align-items: center;
+        gap: 0.5rem;
+        font-size: 0.9rem;
+      }
+
+      .stat-change.positive {
+        color: #10b981;
+      }
+
+      .stat-change.negative {
+        color: #ef4444;
+      }
+
+      .chart-container {
+        background: white;
+        border-radius: 16px;
+        padding: 2rem;
+        box-shadow: 0 4px 20px rgba(0, 0, 0, 0.08);
+        border: 1px solid #e5e7eb;
+        margin-bottom: 2rem;
+      }
+
+      .chart-header {
+        display: flex;
+        align-items: center;
+        justify-content: between;
+        margin-bottom: 2rem;
+      }
+
+      .chart-title {
+        font-size: 1.25rem;
+        font-weight: 700;
+        color: #1f2937;
+        flex: 1;
+      }
+
+      .chart-controls {
+        display: flex;
+        gap: 0.5rem;
+      }
+
+      .chart-btn {
+        padding: 0.5rem 1rem;
+        border: 1px solid #e5e7eb;
+        background: white;
+        border-radius: 8px;
+        cursor: pointer;
+        transition: all 0.3s ease;
+        font-size: 0.9rem;
+      }
+
+      .chart-btn.active {
+        background: #3b82f6;
+        color: white;
+        border-color: #3b82f6;
+      }
+
+      .chart-btn:hover {
+        border-color: #3b82f6;
+      }
+
+      .recent-activity {
+        background: white;
+        border-radius: 16px;
+        padding: 2rem;
+        box-shadow: 0 4px 20px rgba(0, 0, 0, 0.08);
+        border: 1px solid #e5e7eb;
+      }
+
+      .activity-header {
+        display: flex;
+        align-items: center;
+        justify-content: between;
+        margin-bottom: 2rem;
+      }
+
+      .activity-title {
+        font-size: 1.25rem;
+        font-weight: 700;
+        color: #1f2937;
+        flex: 1;
+      }
+
+      .activity-item {
+        display: flex;
+        align-items: center;
+        padding: 1rem 0;
+        border-bottom: 1px solid #f3f4f6;
+      }
+
+      .activity-item:last-child {
+        border-bottom: none;
+      }
+
+      .activity-icon {
+        width: 40px;
+        height: 40px;
+        border-radius: 8px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        margin-right: 1rem;
+        font-size: 1rem;
+        color: white;
+      }
+
+      .activity-content {
+        flex: 1;
+      }
+
+      .activity-text {
+        color: #374151;
+        margin-bottom: 0.25rem;
+      }
+
+      .activity-time {
+        font-size: 0.8rem;
+        color: #6b7280;
+      }
+
+      .quick-actions {
+        display: grid;
+        grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+        gap: 1rem;
+        margin-bottom: 2rem;
+      }
+
+      .action-btn {
+        background: white;
+        border: 2px solid #e5e7eb;
+        border-radius: 12px;
+        padding: 1.5rem;
+        text-align: center;
+        cursor: pointer;
+        transition: all 0.3s ease;
+        text-decoration: none;
+        color: #374151;
+      }
+
+      .action-btn:hover {
+        border-color: #3b82f6;
+        transform: translateY(-2px);
+        color: #3b82f6;
+      }
+
+      .action-btn i {
+        font-size: 2rem;
+        margin-bottom: 1rem;
+        display: block;
+      }
+
+      .action-btn-title {
+        font-weight: 600;
+        margin-bottom: 0.5rem;
+      }
+
+      .action-btn-desc {
+        font-size: 0.9rem;
+        color: #6b7280;
+      }
+
+      .data-table {
+        background: white;
+        border-radius: 16px;
+        padding: 2rem;
+        box-shadow: 0 4px 20px rgba(0, 0, 0, 0.08);
+        border: 1px solid #e5e7eb;
+        overflow-x: auto;
+      }
+
+      .table-header {
+        display: flex;
+        align-items: center;
+        justify-content: between;
+        margin-bottom: 2rem;
+      }
+
+      .table-title {
+        font-size: 1.25rem;
+        font-weight: 700;
+        color: #1f2937;
+        flex: 1;
+      }
+
+      .table-search {
+        display: flex;
+        gap: 1rem;
+      }
+
+      .search-input {
+        padding: 0.75rem;
+        border: 2px solid #e5e7eb;
+        border-radius: 8px;
+        width: 250px;
+        transition: border-color 0.3s ease;
+      }
+
+      .search-input:focus {
+        outline: none;
+        border-color: #3b82f6;
+      }
+
+      .data-table table {
+        width: 100%;
+        border-collapse: collapse;
+      }
+
+      .data-table th,
+      .data-table td {
+        text-align: left;
+        padding: 1rem;
+        border-bottom: 1px solid #f3f4f6;
+      }
+
+      .data-table th {
+        background: #f8fafc;
+        font-weight: 600;
+        color: #374151;
+        position: sticky;
+        top: 0;
+      }
+
+      .data-table tr:hover {
+        background: #f8fafc;
+      }
+
+      .status-badge {
+        padding: 0.25rem 0.75rem;
+        border-radius: 12px;
+        font-size: 0.8rem;
+        font-weight: 600;
+        text-transform: uppercase;
+        letter-spacing: 0.05em;
+      }
+
+      .status-success {
+        background: #d1fae5;
+        color: #065f46;
+      }
+
+      .status-warning {
+        background: #fef3c7;
+        color: #92400e;
+      }
+
+      .status-error {
+        background: #fee2e2;
+        color: #991b1b;
+      }
+
+      .risk-score {
+        display: flex;
+        align-items: center;
+        gap: 0.5rem;
+      }
+
+      .risk-indicator {
+        width: 12px;
+        height: 12px;
+        border-radius: 50%;
+      }
+
+      .risk-low {
+        background: #10b981;
+      }
+      .risk-medium {
+        background: #f59e0b;
+      }
+      .risk-high {
+        background: #ef4444;
+      }
+
+      @media (max-width: 768px) {
+        .sidebar {
+          transform: translateX(-280px);
+        }
+
+        .sidebar.open {
+          transform: translateX(0);
+        }
+
+        .main-content {
+          margin-left: 0;
+        }
+
+        .dashboard-content {
+          padding: 1rem;
+        }
+
+        .top-bar {
+          padding: 1rem;
+        }
+
+        .dashboard-grid {
+          grid-template-columns: 1fr;
+        }
+
+        .quick-actions {
+          grid-template-columns: 1fr;
+        }
+
+        .table-search {
+          flex-direction: column;
+        }
+
+        .search-input {
+          width: 100%;
+        }
+      }
+
+      .modal {
+        display: none;
+        position: fixed;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        background: rgba(0, 0, 0, 0.5);
+        z-index: 2000;
+        align-items: center;
+        justify-content: center;
+      }
+
+      .modal.show {
+        display: flex;
+      }
+
+      .modal-content {
+        background: white;
+        border-radius: 16px;
+        padding: 2rem;
+        max-width: 500px;
+        width: 90%;
+        max-height: 80vh;
+        overflow-y: auto;
+      }
+
+      .modal-header {
+        display: flex;
+        align-items: center;
+        justify-content: between;
+        margin-bottom: 2rem;
+      }
+
+      .modal-title {
+        font-size: 1.5rem;
+        font-weight: 700;
+        color: #1f2937;
+        flex: 1;
+      }
+
+      .modal-close {
+        background: none;
+        border: none;
+        font-size: 1.5rem;
+        color: #6b7280;
+        cursor: pointer;
+        padding: 0.5rem;
+        border-radius: 8px;
+        transition: all 0.3s ease;
+      }
+
+      .modal-close:hover {
+        background: #f3f4f6;
+        color: #3b82f6;
+      }
+    </style>
+  </head>
+
+  <body>
+    <div class="dashboard-container">
+      <!-- Sidebar -->
+      <nav class="sidebar" id="sidebar">
+        <div class="sidebar-header">
+          <div class="sidebar-brand">
+            <i class="fas fa-heartbeat"></i>
+            CardioPredict
+          </div>
+        </div>
+
+        <div class="sidebar-nav">
+          <div class="nav-section">
+            <div class="nav-section-title">Overview</div>
+            <a
+              href="#"
+              class="nav-item active"
+              onclick="showSection('dashboard')"
+            >
+              <i class="fas fa-tachometer-alt"></i>
+              Dashboard
+            </a>
+            <a href="#" class="nav-item" onclick="showSection('analytics')">
+              <i class="fas fa-chart-line"></i>
+              Analytics
+            </a>
+            <a href="#" class="nav-item" onclick="showSection('predictions')">
+              <i class="fas fa-brain"></i>
+              Predictions
+            </a>
+          </div>
+
+          <div class="nav-section">
+            <div class="nav-section-title">Research</div>
+            <a href="#" class="nav-item" onclick="showSection('datasets')">
+              <i class="fas fa-database"></i>
+              Datasets
+            </a>
+            <a href="#" class="nav-item" onclick="showSection('models')">
+              <i class="fas fa-robot"></i>
+              Models
+            </a>
+            <a href="#" class="nav-item" onclick="showSection('experiments')">
+              <i class="fas fa-flask"></i>
+              Experiments
+            </a>
+          </div>
+
+          <div class="nav-section">
+            <div class="nav-section-title">Collaboration</div>
+            <a href="#" class="nav-item" onclick="showSection('projects')">
+              <i class="fas fa-project-diagram"></i>
+              Projects
+            </a>
+            <a href="#" class="nav-item" onclick="showSection('team')">
+              <i class="fas fa-users"></i>
+              Team
+            </a>
+            <a href="#" class="nav-item" onclick="showSection('sharing')">
+              <i class="fas fa-share-alt"></i>
+              Data Sharing
+            </a>
+          </div>
+
+          <div class="nav-section">
+            <div class="nav-section-title">Tools</div>
+            <a href="/demo" class="nav-item">
+              <i class="fas fa-play"></i>
+              Live Demo
+            </a>
+            <a href="/documentation" class="nav-item">
+              <i class="fas fa-book"></i>
+              Documentation
+            </a>
+            <a href="#" class="nav-item" onclick="showSection('api')">
+              <i class="fas fa-code"></i>
+              API Console
+            </a>
+          </div>
+
+          <div class="nav-section">
+            <div class="nav-section-title">Account</div>
+            <a href="#" class="nav-item" onclick="showSection('profile')">
+              <i class="fas fa-user"></i>
+              Profile
+            </a>
+            <a href="#" class="nav-item" onclick="showSection('settings')">
+              <i class="fas fa-cog"></i>
+              Settings
+            </a>
+            <a href="/" class="nav-item">
+              <i class="fas fa-sign-out-alt"></i>
+              Back to Site
+            </a>
+          </div>
+        </div>
+      </nav>
+
+      <!-- Main Content -->
+      <main class="main-content" id="mainContent">
+        <!-- Top Bar -->
+        <header class="top-bar">
+          <div class="top-bar-left">
+            <button class="sidebar-toggle" onclick="toggleSidebar()">
+              <i class="fas fa-bars"></i>
+            </button>
+            <div class="breadcrumb">
+              Research Platform / <span class="current">Dashboard</span>
+            </div>
+          </div>
+
+          <div class="top-bar-right">
+            <button class="notification-btn" onclick="showNotifications()">
+              <i class="fas fa-bell"></i>
+              <span class="notification-badge">3</span>
+            </button>
+
+            <div class="user-menu" onclick="showUserMenu()">
+              <div class="user-avatar">DR</div>
+              <div class="user-info">
+                <div class="user-name">Dr. Research</div>
+                <div class="user-role">Principal Investigator</div>
+              </div>
+              <i class="fas fa-chevron-down"></i>
+            </div>
+          </div>
+        </header>
+
+        <!-- Dashboard Content -->
+        <div class="dashboard-content" id="dashboardContent">
+          <!-- Quick Actions -->
+          <div class="quick-actions">
+            <a href="#" class="action-btn" onclick="openPredictionModal()">
+              <i class="fas fa-heartbeat"></i>
+              <div class="action-btn-title">New Prediction</div>
+              <div class="action-btn-desc">
+                Run cardiovascular risk analysis
+              </div>
+            </a>
+            <a href="#" class="action-btn" onclick="openDataUpload()">
+              <i class="fas fa-upload"></i>
+              <div class="action-btn-title">Upload Data</div>
+              <div class="action-btn-desc">Import biomarker datasets</div>
+            </a>
+            <a href="#" class="action-btn" onclick="openModelTraining()">
+              <i class="fas fa-cogs"></i>
+              <div class="action-btn-title">Train Model</div>
+              <div class="action-btn-desc">Create custom AI models</div>
+            </a>
+            <a href="#" class="action-btn" onclick="openCollaboration()">
+              <i class="fas fa-handshake"></i>
+              <div class="action-btn-title">Collaborate</div>
+              <div class="action-btn-desc">Share with research team</div>
+            </a>
+          </div>
+
+          <!-- Statistics Cards -->
+          <div class="dashboard-grid">
+            <div class="stat-card">
+              <div class="stat-header">
+                <div class="stat-title">Total Predictions</div>
+                <div class="stat-icon blue">
+                  <i class="fas fa-brain"></i>
+                </div>
+              </div>
+              <div class="stat-value">1,247</div>
+              <div class="stat-change positive">
+                <i class="fas fa-arrow-up"></i>
+                <span>+12.5% from last month</span>
+              </div>
+            </div>
+
+            <div class="stat-card">
+              <div class="stat-header">
+                <div class="stat-title">Model Accuracy</div>
+                <div class="stat-icon green">
+                  <i class="fas fa-bullseye"></i>
+                </div>
+              </div>
+              <div class="stat-value">82.3%</div>
+              <div class="stat-change positive">
+                <i class="fas fa-arrow-up"></i>
+                <span>+2.1% improvement</span>
+              </div>
+            </div>
+
+            <div class="stat-card">
+              <div class="stat-header">
+                <div class="stat-title">Active Projects</div>
+                <div class="stat-icon purple">
+                  <i class="fas fa-project-diagram"></i>
+                </div>
+              </div>
+              <div class="stat-value">8</div>
+              <div class="stat-change positive">
+                <i class="fas fa-arrow-up"></i>
+                <span>2 new projects</span>
+              </div>
+            </div>
+
+            <div class="stat-card">
+              <div class="stat-header">
+                <div class="stat-title">Collaborators</div>
+                <div class="stat-icon orange">
+                  <i class="fas fa-users"></i>
+                </div>
+              </div>
+              <div class="stat-value">24</div>
+              <div class="stat-change positive">
+                <i class="fas fa-arrow-up"></i>
+                <span>+3 this week</span>
+              </div>
+            </div>
+          </div>
+
+          <!-- Charts Section -->
+          <div class="chart-container">
+            <div class="chart-header">
+              <h3 class="chart-title">Prediction Accuracy Trends</h3>
+              <div class="chart-controls">
+                <button class="chart-btn active" onclick="updateChart('7d')">
+                  7D
+                </button>
+                <button class="chart-btn" onclick="updateChart('30d')">
+                  30D
+                </button>
+                <button class="chart-btn" onclick="updateChart('90d')">
+                  90D
+                </button>
+                <button class="chart-btn" onclick="updateChart('1y')">
+                  1Y
+                </button>
+              </div>
+            </div>
+            <canvas id="accuracyChart" width="400" height="200"></canvas>
+          </div>
+
+          <div style="display: grid; grid-template-columns: 2fr 1fr; gap: 2rem">
+            <!-- Data Table -->
+            <div class="data-table">
+              <div class="table-header">
+                <h3 class="table-title">Recent Predictions</h3>
+                <div class="table-search">
+                  <input
+                    type="text"
+                    class="search-input"
+                    placeholder="Search predictions..."
+                    onkeyup="filterTable(this.value)"
+                  />
+                </div>
+              </div>
+              <table id="predictionsTable">
+                <thead>
+                  <tr>
+                    <th>Patient ID</th>
+                    <th>Risk Score</th>
+                    <th>Risk Level</th>
+                    <th>Environment</th>
+                    <th>Date</th>
+                    <th>Status</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  <tr>
+                    <td>AST-001</td>
+                    <td>23.4</td>
+                    <td>
+                      <div class="risk-score">
+                        <div class="risk-indicator risk-low"></div>
+                        Low
+                      </div>
+                    </td>
+                    <td>Space Station</td>
+                    <td>2025-06-28</td>
+                    <td>
+                      <span class="status-badge status-success">Complete</span>
+                    </td>
+                  </tr>
+                  <tr>
+                    <td>AST-002</td>
+                    <td>67.8</td>
+                    <td>
+                      <div class="risk-score">
+                        <div class="risk-indicator risk-high"></div>
+                        High
+                      </div>
+                    </td>
+                    <td>Mars Mission</td>
+                    <td>2025-06-27</td>
+                    <td>
+                      <span class="status-badge status-warning">Review</span>
+                    </td>
+                  </tr>
+                  <tr>
+                    <td>BED-045</td>
+                    <td>41.2</td>
+                    <td>
+                      <div class="risk-score">
+                        <div class="risk-indicator risk-medium"></div>
+                        Medium
+                      </div>
+                    </td>
+                    <td>Bedrest Study</td>
+                    <td>2025-06-26</td>
+                    <td>
+                      <span class="status-badge status-success">Complete</span>
+                    </td>
+                  </tr>
+                  <tr>
+                    <td>CLN-128</td>
+                    <td>18.9</td>
+                    <td>
+                      <div class="risk-score">
+                        <div class="risk-indicator risk-low"></div>
+                        Low
+                      </div>
+                    </td>
+                    <td>Clinical</td>
+                    <td>2025-06-25</td>
+                    <td>
+                      <span class="status-badge status-success">Complete</span>
+                    </td>
+                  </tr>
+                  <tr>
+                    <td>AST-003</td>
+                    <td>55.3</td>
+                    <td>
+                      <div class="risk-score">
+                        <div class="risk-indicator risk-medium"></div>
+                        Medium
+                      </div>
+                    </td>
+                    <td>Lunar Gateway</td>
+                    <td>2025-06-24</td>
+                    <td>
+                      <span class="status-badge status-error">Failed</span>
+                    </td>
+                  </tr>
+                </tbody>
+              </table>
+            </div>
+
+            <!-- Recent Activity -->
+            <div class="recent-activity">
+              <div class="activity-header">
+                <h3 class="activity-title">Recent Activity</h3>
+              </div>
+
+              <div class="activity-item">
+                <div class="activity-icon blue">
+                  <i class="fas fa-upload"></i>
+                </div>
+                <div class="activity-content">
+                  <div class="activity-text">New dataset uploaded: OSD-687</div>
+                  <div class="activity-time">2 hours ago</div>
+                </div>
+              </div>
+
+              <div class="activity-item">
+                <div class="activity-icon green">
+                  <i class="fas fa-check"></i>
+                </div>
+                <div class="activity-content">
+                  <div class="activity-text">Model training completed</div>
+                  <div class="activity-time">4 hours ago</div>
+                </div>
+              </div>
+
+              <div class="activity-item">
+                <div class="activity-icon purple">
+                  <i class="fas fa-users"></i>
+                </div>
+                <div class="activity-content">
+                  <div class="activity-text">
+                    Dr. Smith joined project "Mars-2027"
+                  </div>
+                  <div class="activity-time">1 day ago</div>
+                </div>
+              </div>
+
+              <div class="activity-item">
+                <div class="activity-icon orange">
+                  <i class="fas fa-share"></i>
+                </div>
+                <div class="activity-content">
+                  <div class="activity-text">Results shared with NASA team</div>
+                  <div class="activity-time">2 days ago</div>
+                </div>
+              </div>
+
+              <div class="activity-item">
+                <div class="activity-icon blue">
+                  <i class="fas fa-brain"></i>
+                </div>
+                <div class="activity-content">
+                  <div class="activity-text">50 new predictions generated</div>
+                  <div class="activity-time">3 days ago</div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </main>
+    </div>
+
+    <!-- Prediction Modal -->
+    <div class="modal" id="predictionModal">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h3 class="modal-title">New Cardiovascular Risk Prediction</h3>
+          <button class="modal-close" onclick="closePredictionModal()">
+            <i class="fas fa-times"></i>
+          </button>
+        </div>
+        <form onsubmit="runPrediction(event)">
+          <div class="form-group">
+            <label class="form-label">Patient ID</label>
+            <input
+              type="text"
+              class="form-input"
+              placeholder="Enter patient identifier"
+              required
+            />
+          </div>
+          <div class="form-group">
+            <label class="form-label">Environment</label>
+            <select class="form-input" required>
+              <option value="">Select environment...</option>
+              <option value="space">Space Station</option>
+              <option value="mars">Mars Mission</option>
+              <option value="lunar">Lunar Gateway</option>
+              <option value="bedrest">Bedrest Study</option>
+              <option value="clinical">Clinical Setting</option>
+            </select>
+          </div>
+          <div class="form-group">
+            <label class="form-label">Biomarker Data</label>
+            <textarea
+              class="form-input"
+              rows="4"
+              placeholder="Paste biomarker values (JSON format) or upload file..."
+              required
+            ></textarea>
+          </div>
+          <button type="submit" class="form-button">
+            <i class="fas fa-brain"></i>
+            Run Prediction
+          </button>
+        </form>
+      </div>
+    </div>
+
+    <!-- Scripts -->
+    <script>
+      // Initialize dashboard
+      document.addEventListener("DOMContentLoaded", function () {
+        initializeCharts();
+        initializeNotifications();
+      });
+
+      // Sidebar toggle
+      function toggleSidebar() {
+        const sidebar = document.getElementById("sidebar");
+        const mainContent = document.getElementById("mainContent");
+
+        if (window.innerWidth <= 768) {
+          sidebar.classList.toggle("open");
+        } else {
+          sidebar.classList.toggle("collapsed");
+          mainContent.classList.toggle("expanded");
+        }
+      }
+
+      // Section navigation
+      function showSection(section) {
+        // Update active nav item
+        document.querySelectorAll(".nav-item").forEach((item) => {
+          item.classList.remove("active");
+        });
+        event.target.classList.add("active");
+
+        // Update breadcrumb
+        const breadcrumb = document.querySelector(".breadcrumb .current");
+        breadcrumb.textContent =
+          section.charAt(0).toUpperCase() + section.slice(1);
+
+        // Show appropriate content (in real app, would load different views)
+        console.log(`Navigating to ${section} section`);
+      }
+
+      // Initialize charts
+      function initializeCharts() {
+        const ctx = document.getElementById("accuracyChart").getContext("2d");
+
+        window.accuracyChart = new Chart(ctx, {
+          type: "line",
+          data: {
+            labels: [
+              "Jun 21",
+              "Jun 22",
+              "Jun 23",
+              "Jun 24",
+              "Jun 25",
+              "Jun 26",
+              "Jun 27",
+              "Jun 28",
+            ],
+            datasets: [
+              {
+                label: "Model Accuracy",
+                data: [78.2, 79.1, 80.4, 81.2, 81.8, 82.1, 82.3, 82.3],
+                borderColor: "#3b82f6",
+                backgroundColor: "rgba(59, 130, 246, 0.1)",
+                borderWidth: 3,
+                fill: true,
+                tension: 0.4,
+              },
+            ],
+          },
+          options: {
+            responsive: true,
+            maintainAspectRatio: false,
+            plugins: {
+              legend: {
+                display: false,
+              },
+            },
+            scales: {
+              y: {
+                beginAtZero: false,
+                min: 75,
+                max: 85,
+                grid: {
+                  color: "#f3f4f6",
+                },
+              },
+              x: {
+                grid: {
+                  color: "#f3f4f6",
+                },
+              },
+            },
+          },
+        });
+      }
+
+      // Update chart data
+      function updateChart(period) {
+        // Update chart button states
+        document.querySelectorAll(".chart-btn").forEach((btn) => {
+          btn.classList.remove("active");
+        });
+        event.target.classList.add("active");
+
+        // Update chart data based on period
+        let data, labels;
+        switch (period) {
+          case "7d":
+            labels = [
+              "Jun 21",
+              "Jun 22",
+              "Jun 23",
+              "Jun 24",
+              "Jun 25",
+              "Jun 26",
+              "Jun 27",
+              "Jun 28",
+            ];
+            data = [78.2, 79.1, 80.4, 81.2, 81.8, 82.1, 82.3, 82.3];
+            break;
+          case "30d":
+            labels = ["May 29", "Jun 5", "Jun 12", "Jun 19", "Jun 26"];
+            data = [75.4, 77.8, 79.2, 81.1, 82.3];
+            break;
+          case "90d":
+            labels = ["Apr", "May", "Jun"];
+            data = [72.1, 76.8, 82.3];
+            break;
+          case "1y":
+            labels = ["Q2 2024", "Q3 2024", "Q4 2024", "Q1 2025", "Q2 2025"];
+            data = [68.5, 71.2, 74.6, 78.1, 82.3];
+            break;
+        }
+
+        window.accuracyChart.data.labels = labels;
+        window.accuracyChart.data.datasets[0].data = data;
+        window.accuracyChart.update();
+      }
+
+      // Filter table
+      function filterTable(searchTerm) {
+        const table = document.getElementById("predictionsTable");
+        const rows = table.getElementsByTagName("tr");
+
+        for (let i = 1; i < rows.length; i++) {
+          const row = rows[i];
+          const cells = row.getElementsByTagName("td");
+          let found = false;
+
+          for (let j = 0; j < cells.length; j++) {
+            if (
+              cells[j].textContent
+                .toLowerCase()
+                .includes(searchTerm.toLowerCase())
+            ) {
+              found = true;
+              break;
+            }
+          }
+
+          row.style.display = found ? "" : "none";
+        }
+      }
+
+      // Prediction modal
+      function openPredictionModal() {
+        document.getElementById("predictionModal").classList.add("show");
+      }
+
+      function closePredictionModal() {
+        document.getElementById("predictionModal").classList.remove("show");
+      }
+
+      function runPrediction(event) {
+        event.preventDefault();
+
+        // Show loading state
+        const button = event.target.querySelector(".form-button");
+        const originalText = button.innerHTML;
+        button.innerHTML =
+          '<i class="fas fa-spinner fa-spin"></i> Processing...';
+        button.disabled = true;
+
+        // Simulate prediction
+        setTimeout(() => {
+          alert("Prediction completed! Risk score: 34.7 (Low Risk)");
+          closePredictionModal();
+          button.innerHTML = originalText;
+          button.disabled = false;
+          event.target.reset();
+        }, 3000);
+      }
+
+      // Quick action handlers
+      function openDataUpload() {
+        alert("Data upload functionality would open here");
+      }
+
+      function openModelTraining() {
+        alert("Model training interface would open here");
+      }
+
+      function openCollaboration() {
+        alert("Collaboration tools would open here");
+      }
+
+      // Notifications
+      function initializeNotifications() {
+        // Initialize notification system
+      }
+
+      function showNotifications() {
+        alert(
+          "Notifications:\n\n• New dataset available: OSD-689\n• Model training completed\n• Collaboration request from Dr. Johnson"
+        );
+      }
+
+      function showUserMenu() {
+        alert("User menu would show profile options, settings, and logout");
+      }
+
+      // Responsive handling
+      window.addEventListener("resize", function () {
+        if (window.innerWidth > 768) {
+          document.getElementById("sidebar").classList.remove("open");
+        }
+      });
+
+      // Auto-refresh data (simulate)
+      setInterval(() => {
+        // Update statistics or refresh data
+        console.log("Auto-refreshing dashboard data...");
+      }, 30000);
+    </script>
+  </body>
+</html>
