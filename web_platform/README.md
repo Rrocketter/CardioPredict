@@ -59,16 +59,19 @@ web_platform/
 ### Installation
 
 1. Clone the repository and navigate to the web platform:
+
 ```bash
 cd CardioPredict/web_platform
 ```
 
 2. Install dependencies:
+
 ```bash
 pip install -r requirements.txt
 ```
 
 3. Run the development server:
+
 ```bash
 python app.py
 ```
@@ -88,6 +91,7 @@ gunicorn -w 4 -b 0.0.0.0:8080 app:app
 Our system has been rigorously validated through:
 
 1. **NASA OSDR Datasets**:
+
    - OSD-258: SpaceX Inspiration4 RNA-seq data
    - OSD-484: Cardiac gene expression studies
    - OSD-575: Comprehensive metabolic panels
@@ -95,6 +99,7 @@ Our system has been rigorously validated through:
    - OSD-635: Bulk RNA-seq validation data
 
 2. **Cross-Domain Validation**:
+
    - Published 14-day and 84-day bedrest studies
    - Hospital patient simulation
    - Space mission to Earth analog transfer learning
@@ -119,7 +124,7 @@ Our system has been rigorously validated through:
 import requests
 
 # Predict cardiovascular risk
-response = requests.post('http://localhost:8080/api/predict', 
+response = requests.post('http://localhost:8080/api/predict',
                         json={'biomarkers': biomarker_data})
 risk_assessment = response.json()
 ```

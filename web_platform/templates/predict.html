@@ -1,0 +1,362 @@
+{% extends "base.html" %} {% block title %}CV Risk Prediction - CardioPredict{%
+endblock %} {% block content %}
+<div class="container py-4">
+  <!-- Header -->
+  <div class="row mb-4">
+    <div class="col-12">
+      <h1 class="h2 mb-1">
+        <i class="fas fa-calculator me-2 text-primary"></i>
+        Cardiovascular Risk Prediction
+      </h1>
+      <p class="text-muted mb-0">
+        Enter biomarker values and patient parameters for AI-powered risk
+        assessment
+      </p>
+    </div>
+  </div>
+
+  {% if prediction %}
+  <!-- Prediction Results -->
+  <div class="row mb-4">
+    <div class="col-12">
+      <div class="card risk-score-card border-{{ prediction.risk_color }}">
+        <div class="card-body text-center">
+          <div class="row align-items-center">
+            <div class="col-md-4">
+              <div
+                class="risk-score-display risk-{{ prediction.risk_category.lower() }}"
+              >
+                {{ "%.1f"|format(prediction.cv_risk_score) }}
+              </div>
+              <div class="risk-category text-{{ prediction.risk_color }}">
+                {{ prediction.risk_category }} Risk
+              </div>
+              <div class="mt-2">
+                <span
+                  class="badge bg-{{ prediction.risk_color }} bg-opacity-10 text-{{ prediction.risk_color }}"
+                >
+                  Confidence: {{ "%.0f"|format(prediction.confidence * 100) }}%
+                </span>
+              </div>
+            </div>
+
+            <div class="col-md-8 text-start">
+              <h5 class="fw-bold mb-3">Clinical Recommendations</h5>
+              <div class="recommendations">
+                {% for recommendation in prediction.recommendations %}
+                <div class="recommendation-item">
+                  <i
+                    class="fas fa-{{ 'exclamation-triangle' if loop.index <= 2 else 'info-circle' }} me-2 text-{{ prediction.risk_color }}"
+                  ></i>
+                  {{ recommendation }}
+                </div>
+                {% endfor %}
+              </div>
+
+              <div class="mt-3 text-muted">
+                <small>
+                  <i class="fas fa-clock me-1"></i>
+                  Generated: {{ prediction.timestamp }}
+                </small>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+  {% endif %}
+
+  <!-- Prediction Form -->
+  <div class="row">
+    <div class="col-12">
+      <div class="card">
+        <div class="card-header">
+          <h5 class="mb-0">
+            <i class="fas fa-user-md me-2"></i>
+            Patient Biomarker Input {% if prediction %}
+            <span class="badge bg-success ms-2">Prediction Complete</span>
+            {% endif %}
+          </h5>
+        </div>
+        <div class="card-body">
+          {% if error %}
+          <div class="alert alert-danger" role="alert">
+            <i class="fas fa-exclamation-triangle me-2"></i>
+            {{ error }}
+          </div>
+          {% endif %}
+
+          <form
+            method="POST"
+            id="predictForm"
+            class="needs-validation"
+            novalidate
+          >
+            <div class="feature-grid">
+              {% for feature in features %}
+              <div class="mb-3">
+                <label for="{{ feature }}" class="form-label">
+                  {{ feature.replace('_', ' ').title() }}
+                  <i
+                    class="fas fa-question-circle text-muted ms-1"
+                    data-bs-toggle="tooltip"
+                    data-bs-placement="top"
+                    title="Enter measured biomarker value"
+                  ></i>
+                </label>
+                <div class="input-group">
+                  {% if feature.endswith('_zscore') %}
+                  <span class="input-group-text">Z</span>
+                  {% elif 'mg_dl' in feature %}
+                  <span class="input-group-text">mg/dL</span>
+                  {% elif feature == 'CRP' %}
+                  <span class="input-group-text">ng/mL</span>
+                  {% elif feature in ['PF4', 'SAP', 'Haptoglobin'] %}
+                  <span class="input-group-text">pg/mL</span>
+                  {% else %}
+                  <span class="input-group-text">Units</span>
+                  {% endif %}
+
+                  <input
+                    type="number"
+                    class="form-control biomarker-input"
+                    id="{{ feature }}"
+                    name="{{ feature }}"
+                    step="{{ '0.1' if '_zscore' in feature or feature == 'Fibrinogen_mg_dl' else '1' }}"
+                    min="0"
+                    value="{{ form_data.get(feature, '') if form_data else '' }}"
+                    placeholder="Enter {{ feature.replace('_', ' ').lower() }} value"
+                    data-bs-toggle="tooltip"
+                    data-bs-placement="top"
+                    title="Enter measured biomarker value"
+                  />
+                </div>
+                <div class="form-text">
+                  Normal ranges vary by biomarker - consult reference values
+                </div>
+              </div>
+              {% endfor %}
+            </div>
+
+            <div class="d-flex justify-content-between align-items-center mt-4">
+              <div>
+                <button type="reset" class="btn btn-outline-secondary me-2">
+                  <i class="fas fa-undo me-2"></i>
+                  Reset Form
+                </button>
+                <button
+                  type="button"
+                  class="btn btn-outline-info"
+                  onclick="fillSampleData()"
+                >
+                  <i class="fas fa-vial me-2"></i>
+                  Load Sample Data
+                </button>
+              </div>
+
+              <div>
+                <button type="submit" class="btn btn-primary btn-lg px-4">
+                  <i class="fas fa-brain me-2"></i>
+                  Calculate Risk
+                </button>
+              </div>
+            </div>
+          </form>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Model Information -->
+  <div class="row mt-4">
+    <div class="col-12">
+      <div class="card bg-light">
+        <div class="card-body">
+          <h6 class="fw-bold mb-3">
+            <i class="fas fa-info-circle me-2"></i>
+            Model Information
+          </h6>
+          <div class="row g-3">
+            <div class="col-md-3">
+              <div class="text-center">
+                <div class="h5 text-primary fw-bold">85.7%</div>
+                <small class="text-muted">Model Accuracy</small>
+              </div>
+            </div>
+            <div class="col-md-3">
+              <div class="text-center">
+                <div class="h5 text-success fw-bold">{{ features|length }}</div>
+                <small class="text-muted">Biomarkers Used</small>
+              </div>
+            </div>
+            <div class="col-md-3">
+              <div class="text-center">
+                <div class="h5 text-info fw-bold">1,247</div>
+                <small class="text-muted">Training Samples</small>
+              </div>
+            </div>
+            <div class="col-md-3">
+              <div class="text-center">
+                <div class="h5 text-warning fw-bold">Cross-Val</div>
+                <small class="text-muted">Validation Method</small>
+              </div>
+            </div>
+          </div>
+
+          <div class="mt-3">
+            <small class="text-muted">
+              <i class="fas fa-shield-alt me-1"></i>
+              This model has been validated on NASA OSDR datasets and bedrest
+              studies. Results should be interpreted by qualified medical
+              personnel.
+            </small>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+{% endblock %} {% block extra_scripts %}
+<script>
+  // Feature descriptions for tooltips
+  const featureDescriptions = {
+    CRP: "C-Reactive Protein - Inflammatory marker (normal: <3,000 ng/mL)",
+    PF4: "Platelet Factor 4 - Thrombotic risk marker (normal: 8,000-15,000 pg/mL)",
+    SAP: "Serum Amyloid P - Acute phase protein (normal: 20,000-50,000 pg/mL)",
+    Fibrinogen_mg_dl: "Fibrinogen - Clotting factor (normal: 200-400 mg/dL)",
+    Haptoglobin:
+      "Haptoglobin - Hemoglobin-binding protein (normal: 30,000-200,000 pg/mL)",
+    AGP_Change_From_Baseline: "Alpha-1 Acid Glycoprotein change from baseline",
+    PF4_Change_From_Baseline: "PF4 change from baseline values",
+    CRP_zscore: "CRP Z-score (standardized value)",
+    PF4_zscore: "PF4 Z-score (standardized value)",
+    SAP_zscore: "SAP Z-score (standardized value)",
+  };
+
+  function get_feature_description(feature) {
+    return featureDescriptions[feature] || "Enter measured biomarker value";
+  }
+
+  function get_normal_range(feature) {
+    const ranges = {
+      CRP: "Normal: <3,000 ng/mL",
+      PF4: "Normal: 8,000-15,000 pg/mL",
+      SAP: "Normal: 20,000-50,000 pg/mL",
+      Fibrinogen_mg_dl: "Normal: 200-400 mg/dL",
+      Haptoglobin: "Normal: 30,000-200,000 pg/mL",
+      AGP_Change_From_Baseline: "Change from baseline (%)",
+      PF4_Change_From_Baseline: "Change from baseline (%)",
+      CRP_zscore: "Z-score: typically -2 to +2",
+      PF4_zscore: "Z-score: typically -2 to +2",
+      SAP_zscore: "Z-score: typically -2 to +2",
+    };
+    return ranges[feature] || "Consult reference ranges";
+  }
+
+  function fillSampleData() {
+    // Sample data representing a moderate risk patient
+    const sampleValues = {
+      CRP: 15000000,
+      PF4: 12000,
+      SAP: 35000,
+      Fibrinogen_mg_dl: 350,
+      Haptoglobin: 85000,
+      AGP_Change_From_Baseline: 15,
+      PF4_Change_From_Baseline: 25,
+      CRP_zscore: 1.2,
+      PF4_zscore: 0.8,
+      SAP_zscore: 0.5,
+    };
+
+    Object.entries(sampleValues).forEach(([feature, value]) => {
+      const input = document.getElementById(feature);
+      if (input) {
+        input.value = value;
+        input.classList.add("is-valid");
+      }
+    });
+
+    CardioPredict.showNotification(
+      "Sample data loaded successfully!",
+      "success"
+    );
+  }
+
+  document.addEventListener("DOMContentLoaded", function () {
+    // Enhanced form validation
+    const form = document.getElementById("predictForm");
+    const inputs = form.querySelectorAll('input[type="number"]');
+
+    inputs.forEach((input) => {
+      input.addEventListener("input", function () {
+        validateBiomarkerInput(this);
+      });
+    });
+
+    function validateBiomarkerInput(input) {
+      const value = parseFloat(input.value);
+      const feature = input.id;
+
+      input.classList.remove("is-valid", "is-invalid");
+
+      if (isNaN(value) || value < 0) {
+        if (input.value !== "") {
+          input.classList.add("is-invalid");
+        }
+        return;
+      }
+
+      // Feature-specific validation
+      let isValid = true;
+
+      if (feature.includes("zscore")) {
+        isValid = value >= -5 && value <= 5;
+      } else if (feature === "CRP") {
+        isValid = value <= 50000000; // Reasonable upper limit
+      } else if (feature === "Fibrinogen_mg_dl") {
+        isValid = value <= 1000;
+      }
+
+      if (isValid) {
+        input.classList.add("is-valid");
+      } else {
+        input.classList.add("is-invalid");
+      }
+    }
+
+    // Form submission handling
+    form.addEventListener("submit", function (e) {
+      const submitBtn = this.querySelector('button[type="submit"]');
+
+      if (this.checkValidity()) {
+        submitBtn.innerHTML =
+          '<i class="fas fa-spinner fa-spin me-2"></i>Calculating...';
+        submitBtn.disabled = true;
+      } else {
+        e.preventDefault();
+        e.stopPropagation();
+        CardioPredict.showNotification(
+          "Please check your input values",
+          "warning"
+        );
+      }
+
+      this.classList.add("was-validated");
+    });
+  });
+
+  // Initialize tooltips with proper descriptions
+  document.addEventListener("DOMContentLoaded", function () {
+    // Update all tooltip descriptions
+    document
+      .querySelectorAll('[data-bs-toggle="tooltip"]')
+      .forEach((tooltip) => {
+        const feature = tooltip.closest(".mb-3").querySelector("input").id;
+        if (feature && featureDescriptions[feature]) {
+          tooltip.setAttribute("title", featureDescriptions[feature]);
+        }
+      });
+  });
+</script>
+{% endblock %}

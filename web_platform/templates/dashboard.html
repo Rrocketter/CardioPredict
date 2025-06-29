@@ -1109,6 +1109,7 @@
             <label class="form-label">Patient ID</label>
             <input
               type="text"
+              name="patient_id"
               class="form-input"
               placeholder="Enter patient identifier"
               required
@@ -1116,7 +1117,7 @@
           </div>
           <div class="form-group">
             <label class="form-label">Environment</label>
-            <select class="form-input" required>
+            <select name="environment" class="form-input" required>
               <option value="">Select environment...</option>
               <option value="space">Space Station</option>
               <option value="mars">Mars Mission</option>
@@ -1128,9 +1129,10 @@
           <div class="form-group">
             <label class="form-label">Biomarker Data</label>
             <textarea
+              name="biomarker_data"
               class="form-input"
               rows="4"
-              placeholder="Paste biomarker values (JSON format) or upload file..."
+              placeholder="Enter biomarker values (JSON format) or comma-separated values..."
               required
             ></textarea>
           </div>
@@ -1144,11 +1146,84 @@
 
     <!-- Scripts -->
     <script>
+      // Global variables
+      let currentUser = {
+        name: "{{ user.name if user else 'Dr. Research User' }}",
+        role: "{{ user.role if user else 'Principal Investigator' }}",
+        organization:
+          "{{ user.organization if user else 'Research University' }}",
+      };
+
+      let dashboardData = {
+        stats: {
+          total_predictions: 1247,
+          model_accuracy: 82.3,
+          active_projects: 8,
+          collaborators: 24,
+        },
+      };
+
       // Initialize dashboard
       document.addEventListener("DOMContentLoaded", function () {
         initializeCharts();
         initializeNotifications();
+        loadDashboardStats();
+        startAutoRefresh();
       });
+
+      // Load dashboard statistics
+      async function loadDashboardStats() {
+        try {
+          const response = await fetch("/api/dashboard/stats");
+          const stats = await response.json();
+
+          if (response.ok) {
+            updateStatCards(stats);
+          } else {
+            console.error("Failed to load stats:", stats.error);
+          }
+        } catch (error) {
+          console.error("Error loading dashboard stats:", error);
+        }
+      }
+
+      // Update statistics cards
+      function updateStatCards(stats) {
+        const cards = document.querySelectorAll(".stat-card");
+
+        if (cards[0]) {
+          cards[0].querySelector(".stat-value").textContent =
+            stats.total_predictions.toLocaleString();
+          cards[0].querySelector(
+            ".stat-change span"
+          ).textContent = `+${stats.predictions_change}% from last month`;
+        }
+
+        if (cards[1]) {
+          cards[1].querySelector(
+            ".stat-value"
+          ).textContent = `${stats.model_accuracy}%`;
+          cards[1].querySelector(
+            ".stat-change span"
+          ).textContent = `+${stats.accuracy_change}% improvement`;
+        }
+
+        if (cards[2]) {
+          cards[2].querySelector(".stat-value").textContent =
+            stats.active_projects;
+          cards[2].querySelector(
+            ".stat-change span"
+          ).textContent = `${stats.projects_change} new projects`;
+        }
+
+        if (cards[3]) {
+          cards[3].querySelector(".stat-value").textContent =
+            stats.collaborators;
+          cards[3].querySelector(
+            ".stat-change span"
+          ).textContent = `+${stats.collaborators_change} this week`;
+        }
+      }
 
       // Sidebar toggle
       function toggleSidebar() {
@@ -1163,7 +1238,7 @@
         }
       }
 
-      // Section navigation
+      // Section navigation with real content switching
       function showSection(section) {
         // Update active nav item
         document.querySelectorAll(".nav-item").forEach((item) => {
@@ -1176,13 +1251,497 @@
         breadcrumb.textContent =
           section.charAt(0).toUpperCase() + section.slice(1);
 
-        // Show appropriate content (in real app, would load different views)
-        console.log(`Navigating to ${section} section`);
+        // Load section content
+        loadSectionContent(section);
+      }
+
+      // Load different section content
+      async function loadSectionContent(section) {
+        const content = document.getElementById("dashboardContent");
+
+        // Show loading state
+        content.innerHTML = `
+          <div style="display: flex; justify-content: center; align-items: center; height: 400px;">
+            <div style="text-align: center;">
+              <i class="fas fa-spinner fa-spin" style="font-size: 2rem; color: #3b82f6; margin-bottom: 1rem;"></i>
+              <p>Loading ${section}...</p>
+            </div>
+          </div>
+        `;
+
+        // Simulate loading delay
+        await new Promise((resolve) => setTimeout(resolve, 1000));
+
+        switch (section) {
+          case "dashboard":
+            loadDashboardView();
+            break;
+          case "analytics":
+            loadAnalyticsView();
+            break;
+          case "predictions":
+            loadPredictionsView();
+            break;
+          case "datasets":
+            loadDatasetsView();
+            break;
+          case "models":
+            loadModelsView();
+            break;
+          default:
+            loadDefaultView(section);
+        }
+      }
+
+      // Load main dashboard view
+      function loadDashboardView() {
+        const content = document.getElementById("dashboardContent");
+        content.innerHTML = `
+          <!-- Quick Actions -->
+          <div class="quick-actions">
+            <a href="#" class="action-btn" onclick="openPredictionModal()">
+              <i class="fas fa-heartbeat"></i>
+              <div class="action-btn-title">New Prediction</div>
+              <div class="action-btn-desc">Run cardiovascular risk analysis</div>
+            </a>
+            <a href="#" class="action-btn" onclick="openDataUpload()">
+              <i class="fas fa-upload"></i>
+              <div class="action-btn-title">Upload Data</div>
+              <div class="action-btn-desc">Import biomarker datasets</div>
+            </a>
+            <a href="#" class="action-btn" onclick="openModelTraining()">
+              <i class="fas fa-cogs"></i>
+              <div class="action-btn-title">Train Model</div>
+              <div class="action-btn-desc">Create custom AI models</div>
+            </a>
+            <a href="#" class="action-btn" onclick="openCollaboration()">
+              <i class="fas fa-handshake"></i>
+              <div class="action-btn-title">Collaborate</div>
+              <div class="action-btn-desc">Share with research team</div>
+            </a>
+          </div>
+
+          <!-- Statistics Cards -->
+          <div class="dashboard-grid">
+            <div class="stat-card">
+              <div class="stat-header">
+                <div class="stat-title">Total Predictions</div>
+                <div class="stat-icon blue">
+                  <i class="fas fa-brain"></i>
+                </div>
+              </div>
+              <div class="stat-value">1,247</div>
+              <div class="stat-change positive">
+                <i class="fas fa-arrow-up"></i>
+                <span>+12.5% from last month</span>
+              </div>
+            </div>
+
+            <div class="stat-card">
+              <div class="stat-header">
+                <div class="stat-title">Model Accuracy</div>
+                <div class="stat-icon green">
+                  <i class="fas fa-bullseye"></i>
+                </div>
+              </div>
+              <div class="stat-value">82.3%</div>
+              <div class="stat-change positive">
+                <i class="fas fa-arrow-up"></i>
+                <span>+2.1% improvement</span>
+              </div>
+            </div>
+
+            <div class="stat-card">
+              <div class="stat-header">
+                <div class="stat-title">Active Projects</div>
+                <div class="stat-icon purple">
+                  <i class="fas fa-project-diagram"></i>
+                </div>
+              </div>
+              <div class="stat-value">8</div>
+              <div class="stat-change positive">
+                <i class="fas fa-arrow-up"></i>
+                <span>2 new projects</span>
+              </div>
+            </div>
+
+            <div class="stat-card">
+              <div class="stat-header">
+                <div class="stat-title">Collaborators</div>
+                <div class="stat-icon orange">
+                  <i class="fas fa-users"></i>
+                </div>
+              </div>
+              <div class="stat-value">24</div>
+              <div class="stat-change positive">
+                <i class="fas fa-arrow-up"></i>
+                <span>+3 this week</span>
+              </div>
+            </div>
+          </div>
+
+          <!-- Charts Section -->
+          <div class="chart-container">
+            <div class="chart-header">
+              <h3 class="chart-title">Prediction Accuracy Trends</h3>
+              <div class="chart-controls">
+                <button class="chart-btn active" onclick="updateChart('7d')">7D</button>
+                <button class="chart-btn" onclick="updateChart('30d')">30D</button>
+                <button class="chart-btn" onclick="updateChart('90d')">90D</button>
+                <button class="chart-btn" onclick="updateChart('1y')">1Y</button>
+              </div>
+            </div>
+            <canvas id="accuracyChart" width="400" height="200"></canvas>
+          </div>
+
+          <div style="display: grid; grid-template-columns: 2fr 1fr; gap: 2rem">
+            <!-- Data Table -->
+            <div class="data-table">
+              <div class="table-header">
+                <h3 class="table-title">Recent Predictions</h3>
+                <div class="table-search">
+                  <input
+                    type="text"
+                    class="search-input"
+                    placeholder="Search predictions..."
+                    onkeyup="filterTable(this.value)"
+                  />
+                </div>
+              </div>
+              <table id="predictionsTable">
+                <thead>
+                  <tr>
+                    <th>Patient ID</th>
+                    <th>Risk Score</th>
+                    <th>Risk Level</th>
+                    <th>Environment</th>
+                    <th>Date</th>
+                    <th>Status</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  <tr>
+                    <td>AST-001</td>
+                    <td>23.4</td>
+                    <td>
+                      <div class="risk-score">
+                        <div class="risk-indicator risk-low"></div>
+                        Low
+                      </div>
+                    </td>
+                    <td>Space Station</td>
+                    <td>2025-06-28</td>
+                    <td><span class="status-badge status-success">Complete</span></td>
+                  </tr>
+                  <tr>
+                    <td>AST-002</td>
+                    <td>67.8</td>
+                    <td>
+                      <div class="risk-score">
+                        <div class="risk-indicator risk-high"></div>
+                        High
+                      </div>
+                    </td>
+                    <td>Mars Mission</td>
+                    <td>2025-06-27</td>
+                    <td><span class="status-badge status-warning">Review</span></td>
+                  </tr>
+                  <tr>
+                    <td>BED-045</td>
+                    <td>41.2</td>
+                    <td>
+                      <div class="risk-score">
+                        <div class="risk-indicator risk-medium"></div>
+                        Medium
+                      </div>
+                    </td>
+                    <td>Bedrest Study</td>
+                    <td>2025-06-26</td>
+                    <td><span class="status-badge status-success">Complete</span></td>
+                  </tr>
+                </tbody>
+              </table>
+            </div>
+
+            <!-- Recent Activity -->
+            <div class="recent-activity">
+              <div class="activity-header">
+                <h3 class="activity-title">Recent Activity</h3>
+              </div>
+              <div class="activity-item">
+                <div class="activity-icon blue">
+                  <i class="fas fa-upload"></i>
+                </div>
+                <div class="activity-content">
+                  <div class="activity-text">New dataset uploaded: OSD-687</div>
+                  <div class="activity-time">2 hours ago</div>
+                </div>
+              </div>
+              <div class="activity-item">
+                <div class="activity-icon green">
+                  <i class="fas fa-check"></i>
+                </div>
+                <div class="activity-content">
+                  <div class="activity-text">Model training completed</div>
+                  <div class="activity-time">4 hours ago</div>
+                </div>
+              </div>
+              <div class="activity-item">
+                <div class="activity-icon purple">
+                  <i class="fas fa-users"></i>
+                </div>
+                <div class="activity-content">
+                  <div class="activity-text">Dr. Smith joined project "Mars-2027"</div>
+                  <div class="activity-time">1 day ago</div>
+                </div>
+              </div>
+            </div>
+          </div>
+        `;
+
+        // Reinitialize charts after loading content
+        setTimeout(() => {
+          initializeCharts();
+          loadDashboardStats();
+        }, 100);
+      }
+
+      // Load analytics view
+      function loadAnalyticsView() {
+        const content = document.getElementById("dashboardContent");
+        content.innerHTML = `
+          <div class="dashboard-grid">
+            <div class="stat-card">
+              <div class="stat-header">
+                <div class="stat-title">Model Performance</div>
+                <div class="stat-icon blue">
+                  <i class="fas fa-chart-line"></i>
+                </div>
+              </div>
+              <div class="stat-value">82.3%</div>
+              <div class="stat-change positive">
+                <i class="fas fa-arrow-up"></i>
+                <span>ElasticNet R² Score</span>
+              </div>
+            </div>
+            
+            <div class="stat-card">
+              <div class="stat-header">
+                <div class="stat-title">Cross Validation</div>
+                <div class="stat-icon green">
+                  <i class="fas fa-check-double"></i>
+                </div>
+              </div>
+              <div class="stat-value">85.2%</div>
+              <div class="stat-change positive">
+                <i class="fas fa-arrow-up"></i>
+                <span>Bedrest Studies</span>
+              </div>
+            </div>
+            
+            <div class="stat-card">
+              <div class="stat-header">
+                <div class="stat-title">Biomarkers</div>
+                <div class="stat-icon purple">
+                  <i class="fas fa-dna"></i>
+                </div>
+              </div>
+              <div class="stat-value">45</div>
+              <div class="stat-change positive">
+                <i class="fas fa-arrow-up"></i>
+                <span>Features Analyzed</span>
+              </div>
+            </div>
+          </div>
+          
+          <div class="chart-container">
+            <div class="chart-header">
+              <h3 class="chart-title">Model Comparison</h3>
+            </div>
+            <div style="padding: 2rem; text-align: center;">
+              <p style="color: #6b7280;">Advanced analytics dashboard coming soon...</p>
+              <p style="color: #6b7280;">Will include model comparison, feature importance, and performance metrics.</p>
+            </div>
+          </div>
+        `;
+      }
+
+      // Load predictions view
+      function loadPredictionsView() {
+        const content = document.getElementById("dashboardContent");
+        content.innerHTML = `
+          <div class="quick-actions">
+            <a href="#" class="action-btn" onclick="openPredictionModal()">
+              <i class="fas fa-heartbeat"></i>
+              <div class="action-btn-title">New Prediction</div>
+              <div class="action-btn-desc">Run cardiovascular risk analysis</div>
+            </a>
+            <a href="#" class="action-btn" onclick="showBatchPrediction()">
+              <i class="fas fa-layer-group"></i>
+              <div class="action-btn-title">Batch Processing</div>
+              <div class="action-btn-desc">Process multiple patients</div>
+            </a>
+          </div>
+          
+          <div class="data-table">
+            <div class="table-header">
+              <h3 class="table-title">All Predictions</h3>
+              <div class="table-search">
+                <input type="text" class="search-input" placeholder="Search predictions..." />
+              </div>
+            </div>
+            <div style="padding: 2rem; text-align: center;">
+              <p style="color: #6b7280;">Prediction history and management interface coming soon...</p>
+            </div>
+          </div>
+        `;
+      }
+
+      // Load datasets view
+      function loadDatasetsView() {
+        const content = document.getElementById("dashboardContent");
+        content.innerHTML = `
+          <div class="dashboard-grid">
+            <div class="stat-card">
+              <div class="stat-header">
+                <div class="stat-title">NASA OSDR Datasets</div>
+                <div class="stat-icon blue">
+                  <i class="fas fa-rocket"></i>
+                </div>
+              </div>
+              <div class="stat-value">5</div>
+              <div class="stat-change positive">
+                <i class="fas fa-check"></i>
+                <span>Active datasets</span>
+              </div>
+            </div>
+            
+            <div class="stat-card">
+              <div class="stat-header">
+                <div class="stat-title">Total Subjects</div>
+                <div class="stat-icon green">
+                  <i class="fas fa-users"></i>
+                </div>
+              </div>
+              <div class="stat-value">148</div>
+              <div class="stat-change positive">
+                <i class="fas fa-arrow-up"></i>
+                <span>Space + Bedrest</span>
+              </div>
+            </div>
+          </div>
+          
+          <div class="data-table">
+            <div class="table-header">
+              <h3 class="table-title">Available Datasets</h3>
+            </div>
+            <table>
+              <thead>
+                <tr>
+                  <th>Dataset ID</th>
+                  <th>Type</th>
+                  <th>Subjects</th>
+                  <th>Status</th>
+                  <th>Last Updated</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr>
+                  <td>OSD-258</td>
+                  <td>SpaceX Inspiration4 RNA-seq</td>
+                  <td>4</td>
+                  <td><span class="status-badge status-success">Active</span></td>
+                  <td>2025-06-28</td>
+                </tr>
+                <tr>
+                  <td>OSD-484</td>
+                  <td>Cardiac Gene Expression</td>
+                  <td>24</td>
+                  <td><span class="status-badge status-success">Active</span></td>
+                  <td>2025-06-27</td>
+                </tr>
+                <tr>
+                  <td>OSD-575</td>
+                  <td>Metabolic Panel</td>
+                  <td>52</td>
+                  <td><span class="status-badge status-success">Active</span></td>
+                  <td>2025-06-26</td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+        `;
+      }
+
+      // Load models view
+      function loadModelsView() {
+        const content = document.getElementById("dashboardContent");
+        content.innerHTML = `
+          <div class="dashboard-grid">
+            <div class="stat-card">
+              <div class="stat-header">
+                <div class="stat-title">Clinical Model</div>
+                <div class="stat-icon blue">
+                  <i class="fas fa-stethoscope"></i>
+                </div>
+              </div>
+              <div class="stat-value">ElasticNet</div>
+              <div class="stat-change positive">
+                <i class="fas fa-check"></i>
+                <span>82% Accuracy</span>
+              </div>
+            </div>
+            
+            <div class="stat-card">
+              <div class="stat-header">
+                <div class="stat-title">Research Model</div>
+                <div class="stat-icon green">
+                  <i class="fas fa-flask"></i>
+                </div>
+              </div>
+              <div class="stat-value">Ensemble</div>
+              <div class="stat-change positive">
+                <i class="fas fa-check"></i>
+                <span>99.9% R²</span>
+              </div>
+            </div>
+          </div>
+          
+          <div class="data-table">
+            <div class="table-header">
+              <h3 class="table-title">Model Performance</h3>
+            </div>
+            <div style="padding: 2rem; text-align: center;">
+              <p style="color: #6b7280;">Model management and comparison interface coming soon...</p>
+            </div>
+          </div>
+        `;
+      }
+
+      // Default view for other sections
+      function loadDefaultView(section) {
+        const content = document.getElementById("dashboardContent");
+        content.innerHTML = `
+          <div style="text-align: center; padding: 4rem;">
+            <i class="fas fa-cog fa-3x" style="color: #d1d5db; margin-bottom: 2rem;"></i>
+            <h3 style="color: #6b7280; margin-bottom: 1rem;">${
+              section.charAt(0).toUpperCase() + section.slice(1)
+            } Section</h3>
+            <p style="color: #9ca3af;">This section is under development and will be available soon.</p>
+          </div>
+        `;
       }
 
       // Initialize charts
       function initializeCharts() {
-        const ctx = document.getElementById("accuracyChart").getContext("2d");
+        const chartElement = document.getElementById("accuracyChart");
+        if (!chartElement) return;
+
+        const ctx = chartElement.getContext("2d");
+
+        if (window.accuracyChart) {
+          window.accuracyChart.destroy();
+        }
 
         window.accuracyChart = new Chart(ctx, {
           type: "line",
@@ -1236,15 +1795,34 @@
         });
       }
 
-      // Update chart data
-      function updateChart(period) {
+      // Update chart data with API call
+      async function updateChart(period) {
         // Update chart button states
         document.querySelectorAll(".chart-btn").forEach((btn) => {
           btn.classList.remove("active");
         });
         event.target.classList.add("active");
 
-        // Update chart data based on period
+        try {
+          const response = await fetch(
+            `/api/dashboard/chart-data?period=${period}`
+          );
+          const data = await response.json();
+
+          if (response.ok && window.accuracyChart) {
+            window.accuracyChart.data.labels = data.labels;
+            window.accuracyChart.data.datasets[0].data = data.accuracy;
+            window.accuracyChart.update();
+          }
+        } catch (error) {
+          console.error("Error updating chart:", error);
+          // Fallback to static data
+          updateChartStatic(period);
+        }
+      }
+
+      // Fallback static chart update
+      function updateChartStatic(period) {
         let data, labels;
         switch (period) {
           case "7d":
@@ -1274,14 +1852,18 @@
             break;
         }
 
-        window.accuracyChart.data.labels = labels;
-        window.accuracyChart.data.datasets[0].data = data;
-        window.accuracyChart.update();
+        if (window.accuracyChart) {
+          window.accuracyChart.data.labels = labels;
+          window.accuracyChart.data.datasets[0].data = data;
+          window.accuracyChart.update();
+        }
       }
 
       // Filter table
       function filterTable(searchTerm) {
         const table = document.getElementById("predictionsTable");
+        if (!table) return;
+
         const rows = table.getElementsByTagName("tr");
 
         for (let i = 1; i < rows.length; i++) {
@@ -1304,7 +1886,7 @@
         }
       }
 
-      // Prediction modal
+      // Enhanced prediction modal with API integration
       function openPredictionModal() {
         document.getElementById("predictionModal").classList.add("show");
       }
@@ -1313,52 +1895,145 @@
         document.getElementById("predictionModal").classList.remove("show");
       }
 
-      function runPrediction(event) {
+      // Enhanced prediction with API call
+      async function runPrediction(event) {
         event.preventDefault();
 
+        const form = event.target;
+        const formData = new FormData(form);
+
+        const predictionData = {
+          patient_id: formData.get("patient_id") || "TEST-" + Date.now(),
+          environment: formData.get("environment"),
+          biomarker_data: formData.get("biomarker_data"),
+        };
+
         // Show loading state
-        const button = event.target.querySelector(".form-button");
+        const button = form.querySelector(".form-button");
         const originalText = button.innerHTML;
         button.innerHTML =
           '<i class="fas fa-spinner fa-spin"></i> Processing...';
         button.disabled = true;
 
-        // Simulate prediction
-        setTimeout(() => {
-          alert("Prediction completed! Risk score: 34.7 (Low Risk)");
-          closePredictionModal();
+        try {
+          const response = await fetch("/api/dashboard/predictions", {
+            method: "POST",
+            headers: {
+              "Content-Type": "application/json",
+            },
+            body: JSON.stringify(predictionData),
+          });
+
+          const result = await response.json();
+
+          if (response.ok) {
+            // Show success with detailed results
+            alert(`Prediction completed successfully!
+
+Patient ID: ${result.patient_id}
+Risk Score: ${result.risk_score}
+Risk Level: ${result.risk_level}
+Environment: ${result.environment}
+Model Confidence: ${(result.model_confidence * 100).toFixed(1)}%
+Biomarkers Analyzed: ${result.biomarkers_analyzed}
+
+Prediction Time: ${new Date(result.prediction_time).toLocaleString()}`);
+
+            closePredictionModal();
+            form.reset();
+
+            // Refresh dashboard stats
+            loadDashboardStats();
+          } else {
+            alert(`Prediction failed: ${result.error}`);
+          }
+        } catch (error) {
+          console.error("Prediction error:", error);
+          alert("Prediction failed due to network error. Please try again.");
+        } finally {
           button.innerHTML = originalText;
           button.disabled = false;
-          event.target.reset();
-        }, 3000);
+        }
       }
 
-      // Quick action handlers
+      // Enhanced quick action handlers
       function openDataUpload() {
-        alert("Data upload functionality would open here");
-      }
-
-      function openModelTraining() {
-        alert("Model training interface would open here");
-      }
-
-      function openCollaboration() {
-        alert("Collaboration tools would open here");
-      }
-
-      // Notifications
-      function initializeNotifications() {
-        // Initialize notification system
-      }
-
-      function showNotifications() {
         alert(
-          "Notifications:\n\n• New dataset available: OSD-689\n• Model training completed\n• Collaboration request from Dr. Johnson"
+          "Data Upload Functionality\n\nSupported formats:\n• CSV files with biomarker data\n• JSON format for API integration\n• NASA OSDR compatible formats\n\nMaximum file size: 100MB\nSupported biomarkers: 45+ cardiovascular markers"
         );
       }
 
+      function openModelTraining() {
+        alert(
+          "Model Training Interface\n\nAvailable algorithms:\n• ElasticNet (Clinical focus)\n• Random Forest\n• Gradient Boosting\n• Neural Networks\n• Ensemble Methods\n\nTraining typically takes 5-15 minutes depending on dataset size."
+        );
+      }
+
+      function openCollaboration() {
+        alert(
+          "Collaboration Tools\n\nShare with:\n• Research partners\n• Clinical teams\n• NASA collaborators\n• International space agencies\n\nPermissions: View, Edit, Admin\nData privacy controls included"
+        );
+      }
+
+      // Enhanced notifications with API
+      async function initializeNotifications() {
+        try {
+          const response = await fetch("/api/dashboard/notifications");
+          const notifications = await response.json();
+
+          if (response.ok) {
+            updateNotificationBadge(notifications);
+          }
+        } catch (error) {
+          console.error("Error loading notifications:", error);
+        }
+      }
+
+      function updateNotificationBadge(notifications) {
+        const badge = document.querySelector(".notification-badge");
+        const unreadCount = notifications.filter((n) => !n.read).length;
+
+        if (badge) {
+          badge.textContent = unreadCount;
+          badge.style.display = unreadCount > 0 ? "flex" : "none";
+        }
+      }
+
+      async function showNotifications() {
+        try {
+          const response = await fetch("/api/dashboard/notifications");
+          const notifications = await response.json();
+
+          if (response.ok) {
+            let notificationText = "Recent Notifications:\n\n";
+            notifications.forEach((n) => {
+              const status = n.read ? "✓" : "•";
+              notificationText += `${status} ${n.title}\n   ${n.message}\n   ${n.time}\n\n`;
+            });
+
+            alert(notificationText);
+          } else {
+            alert("Failed to load notifications");
+          }
+        } catch (error) {
+          console.error("Error showing notifications:", error);
+          alert("Error loading notifications");
+        }
+      }
+
       function showUserMenu() {
-        alert("User menu would show profile options, settings, and logout");
+        alert(
+          `User Menu - ${currentUser.name}\n\nRole: ${currentUser.role}\nOrganization: ${currentUser.organization}\n\nOptions:\n• Profile Settings\n• Account Management\n• Data Access Permissions\n• API Keys\n• Logout`
+        );
+      }
+
+      // Auto-refresh functionality
+      function startAutoRefresh() {
+        setInterval(async () => {
+          console.log("Auto-refreshing dashboard data...");
+          await loadDashboardStats();
+          await initializeNotifications();
+        }, 60000); // Refresh every minute
       }
 
       // Responsive handling
@@ -1368,11 +2043,12 @@
         }
       });
 
-      // Auto-refresh data (simulate)
-      setInterval(() => {
-        // Update statistics or refresh data
-        console.log("Auto-refreshing dashboard data...");
-      }, 30000);
+      // Additional helper functions for batch operations
+      function showBatchPrediction() {
+        alert(
+          "Batch Prediction Interface\n\nUpload CSV file with multiple patient records\nSupported formats:\n• Patient ID, Environment, Biomarker columns\n• Automatic processing of up to 1000 records\n• Results exported as CSV or JSON"
+        );
+      }
     </script>
   </body>
 </html>
