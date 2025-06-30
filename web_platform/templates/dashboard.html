@@ -687,6 +687,766 @@
         background: #f3f4f6;
         color: #3b82f6;
       }
+
+      /* Advanced Analytics Styles */
+      .analytics-section {
+        margin: 3rem 0;
+      }
+
+      .section-header {
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        margin-bottom: 2rem;
+      }
+
+      .section-title {
+        font-size: 1.75rem;
+        font-weight: 700;
+        color: #1f2937;
+      }
+
+      .section-actions {
+        display: flex;
+        gap: 1rem;
+      }
+
+      .btn-primary {
+        background: linear-gradient(135deg, #3b82f6, #1e40af);
+        color: white;
+        padding: 0.75rem 1.5rem;
+        border: none;
+        border-radius: 8px;
+        font-weight: 600;
+        cursor: pointer;
+        transition: all 0.3s ease;
+        display: flex;
+        align-items: center;
+        gap: 0.5rem;
+      }
+
+      .btn-primary:hover {
+        transform: translateY(-2px);
+        box-shadow: 0 8px 25px rgba(59, 130, 246, 0.3);
+      }
+
+      .btn-secondary {
+        background: white;
+        color: #374151;
+        padding: 0.75rem 1.5rem;
+        border: 2px solid #e5e7eb;
+        border-radius: 8px;
+        font-weight: 600;
+        cursor: pointer;
+        transition: all 0.3s ease;
+        display: flex;
+        align-items: center;
+        gap: 0.5rem;
+      }
+
+      .btn-secondary:hover {
+        border-color: #3b82f6;
+        color: #3b82f6;
+        transform: translateY(-2px);
+      }
+
+      .btn-outline {
+        background: transparent;
+        color: #3b82f6;
+        padding: 0.5rem 1rem;
+        border: 1px solid #3b82f6;
+        border-radius: 6px;
+        font-weight: 500;
+        cursor: pointer;
+        transition: all 0.3s ease;
+        display: flex;
+        align-items: center;
+        gap: 0.5rem;
+        font-size: 0.9rem;
+      }
+
+      .btn-outline:hover {
+        background: #3b82f6;
+        color: white;
+      }
+
+      .btn-icon {
+        background: none;
+        border: none;
+        color: #6b7280;
+        cursor: pointer;
+        padding: 0.5rem;
+        border-radius: 6px;
+        transition: all 0.3s ease;
+      }
+
+      .btn-icon:hover {
+        background: #f3f4f6;
+        color: #3b82f6;
+      }
+
+      .btn-sm {
+        padding: 0.5rem 1rem;
+        font-size: 0.875rem;
+        background: #3b82f6;
+        color: white;
+        border: none;
+        border-radius: 6px;
+        cursor: pointer;
+        transition: all 0.3s ease;
+        display: flex;
+        align-items: center;
+        gap: 0.5rem;
+      }
+
+      .btn-sm:hover {
+        background: #1e40af;
+      }
+
+      .analytics-grid {
+        display: grid;
+        grid-template-columns: 1fr 1fr;
+        gap: 2rem;
+        margin-bottom: 3rem;
+      }
+
+      .analytics-card {
+        background: white;
+        border-radius: 16px;
+        padding: 2rem;
+        box-shadow: 0 4px 20px rgba(0, 0, 0, 0.08);
+        border: 1px solid #e5e7eb;
+      }
+
+      .analytics-card.full-width {
+        grid-column: 1 / -1;
+      }
+
+      .card-header {
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        margin-bottom: 1.5rem;
+      }
+
+      .card-title {
+        font-size: 1.25rem;
+        font-weight: 600;
+        color: #1f2937;
+      }
+
+      .card-controls {
+        display: flex;
+        gap: 0.5rem;
+        align-items: center;
+      }
+
+      .form-select {
+        padding: 0.5rem 1rem;
+        border: 1px solid #e5e7eb;
+        border-radius: 6px;
+        background: white;
+        cursor: pointer;
+      }
+
+      .performance-metrics {
+        display: grid;
+        grid-template-columns: 1fr 1fr;
+        gap: 2rem;
+      }
+
+      .metric-item {
+        display: flex;
+        flex-direction: column;
+        gap: 0.5rem;
+      }
+
+      .metric-label {
+        font-weight: 600;
+        color: #374151;
+        font-size: 0.9rem;
+      }
+
+      .metric-value {
+        font-size: 1.5rem;
+        font-weight: 700;
+        color: #1f2937;
+      }
+
+      .metric-bar {
+        height: 8px;
+        background: #f3f4f6;
+        border-radius: 4px;
+        overflow: hidden;
+      }
+
+      .metric-fill {
+        height: 100%;
+        background: linear-gradient(90deg, #10b981, #34d399);
+        transition: width 0.3s ease;
+      }
+
+      /* Data Management Styles */
+      .data-management-section {
+        margin: 3rem 0;
+      }
+
+      .data-grid {
+        display: grid;
+        grid-template-columns: 1fr 1fr 1fr;
+        gap: 2rem;
+      }
+
+      .data-card {
+        background: white;
+        border-radius: 16px;
+        padding: 2rem;
+        box-shadow: 0 4px 20px rgba(0, 0, 0, 0.08);
+        border: 1px solid #e5e7eb;
+      }
+
+      .badge {
+        padding: 0.25rem 0.75rem;
+        border-radius: 12px;
+        font-size: 0.75rem;
+        font-weight: 600;
+        text-transform: uppercase;
+        letter-spacing: 0.05em;
+      }
+
+      .badge-primary {
+        background: #dbeafe;
+        color: #1e40af;
+      }
+
+      .dataset-list {
+        margin-bottom: 1.5rem;
+      }
+
+      .dataset-item {
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        padding: 1rem 0;
+        border-bottom: 1px solid #f3f4f6;
+      }
+
+      .dataset-item:last-child {
+        border-bottom: none;
+      }
+
+      .dataset-info {
+        flex: 1;
+      }
+
+      .dataset-name {
+        font-weight: 600;
+        color: #1f2937;
+        margin-bottom: 0.25rem;
+      }
+
+      .dataset-meta {
+        font-size: 0.875rem;
+        color: #6b7280;
+      }
+
+      .dataset-status {
+        display: flex;
+        align-items: center;
+        gap: 1rem;
+      }
+
+      .status-badge {
+        padding: 0.25rem 0.75rem;
+        border-radius: 12px;
+        font-size: 0.75rem;
+        font-weight: 600;
+        text-transform: uppercase;
+      }
+
+      .status-success {
+        background: #d1fae5;
+        color: #065f46;
+      }
+
+      .status-warning {
+        background: #fef3c7;
+        color: #92400e;
+      }
+
+      .status-error {
+        background: #fee2e2;
+        color: #991b1b;
+      }
+
+      .full-width {
+        width: 100%;
+      }
+
+      .quality-metrics {
+        display: flex;
+        flex-direction: column;
+        gap: 1.5rem;
+      }
+
+      .quality-item {
+        display: flex;
+        flex-direction: column;
+        gap: 0.5rem;
+      }
+
+      .quality-header {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+      }
+
+      .quality-label {
+        font-weight: 600;
+        color: #374151;
+      }
+
+      .quality-score {
+        font-weight: 700;
+        color: #1f2937;
+      }
+
+      .quality-bar {
+        height: 8px;
+        background: #f3f4f6;
+        border-radius: 4px;
+        overflow: hidden;
+      }
+
+      .quality-bar.good .quality-fill {
+        background: linear-gradient(90deg, #10b981, #34d399);
+      }
+
+      .quality-bar.warning .quality-fill {
+        background: linear-gradient(90deg, #f59e0b, #fbbf24);
+      }
+
+      .quality-bar.error .quality-fill {
+        background: linear-gradient(90deg, #ef4444, #f87171);
+      }
+
+      .quality-fill {
+        height: 100%;
+        transition: width 0.3s ease;
+      }
+
+      .batch-queue {
+        display: flex;
+        flex-direction: column;
+        gap: 1rem;
+      }
+
+      .batch-item {
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        padding: 1rem;
+        background: #f9fafb;
+        border-radius: 8px;
+        border: 1px solid #f3f4f6;
+      }
+
+      .batch-info {
+        flex: 1;
+      }
+
+      .batch-name {
+        font-weight: 600;
+        color: #1f2937;
+        margin-bottom: 0.25rem;
+      }
+
+      .batch-meta {
+        font-size: 0.875rem;
+        color: #6b7280;
+      }
+
+      .batch-progress {
+        display: flex;
+        flex-direction: column;
+        align-items: flex-end;
+        gap: 0.5rem;
+        min-width: 120px;
+      }
+
+      .progress-bar {
+        width: 100px;
+        height: 6px;
+        background: #f3f4f6;
+        border-radius: 3px;
+        overflow: hidden;
+      }
+
+      .progress-fill {
+        height: 100%;
+        background: linear-gradient(90deg, #3b82f6, #60a5fa);
+        transition: width 0.3s ease;
+      }
+
+      .progress-text {
+        font-size: 0.75rem;
+        font-weight: 600;
+        color: #374151;
+      }
+
+      /* Project Management Styles */
+      .project-management-section {
+        margin: 3rem 0;
+      }
+
+      .projects-grid {
+        display: grid;
+        grid-template-columns: repeat(auto-fit, minmax(400px, 1fr));
+        gap: 2rem;
+      }
+
+      .project-card {
+        background: white;
+        border-radius: 16px;
+        padding: 2rem;
+        box-shadow: 0 4px 20px rgba(0, 0, 0, 0.08);
+        border: 1px solid #e5e7eb;
+        transition: all 0.3s ease;
+      }
+
+      .project-card:hover {
+        transform: translateY(-4px);
+        box-shadow: 0 8px 30px rgba(0, 0, 0, 0.12);
+      }
+
+      .project-card.active {
+        border-color: #3b82f6;
+        box-shadow: 0 4px 20px rgba(59, 130, 246, 0.15);
+      }
+
+      .project-card.add-project {
+        border: 2px dashed #d1d5db;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        cursor: pointer;
+        transition: all 0.3s ease;
+      }
+
+      .project-card.add-project:hover {
+        border-color: #3b82f6;
+        background: #f8fafc;
+      }
+
+      .add-project-content {
+        text-align: center;
+        color: #6b7280;
+      }
+
+      .add-project-content i {
+        font-size: 3rem;
+        margin-bottom: 1rem;
+        color: #d1d5db;
+      }
+
+      .add-project-content h4 {
+        font-size: 1.25rem;
+        font-weight: 600;
+        margin-bottom: 0.5rem;
+        color: #374151;
+      }
+
+      .project-header {
+        display: flex;
+        align-items: flex-start;
+        justify-content: space-between;
+        margin-bottom: 1rem;
+      }
+
+      .project-info {
+        flex: 1;
+      }
+
+      .project-title {
+        font-size: 1.25rem;
+        font-weight: 700;
+        color: #1f2937;
+        margin-bottom: 0.5rem;
+      }
+
+      .project-meta {
+        display: flex;
+        align-items: center;
+        gap: 1rem;
+      }
+
+      .project-code {
+        font-family: "JetBrains Mono", monospace;
+        font-size: 0.75rem;
+        font-weight: 600;
+        color: #6b7280;
+        background: #f3f4f6;
+        padding: 0.25rem 0.5rem;
+        border-radius: 4px;
+      }
+
+      .project-status {
+        padding: 0.25rem 0.75rem;
+        border-radius: 12px;
+        font-size: 0.75rem;
+        font-weight: 600;
+        text-transform: uppercase;
+      }
+
+      .status-active {
+        background: #d1fae5;
+        color: #065f46;
+      }
+
+      .status-planning {
+        background: #dbeafe;
+        color: #1e40af;
+      }
+
+      .status-review {
+        background: #fef3c7;
+        color: #92400e;
+      }
+
+      .project-actions {
+        display: flex;
+        gap: 0.5rem;
+      }
+
+      .project-description {
+        color: #6b7280;
+        line-height: 1.6;
+        margin-bottom: 1.5rem;
+      }
+
+      .project-stats {
+        display: grid;
+        grid-template-columns: 1fr 1fr;
+        gap: 1rem;
+        margin-bottom: 1.5rem;
+      }
+
+      .stat-item {
+        display: flex;
+        align-items: center;
+        gap: 0.5rem;
+        font-size: 0.875rem;
+        color: #6b7280;
+      }
+
+      .stat-item i {
+        color: #3b82f6;
+        width: 16px;
+      }
+
+      .project-progress {
+        margin-top: 1rem;
+      }
+
+      .progress-header {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        margin-bottom: 0.5rem;
+        font-size: 0.875rem;
+        font-weight: 600;
+        color: #374151;
+      }
+
+      /* Collaboration Styles */
+      .collaboration-section {
+        margin: 3rem 0;
+      }
+
+      .collaboration-grid {
+        display: grid;
+        grid-template-columns: 1fr 1fr 1fr;
+        gap: 2rem;
+      }
+
+      .team-card,
+      .communication-card,
+      .resources-card {
+        background: white;
+        border-radius: 16px;
+        padding: 2rem;
+        box-shadow: 0 4px 20px rgba(0, 0, 0, 0.08);
+        border: 1px solid #e5e7eb;
+      }
+
+      .team-list,
+      .discussion-list,
+      .resource-list {
+        display: flex;
+        flex-direction: column;
+        gap: 1rem;
+        margin-bottom: 1.5rem;
+      }
+
+      .team-member,
+      .discussion-item,
+      .resource-item {
+        display: flex;
+        align-items: center;
+        gap: 1rem;
+        padding: 1rem;
+        background: #f9fafb;
+        border-radius: 8px;
+        border: 1px solid #f3f4f6;
+      }
+
+      .member-avatar {
+        width: 40px;
+        height: 40px;
+        border-radius: 50%;
+        overflow: hidden;
+      }
+
+      .member-avatar img {
+        width: 100%;
+        height: 100%;
+        object-fit: cover;
+      }
+
+      .member-info {
+        flex: 1;
+      }
+
+      .member-name {
+        font-weight: 600;
+        color: #1f2937;
+        margin-bottom: 0.25rem;
+      }
+
+      .member-role {
+        font-size: 0.875rem;
+        color: #6b7280;
+      }
+
+      .member-status {
+        display: flex;
+        align-items: center;
+        gap: 1rem;
+      }
+
+      .status-indicator {
+        width: 8px;
+        height: 8px;
+        border-radius: 50%;
+      }
+
+      .status-indicator.online {
+        background: #10b981;
+      }
+
+      .status-indicator.away {
+        background: #f59e0b;
+      }
+
+      .status-indicator.offline {
+        background: #6b7280;
+      }
+
+      .discussion-header {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        margin-bottom: 0.5rem;
+      }
+
+      .discussion-time {
+        font-size: 0.75rem;
+        color: #6b7280;
+      }
+
+      .discussion-preview {
+        color: #6b7280;
+        font-size: 0.875rem;
+        margin-bottom: 0.5rem;
+      }
+
+      .discussion-meta {
+        display: flex;
+        gap: 1rem;
+        font-size: 0.75rem;
+        color: #9ca3af;
+      }
+
+      .resource-icon {
+        width: 40px;
+        height: 40px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        background: #f3f4f6;
+        border-radius: 8px;
+        color: #6b7280;
+      }
+
+      .resource-info {
+        flex: 1;
+      }
+
+      .resource-name {
+        font-weight: 600;
+        color: #1f2937;
+        margin-bottom: 0.25rem;
+      }
+
+      .resource-meta {
+        font-size: 0.875rem;
+        color: #6b7280;
+      }
+
+      /* Responsive Design */
+      @media (max-width: 1200px) {
+        .analytics-grid {
+          grid-template-columns: 1fr;
+        }
+
+        .data-grid {
+          grid-template-columns: 1fr 1fr;
+        }
+
+        .collaboration-grid {
+          grid-template-columns: 1fr 1fr;
+        }
+      }
+
+      @media (max-width: 768px) {
+        .section-header {
+          flex-direction: column;
+          align-items: flex-start;
+          gap: 1rem;
+        }
+
+        .section-actions {
+          width: 100%;
+          justify-content: space-between;
+        }
+
+        .data-grid,
+        .collaboration-grid {
+          grid-template-columns: 1fr;
+        }
+
+        .projects-grid {
+          grid-template-columns: 1fr;
+        }
+
+        .performance-metrics {
+          grid-template-columns: 1fr;
+        }
+
+        .project-stats {
+          grid-template-columns: 1fr;
+        }
+      }
     </style>
   </head>
 
@@ -1087,6 +1847,742 @@
                 <div class="activity-content">
                   <div class="activity-text">50 new predictions generated</div>
                   <div class="activity-time">3 days ago</div>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <!-- Advanced Analytics Section -->
+          <div class="analytics-section">
+            <div class="section-header">
+              <h2 class="section-title">Advanced Analytics</h2>
+              <div class="section-actions">
+                <button class="btn-secondary" onclick="exportAnalytics()">
+                  <i class="fas fa-download"></i>
+                  Export Report
+                </button>
+                <button class="btn-primary" onclick="openAdvancedAnalytics()">
+                  <i class="fas fa-chart-pie"></i>
+                  Detailed View
+                </button>
+              </div>
+            </div>
+
+            <div class="analytics-grid">
+              <!-- Biomarker Distribution Chart -->
+              <div class="analytics-card">
+                <div class="card-header">
+                  <h4 class="card-title">Biomarker Distribution</h4>
+                  <div class="card-controls">
+                    <select
+                      class="form-select"
+                      onchange="updateBiomarkerChart(this.value)"
+                    >
+                      <option value="crp">C-Reactive Protein</option>
+                      <option value="pf4">Platelet Factor 4</option>
+                      <option value="tnf">TNF-alpha</option>
+                      <option value="il6">Interleukin-6</option>
+                    </select>
+                  </div>
+                </div>
+                <canvas id="biomarkerChart" height="200"></canvas>
+              </div>
+
+              <!-- Environment Comparison -->
+              <div class="analytics-card">
+                <div class="card-header">
+                  <h4 class="card-title">Risk by Environment</h4>
+                  <div class="card-controls">
+                    <button
+                      class="chart-btn active"
+                      onclick="toggleEnvironmentView('bar')"
+                    >
+                      <i class="fas fa-chart-bar"></i>
+                    </button>
+                    <button
+                      class="chart-btn"
+                      onclick="toggleEnvironmentView('radar')"
+                    >
+                      <i class="fas fa-chart-line"></i>
+                    </button>
+                  </div>
+                </div>
+                <canvas id="environmentChart" height="200"></canvas>
+              </div>
+
+              <!-- Model Performance Metrics -->
+              <div class="analytics-card full-width">
+                <div class="card-header">
+                  <h4 class="card-title">Model Performance Analysis</h4>
+                  <div class="card-controls">
+                    <button class="btn-outline" onclick="runModelValidation()">
+                      <i class="fas fa-sync"></i>
+                      Revalidate
+                    </button>
+                  </div>
+                </div>
+                <div class="performance-metrics">
+                  <div class="metric-item">
+                    <div class="metric-label">Precision</div>
+                    <div class="metric-value">0.847</div>
+                    <div class="metric-bar">
+                      <div class="metric-fill" style="width: 84.7%"></div>
+                    </div>
+                  </div>
+                  <div class="metric-item">
+                    <div class="metric-label">Recall</div>
+                    <div class="metric-value">0.823</div>
+                    <div class="metric-bar">
+                      <div class="metric-fill" style="width: 82.3%"></div>
+                    </div>
+                  </div>
+                  <div class="metric-item">
+                    <div class="metric-label">F1-Score</div>
+                    <div class="metric-value">0.835</div>
+                    <div class="metric-bar">
+                      <div class="metric-fill" style="width: 83.5%"></div>
+                    </div>
+                  </div>
+                  <div class="metric-item">
+                    <div class="metric-label">AUC-ROC</div>
+                    <div class="metric-value">0.912</div>
+                    <div class="metric-bar">
+                      <div class="metric-fill" style="width: 91.2%"></div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <!-- Data Management Section -->
+          <div class="data-management-section">
+            <div class="section-header">
+              <h2 class="section-title">Data Management</h2>
+              <div class="section-actions">
+                <button class="btn-secondary" onclick="openDataValidator()">
+                  <i class="fas fa-check-circle"></i>
+                  Validate Data
+                </button>
+                <button class="btn-primary" onclick="openDataUpload()">
+                  <i class="fas fa-cloud-upload-alt"></i>
+                  Upload Dataset
+                </button>
+              </div>
+            </div>
+
+            <div class="data-grid">
+              <!-- Dataset Overview -->
+              <div class="data-card">
+                <div class="card-header">
+                  <h4 class="card-title">Active Datasets</h4>
+                  <span class="badge badge-primary">12 datasets</span>
+                </div>
+                <div class="dataset-list">
+                  <div class="dataset-item">
+                    <div class="dataset-info">
+                      <div class="dataset-name">NASA OSD-258</div>
+                      <div class="dataset-meta">
+                        SpaceX Inspiration4 RNA-seq • 2.4 GB
+                      </div>
+                    </div>
+                    <div class="dataset-status">
+                      <span class="status-badge status-success">Active</span>
+                      <button
+                        class="btn-icon"
+                        onclick="manageDataset('OSD-258')"
+                      >
+                        <i class="fas fa-cog"></i>
+                      </button>
+                    </div>
+                  </div>
+                  <div class="dataset-item">
+                    <div class="dataset-info">
+                      <div class="dataset-name">NASA OSD-484</div>
+                      <div class="dataset-meta">
+                        Cardiac Gene Expression • 1.8 GB
+                      </div>
+                    </div>
+                    <div class="dataset-status">
+                      <span class="status-badge status-success">Active</span>
+                      <button
+                        class="btn-icon"
+                        onclick="manageDataset('OSD-484')"
+                      >
+                        <i class="fas fa-cog"></i>
+                      </button>
+                    </div>
+                  </div>
+                  <div class="dataset-item">
+                    <div class="dataset-info">
+                      <div class="dataset-name">Bedrest Study BRS-01</div>
+                      <div class="dataset-meta">
+                        70-day Bedrest Biomarkers • 945 MB
+                      </div>
+                    </div>
+                    <div class="dataset-status">
+                      <span class="status-badge status-warning"
+                        >Processing</span
+                      >
+                      <button
+                        class="btn-icon"
+                        onclick="manageDataset('BRS-01')"
+                      >
+                        <i class="fas fa-cog"></i>
+                      </button>
+                    </div>
+                  </div>
+                  <div class="dataset-item">
+                    <div class="dataset-info">
+                      <div class="dataset-name">
+                        Clinical Validation CV-2025
+                      </div>
+                      <div class="dataset-meta">
+                        Hospital Patient Data • 567 MB
+                      </div>
+                    </div>
+                    <div class="dataset-status">
+                      <span class="status-badge status-error">Failed</span>
+                      <button
+                        class="btn-icon"
+                        onclick="manageDataset('CV-2025')"
+                      >
+                        <i class="fas fa-cog"></i>
+                      </button>
+                    </div>
+                  </div>
+                </div>
+                <button
+                  class="btn-outline full-width"
+                  onclick="viewAllDatasets()"
+                >
+                  View All Datasets
+                </button>
+              </div>
+
+              <!-- Data Quality Monitor -->
+              <div class="data-card">
+                <div class="card-header">
+                  <h4 class="card-title">Data Quality Metrics</h4>
+                  <button class="btn-icon" onclick="refreshDataQuality()">
+                    <i class="fas fa-sync-alt"></i>
+                  </button>
+                </div>
+                <div class="quality-metrics">
+                  <div class="quality-item">
+                    <div class="quality-header">
+                      <span class="quality-label">Completeness</span>
+                      <span class="quality-score">94.2%</span>
+                    </div>
+                    <div class="quality-bar good">
+                      <div class="quality-fill" style="width: 94.2%"></div>
+                    </div>
+                  </div>
+                  <div class="quality-item">
+                    <div class="quality-header">
+                      <span class="quality-label">Accuracy</span>
+                      <span class="quality-score">87.8%</span>
+                    </div>
+                    <div class="quality-bar good">
+                      <div class="quality-fill" style="width: 87.8%"></div>
+                    </div>
+                  </div>
+                  <div class="quality-item">
+                    <div class="quality-header">
+                      <span class="quality-label">Consistency</span>
+                      <span class="quality-score">76.4%</span>
+                    </div>
+                    <div class="quality-bar warning">
+                      <div class="quality-fill" style="width: 76.4%"></div>
+                    </div>
+                  </div>
+                  <div class="quality-item">
+                    <div class="quality-header">
+                      <span class="quality-label">Validity</span>
+                      <span class="quality-score">91.6%</span>
+                    </div>
+                    <div class="quality-bar good">
+                      <div class="quality-fill" style="width: 91.6%"></div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+
+              <!-- Batch Processing -->
+              <div class="data-card">
+                <div class="card-header">
+                  <h4 class="card-title">Batch Operations</h4>
+                  <div class="card-controls">
+                    <button class="btn-sm" onclick="openBatchProcessor()">
+                      <i class="fas fa-layer-group"></i>
+                      New Batch
+                    </button>
+                  </div>
+                </div>
+                <div class="batch-queue">
+                  <div class="batch-item">
+                    <div class="batch-info">
+                      <div class="batch-name">Prediction Batch #247</div>
+                      <div class="batch-meta">
+                        1,250 patients • Started 2h ago
+                      </div>
+                    </div>
+                    <div class="batch-progress">
+                      <div class="progress-bar">
+                        <div class="progress-fill" style="width: 67%"></div>
+                      </div>
+                      <span class="progress-text">67% Complete</span>
+                    </div>
+                  </div>
+                  <div class="batch-item">
+                    <div class="batch-info">
+                      <div class="batch-name">Data Validation #156</div>
+                      <div class="batch-meta">3 datasets • Started 45m ago</div>
+                    </div>
+                    <div class="batch-progress">
+                      <div class="progress-bar">
+                        <div class="progress-fill" style="width: 100%"></div>
+                      </div>
+                      <span class="progress-text">Complete</span>
+                    </div>
+                  </div>
+                  <div class="batch-item">
+                    <div class="batch-info">
+                      <div class="batch-name">Model Training #89</div>
+                      <div class="batch-meta">Custom ElasticNet • Queued</div>
+                    </div>
+                    <div class="batch-progress">
+                      <div class="progress-bar">
+                        <div class="progress-fill" style="width: 0%"></div>
+                      </div>
+                      <span class="progress-text">Waiting</span>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <!-- Project Management Section -->
+          <div class="project-management-section">
+            <div class="section-header">
+              <h2 class="section-title">Research Projects</h2>
+              <div class="section-actions">
+                <button class="btn-secondary" onclick="openProjectArchive()">
+                  <i class="fas fa-archive"></i>
+                  Archive
+                </button>
+                <button class="btn-primary" onclick="createNewProject()">
+                  <i class="fas fa-plus"></i>
+                  New Project
+                </button>
+              </div>
+            </div>
+
+            <div class="projects-grid">
+              <!-- Active Projects -->
+              <div class="project-card active">
+                <div class="project-header">
+                  <div class="project-info">
+                    <h4 class="project-title">Mars Mission 2027 Preparation</h4>
+                    <div class="project-meta">
+                      <span class="project-code">MARS-2027</span>
+                      <span class="project-status status-active">Active</span>
+                    </div>
+                  </div>
+                  <div class="project-actions">
+                    <button
+                      class="btn-icon"
+                      onclick="shareProject('MARS-2027')"
+                    >
+                      <i class="fas fa-share"></i>
+                    </button>
+                    <button class="btn-icon" onclick="editProject('MARS-2027')">
+                      <i class="fas fa-edit"></i>
+                    </button>
+                  </div>
+                </div>
+                <div class="project-description">
+                  Cardiovascular risk prediction models specifically designed
+                  for long-duration Mars missions, incorporating radiation
+                  exposure and prolonged microgravity effects.
+                </div>
+                <div class="project-stats">
+                  <div class="stat-item">
+                    <i class="fas fa-users"></i>
+                    <span>12 Members</span>
+                  </div>
+                  <div class="stat-item">
+                    <i class="fas fa-database"></i>
+                    <span>4 Datasets</span>
+                  </div>
+                  <div class="stat-item">
+                    <i class="fas fa-brain"></i>
+                    <span>2,847 Predictions</span>
+                  </div>
+                  <div class="stat-item">
+                    <i class="fas fa-calendar"></i>
+                    <span>Started Jan 2025</span>
+                  </div>
+                </div>
+                <div class="project-progress">
+                  <div class="progress-header">
+                    <span>Project Progress</span>
+                    <span>73%</span>
+                  </div>
+                  <div class="progress-bar">
+                    <div class="progress-fill" style="width: 73%"></div>
+                  </div>
+                </div>
+              </div>
+
+              <div class="project-card">
+                <div class="project-header">
+                  <div class="project-info">
+                    <h4 class="project-title">
+                      Lunar Gateway Health Monitoring
+                    </h4>
+                    <div class="project-meta">
+                      <span class="project-code">LUN-GATE</span>
+                      <span class="project-status status-planning"
+                        >Planning</span
+                      >
+                    </div>
+                  </div>
+                  <div class="project-actions">
+                    <button class="btn-icon" onclick="shareProject('LUN-GATE')">
+                      <i class="fas fa-share"></i>
+                    </button>
+                    <button class="btn-icon" onclick="editProject('LUN-GATE')">
+                      <i class="fas fa-edit"></i>
+                    </button>
+                  </div>
+                </div>
+                <div class="project-description">
+                  Real-time cardiovascular monitoring system for Lunar Gateway
+                  station with automated risk assessment and crew health alerts.
+                </div>
+                <div class="project-stats">
+                  <div class="stat-item">
+                    <i class="fas fa-users"></i>
+                    <span>8 Members</span>
+                  </div>
+                  <div class="stat-item">
+                    <i class="fas fa-database"></i>
+                    <span>2 Datasets</span>
+                  </div>
+                  <div class="stat-item">
+                    <i class="fas fa-brain"></i>
+                    <span>156 Predictions</span>
+                  </div>
+                  <div class="stat-item">
+                    <i class="fas fa-calendar"></i>
+                    <span>Started Jun 2025</span>
+                  </div>
+                </div>
+                <div class="project-progress">
+                  <div class="progress-header">
+                    <span>Project Progress</span>
+                    <span>28%</span>
+                  </div>
+                  <div class="progress-bar">
+                    <div class="progress-fill" style="width: 28%"></div>
+                  </div>
+                </div>
+              </div>
+
+              <div class="project-card">
+                <div class="project-header">
+                  <div class="project-info">
+                    <h4 class="project-title">Earth Analog Validation Study</h4>
+                    <div class="project-meta">
+                      <span class="project-code">EARTH-VAL</span>
+                      <span class="project-status status-review"
+                        >Under Review</span
+                      >
+                    </div>
+                  </div>
+                  <div class="project-actions">
+                    <button
+                      class="btn-icon"
+                      onclick="shareProject('EARTH-VAL')"
+                    >
+                      <i class="fas fa-share"></i>
+                    </button>
+                    <button class="btn-icon" onclick="editProject('EARTH-VAL')">
+                      <i class="fas fa-edit"></i>
+                    </button>
+                  </div>
+                </div>
+                <div class="project-description">
+                  Cross-validation of space medicine models using terrestrial
+                  bedrest studies and clinical populations to ensure broad
+                  applicability.
+                </div>
+                <div class="project-stats">
+                  <div class="stat-item">
+                    <i class="fas fa-users"></i>
+                    <span>15 Members</span>
+                  </div>
+                  <div class="stat-item">
+                    <i class="fas fa-database"></i>
+                    <span>7 Datasets</span>
+                  </div>
+                  <div class="stat-item">
+                    <i class="fas fa-brain"></i>
+                    <span>5,234 Predictions</span>
+                  </div>
+                  <div class="stat-item">
+                    <i class="fas fa-calendar"></i>
+                    <span>Started Nov 2024</span>
+                  </div>
+                </div>
+                <div class="project-progress">
+                  <div class="progress-header">
+                    <span>Project Progress</span>
+                    <span>89%</span>
+                  </div>
+                  <div class="progress-bar">
+                    <div class="progress-fill" style="width: 89%"></div>
+                  </div>
+                </div>
+              </div>
+
+              <!-- Add Project Card -->
+              <div
+                class="project-card add-project"
+                onclick="createNewProject()"
+              >
+                <div class="add-project-content">
+                  <i class="fas fa-plus"></i>
+                  <h4>Create New Project</h4>
+                  <p>Start a new research collaboration</p>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <!-- Collaboration & Team Management -->
+          <div class="collaboration-section">
+            <div class="section-header">
+              <h2 class="section-title">Team Collaboration</h2>
+              <div class="section-actions">
+                <button class="btn-secondary" onclick="managePermissions()">
+                  <i class="fas fa-shield-alt"></i>
+                  Permissions
+                </button>
+                <button class="btn-primary" onclick="inviteCollaborator()">
+                  <i class="fas fa-user-plus"></i>
+                  Invite Member
+                </button>
+              </div>
+            </div>
+
+            <div class="collaboration-grid">
+              <!-- Team Members -->
+              <div class="team-card">
+                <div class="card-header">
+                  <h4 class="card-title">Active Members</h4>
+                  <span class="badge badge-primary">24 members</span>
+                </div>
+                <div class="team-list">
+                  <div class="team-member">
+                    <div class="member-avatar">
+                      <img
+                        src="https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?w=40&h=40&fit=crop&crop=face"
+                        alt="Dr. Sarah Chen"
+                      />
+                    </div>
+                    <div class="member-info">
+                      <div class="member-name">Dr. Sarah Chen</div>
+                      <div class="member-role">Principal Investigator</div>
+                    </div>
+                    <div class="member-status">
+                      <span class="status-indicator online"></span>
+                      <button
+                        class="btn-icon"
+                        onclick="contactMember('sarah.chen')"
+                      >
+                        <i class="fas fa-envelope"></i>
+                      </button>
+                    </div>
+                  </div>
+                  <div class="team-member">
+                    <div class="member-avatar">
+                      <img
+                        src="https://images.unsplash.com/photo-1494790108755-2616b612b2f5?w=40&h=40&fit=crop&crop=face"
+                        alt="Dr. Maria Rodriguez"
+                      />
+                    </div>
+                    <div class="member-info">
+                      <div class="member-name">Dr. Maria Rodriguez</div>
+                      <div class="member-role">Data Scientist</div>
+                    </div>
+                    <div class="member-status">
+                      <span class="status-indicator online"></span>
+                      <button
+                        class="btn-icon"
+                        onclick="contactMember('maria.rodriguez')"
+                      >
+                        <i class="fas fa-envelope"></i>
+                      </button>
+                    </div>
+                  </div>
+                  <div class="team-member">
+                    <div class="member-avatar">
+                      <img
+                        src="https://images.unsplash.com/photo-1472099645785-5658abf4ff4e?w=40&h=40&fit=crop&crop=face"
+                        alt="Dr. James Park"
+                      />
+                    </div>
+                    <div class="member-info">
+                      <div class="member-name">Dr. James Park</div>
+                      <div class="member-role">Cardiologist</div>
+                    </div>
+                    <div class="member-status">
+                      <span class="status-indicator away"></span>
+                      <button
+                        class="btn-icon"
+                        onclick="contactMember('james.park')"
+                      >
+                        <i class="fas fa-envelope"></i>
+                      </button>
+                    </div>
+                  </div>
+                  <div class="team-member">
+                    <div class="member-avatar">
+                      <img
+                        src="https://images.unsplash.com/photo-1438761681033-6461ffad8d80?w=40&h=40&fit=crop&crop=face"
+                        alt="Emily Thompson"
+                      />
+                    </div>
+                    <div class="member-info">
+                      <div class="member-name">Emily Thompson</div>
+                      <div class="member-role">Research Associate</div>
+                    </div>
+                    <div class="member-status">
+                      <span class="status-indicator offline"></span>
+                      <button
+                        class="btn-icon"
+                        onclick="contactMember('emily.thompson')"
+                      >
+                        <i class="fas fa-envelope"></i>
+                      </button>
+                    </div>
+                  </div>
+                </div>
+                <button
+                  class="btn-outline full-width"
+                  onclick="viewAllMembers()"
+                >
+                  View All Members
+                </button>
+              </div>
+
+              <!-- Recent Communications -->
+              <div class="communication-card">
+                <div class="card-header">
+                  <h4 class="card-title">Recent Discussions</h4>
+                  <button class="btn-icon" onclick="openDiscussions()">
+                    <i class="fas fa-comments"></i>
+                  </button>
+                </div>
+                <div class="discussion-list">
+                  <div class="discussion-item">
+                    <div class="discussion-header">
+                      <strong>Model Validation Results</strong>
+                      <span class="discussion-time">2h ago</span>
+                    </div>
+                    <div class="discussion-preview">
+                      Dr. Chen: "The latest validation shows 85.2% accuracy on
+                      bedrest data..."
+                    </div>
+                    <div class="discussion-meta">
+                      <span class="participant-count">5 participants</span>
+                      <span class="message-count">12 messages</span>
+                    </div>
+                  </div>
+                  <div class="discussion-item">
+                    <div class="discussion-header">
+                      <strong>Mars Mission Protocol</strong>
+                      <span class="discussion-time">1d ago</span>
+                    </div>
+                    <div class="discussion-preview">
+                      Dr. Park: "We need to adjust the biomarker thresholds for
+                      the Mars environment..."
+                    </div>
+                    <div class="discussion-meta">
+                      <span class="participant-count">8 participants</span>
+                      <span class="message-count">27 messages</span>
+                    </div>
+                  </div>
+                </div>
+              </div>
+
+              <!-- Shared Resources -->
+              <div class="resources-card">
+                <div class="card-header">
+                  <h4 class="card-title">Shared Resources</h4>
+                  <button class="btn-icon" onclick="uploadResource()">
+                    <i class="fas fa-plus"></i>
+                  </button>
+                </div>
+                <div class="resource-list">
+                  <div class="resource-item">
+                    <div class="resource-icon">
+                      <i class="fas fa-file-pdf"></i>
+                    </div>
+                    <div class="resource-info">
+                      <div class="resource-name">
+                        Mars Mission Protocol v2.1
+                      </div>
+                      <div class="resource-meta">
+                        PDF • 2.4 MB • Shared by Dr. Chen
+                      </div>
+                    </div>
+                    <button
+                      class="btn-icon"
+                      onclick="downloadResource('mars-protocol-v21')"
+                    >
+                      <i class="fas fa-download"></i>
+                    </button>
+                  </div>
+                  <div class="resource-item">
+                    <div class="resource-icon">
+                      <i class="fas fa-table"></i>
+                    </div>
+                    <div class="resource-info">
+                      <div class="resource-name">
+                        Biomarker Reference Values
+                      </div>
+                      <div class="resource-meta">
+                        CSV • 156 KB • Shared by Dr. Rodriguez
+                      </div>
+                    </div>
+                    <button
+                      class="btn-icon"
+                      onclick="downloadResource('biomarker-ref')"
+                    >
+                      <i class="fas fa-download"></i>
+                    </button>
+                  </div>
+                  <div class="resource-item">
+                    <div class="resource-icon">
+                      <i class="fas fa-code"></i>
+                    </div>
+                    <div class="resource-info">
+                      <div class="resource-name">Custom Model Scripts</div>
+                      <div class="resource-meta">
+                        Python • 47 KB • Shared by Emily
+                      </div>
+                    </div>
+                    <button
+                      class="btn-icon"
+                      onclick="downloadResource('model-scripts')"
+                    >
+                      <i class="fas fa-download"></i>
+                    </button>
+                  </div>
                 </div>
               </div>
             </div>
@@ -2049,6 +3545,249 @@ Prediction Time: ${new Date(result.prediction_time).toLocaleString()}`);
           "Batch Prediction Interface\n\nUpload CSV file with multiple patient records\nSupported formats:\n• Patient ID, Environment, Biomarker columns\n• Automatic processing of up to 1000 records\n• Results exported as CSV or JSON"
         );
       }
+
+      // Advanced Analytics Functions
+      function exportAnalytics() {
+        alert(
+          "Exporting comprehensive analytics report...\n\nIncludes:\n• Model performance metrics\n• Biomarker distribution analysis\n• Environment comparison charts\n• Prediction accuracy trends\n\nFormat: PDF + Excel spreadsheet"
+        );
+      }
+
+      function openAdvancedAnalytics() {
+        alert(
+          "Opening Advanced Analytics Dashboard...\n\nFeatures:\n• Interactive data exploration\n• Custom chart builder\n• Statistical analysis tools\n• Correlation matrices\n• Feature importance analysis"
+        );
+      }
+
+      function updateBiomarkerChart(biomarker) {
+        console.log(`Updating biomarker chart for: ${biomarker}`);
+        // In a real implementation, this would update the chart with new data
+        alert(
+          `Updating chart to show ${biomarker} distribution across all patients and environments.`
+        );
+      }
+
+      function toggleEnvironmentView(chartType) {
+        console.log(`Switching environment chart to: ${chartType}`);
+        document
+          .querySelectorAll(".chart-btn")
+          .forEach((btn) => btn.classList.remove("active"));
+        event.target.classList.add("active");
+        alert(
+          `Switching to ${chartType} chart view for environment risk comparison.`
+        );
+      }
+
+      function runModelValidation() {
+        alert(
+          "Starting model validation...\n\nValidation process:\n• Cross-validation on test set\n• Performance metric calculation\n• Bias and fairness analysis\n• Feature stability check\n\nEstimated time: 15-20 minutes"
+        );
+      }
+
+      // Data Management Functions
+      function openDataValidator() {
+        alert(
+          "Data Validation Tool\n\nValidation checks:\n• Missing value detection\n• Outlier identification\n• Data type validation\n• Range and constraint checks\n• Duplicate record detection\n\nSupported formats: CSV, Excel, JSON"
+        );
+      }
+
+      function openDataUpload() {
+        alert(
+          "Data Upload Interface\n\nSupported data types:\n• Biomarker measurements\n• Patient demographics\n• Environmental conditions\n• Medical history\n• Genomic data\n\nMax file size: 2GB\nFormats: CSV, Excel, JSON, FHIR"
+        );
+      }
+
+      function manageDataset(datasetId) {
+        alert(
+          `Dataset Management: ${datasetId}\n\nAvailable actions:\n• View data summary\n• Download dataset\n• Data quality report\n• Access permissions\n• Reprocess data\n• Archive dataset`
+        );
+      }
+
+      function viewAllDatasets() {
+        alert(
+          "Opening Dataset Manager...\n\nView and manage all datasets:\n• Filter by project, type, status\n• Bulk operations\n• Data lineage tracking\n• Usage analytics\n• Storage optimization"
+        );
+      }
+
+      function refreshDataQuality() {
+        alert(
+          "Refreshing data quality metrics...\n\nRe-analyzing:\n• Data completeness\n• Accuracy scores\n• Consistency checks\n• Validity assessments\n\nThis may take a few minutes for large datasets."
+        );
+      }
+
+      function openBatchProcessor() {
+        alert(
+          "Batch Processing Interface\n\nCreate new batch job:\n• Bulk predictions\n• Data preprocessing\n• Model training\n• Quality assessment\n• Report generation\n\nScheduling options available."
+        );
+      }
+
+      // Project Management Functions
+      function openProjectArchive() {
+        alert(
+          "Project Archive\n\nView completed and archived projects:\n• Search by date, team, status\n• Restore archived projects\n• Export project data\n• Generate final reports"
+        );
+      }
+
+      function createNewProject() {
+        const projectName = prompt("Enter project name:");
+        if (projectName) {
+          alert(
+            `Creating new project: "${projectName}"\n\nProject setup wizard:\n• Define research objectives\n• Select team members\n• Configure data access\n• Set up analysis pipeline\n• Initialize documentation`
+          );
+        }
+      }
+
+      function shareProject(projectCode) {
+        alert(
+          `Sharing project ${projectCode}\n\nSharing options:\n• Team member access\n• External collaborator invite\n• Public research repository\n• Data sharing agreement\n• Publication preparation`
+        );
+      }
+
+      function editProject(projectCode) {
+        alert(
+          `Editing project ${projectCode}\n\nProject settings:\n• Update objectives and timeline\n• Manage team permissions\n• Modify data sources\n• Configure analysis parameters\n• Update documentation`
+        );
+      }
+
+      // Collaboration Functions
+      function managePermissions() {
+        alert(
+          "Permission Manager\n\nManage access control:\n• User roles and permissions\n• Data access levels\n• Project visibility\n• API access tokens\n• Audit trail review"
+        );
+      }
+
+      function inviteCollaborator() {
+        const email = prompt("Enter collaborator's email address:");
+        if (email) {
+          alert(
+            `Sending invitation to ${email}\n\nInvitation includes:\n• Platform access setup\n• Project assignment\n• Permission configuration\n• Onboarding resources\n• Welcome message`
+          );
+        }
+      }
+
+      function contactMember(memberId) {
+        alert(
+          `Contacting ${memberId}\n\nCommunication options:\n• Direct message\n• Video call\n• Schedule meeting\n• Share resources\n• Assign tasks`
+        );
+      }
+
+      function viewAllMembers() {
+        alert(
+          "Team Directory\n\nView all team members:\n• Search and filter\n• Contact information\n• Project assignments\n• Activity status\n• Performance metrics"
+        );
+      }
+
+      function openDiscussions() {
+        alert(
+          "Discussion Forum\n\nAccess team discussions:\n• Project-specific channels\n• General research topics\n• Data sharing discussions\n• Method consultations\n• Publication planning"
+        );
+      }
+
+      function uploadResource() {
+        alert(
+          "Upload Resource\n\nShare files with team:\n• Research papers\n• Data dictionaries\n• Analysis scripts\n• Protocol documents\n• Meeting notes\n\nMax size: 100MB per file"
+        );
+      }
+
+      function downloadResource(resourceId) {
+        alert(
+          `Downloading resource: ${resourceId}\n\nFile will be downloaded to your default downloads folder.\n\nAccess will be logged for audit purposes.`
+        );
+      }
+
+      // Initialize additional charts for new sections
+      function initializeBiomarkerChart() {
+        const ctx = document.getElementById("biomarkerChart");
+        if (ctx) {
+          new Chart(ctx, {
+            type: "histogram",
+            data: {
+              labels: ["0-10", "10-20", "20-30", "30-40", "40-50", "50+"],
+              datasets: [
+                {
+                  label: "C-Reactive Protein Distribution",
+                  data: [12, 19, 23, 17, 8, 3],
+                  backgroundColor: "rgba(59, 130, 246, 0.6)",
+                  borderColor: "rgb(59, 130, 246)",
+                  borderWidth: 1,
+                },
+              ],
+            },
+            options: {
+              responsive: true,
+              maintainAspectRatio: false,
+              plugins: {
+                legend: {
+                  display: false,
+                },
+              },
+            },
+          });
+        }
+      }
+
+      function initializeEnvironmentChart() {
+        const ctx = document.getElementById("environmentChart");
+        if (ctx) {
+          new Chart(ctx, {
+            type: "bar",
+            data: {
+              labels: [
+                "Space Station",
+                "Mars Mission",
+                "Lunar Gateway",
+                "Bedrest",
+                "Clinical",
+              ],
+              datasets: [
+                {
+                  label: "Average Risk Score",
+                  data: [45.2, 62.8, 38.1, 41.7, 23.4],
+                  backgroundColor: [
+                    "rgba(59, 130, 246, 0.6)",
+                    "rgba(239, 68, 68, 0.6)",
+                    "rgba(16, 185, 129, 0.6)",
+                    "rgba(245, 158, 11, 0.6)",
+                    "rgba(139, 92, 246, 0.6)",
+                  ],
+                  borderColor: [
+                    "rgb(59, 130, 246)",
+                    "rgb(239, 68, 68)",
+                    "rgb(16, 185, 129)",
+                    "rgb(245, 158, 11)",
+                    "rgb(139, 92, 246)",
+                  ],
+                  borderWidth: 1,
+                },
+              ],
+            },
+            options: {
+              responsive: true,
+              maintainAspectRatio: false,
+              plugins: {
+                legend: {
+                  display: false,
+                },
+              },
+              scales: {
+                y: {
+                  beginAtZero: true,
+                },
+              },
+            },
+          });
+        }
+      }
+
+      // Update the initialization function to include new charts
+      document.addEventListener("DOMContentLoaded", function () {
+        initializeCharts();
+        initializeBiomarkerChart();
+        initializeEnvironmentChart();
+        initializeNotifications();
+        loadDashboardStats();
+        startAutoRefresh();
+      });
     </script>
   </body>
 </html>
