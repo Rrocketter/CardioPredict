@@ -17,6 +17,9 @@ from datetime import datetime
 import logging
 import random
 
+# Import the API blueprint
+from api import api
+
 # Configure logging
 logging.basicConfig(level=logging.INFO)
 logger = logging.getLogger(__name__)
@@ -24,6 +27,9 @@ logger = logging.getLogger(__name__)
 # Initialize Flask app
 app = Flask(__name__)
 app.config['SECRET_KEY'] = 'cardiopredict-scientific-platform-2025'
+
+# Register the API blueprint
+app.register_blueprint(api)
 
 # Load the trained models and scalers
 MODEL_DIR = Path('../deployment')
@@ -486,4 +492,4 @@ def internal_error(error):
 
 if __name__ == '__main__':
     # Development server
-    app.run(debug=True, host='0.0.0.0', port=5000)
+    app.run(debug=True, host='0.0.0.0', port=5001)
