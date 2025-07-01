@@ -5,11 +5,27 @@ Handles all backend API endpoints for the dashboard with database integration
 
 from flask import Blueprint, jsonify, request, session
 import json
-import numpy as np
 from datetime import datetime, timedelta
 import random
 from sqlalchemy import func, desc
 from models import db, User, Dataset, Prediction, Experiment, MLModel, Notification
+
+# Try to import ML packages, fallback to mock if not available
+try:
+    import numpy as np
+    ML_AVAILABLE = True
+except ImportError:
+    print("⚠️ NumPy not available in API module - using mock implementation")
+    class MockNumPy:
+        @staticmethod
+        def array(data): return data
+        @staticmethod
+        def random(): 
+            return type('MockRandom', (), {
+                'uniform': lambda low, high, size=None: [random.uniform(low, high) for _ in range(size or 1)]
+            })()
+    np = MockNumPy()
+    ML_AVAILABLE = False
 
 # Create API blueprint
 api = Blueprint('api', __name__, url_prefix='/api/v1')
