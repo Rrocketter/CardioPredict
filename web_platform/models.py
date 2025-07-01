@@ -44,11 +44,19 @@ class User(db.Model):
     last_login = db.Column(db.DateTime)
     is_active = db.Column(db.Boolean, default=True)
     
+    # Phase 3: Authentication fields
+    password_hash = db.Column(db.String(128))  # For password authentication
+    username = db.Column(db.String(80), unique=True)  # For login
+    full_name = db.Column(db.String(200))  # Full display name
+    
     # Relationships
     project_memberships = db.relationship('Project', secondary=project_members, back_populates='team_members')
     comments = db.relationship('Comment', backref='author', lazy='dynamic')
     audit_logs = db.relationship('AuditLog', backref='user', lazy='dynamic')
     created_experiments = db.relationship('Experiment', backref='creator', lazy='dynamic')
+    
+    # Phase 3: Role relationships (will be added after models_phase3 is imported)
+    # This relationship will be defined in models_phase3.py to avoid circular imports
     
     def get_preferences(self):
         """Get user preferences as dictionary"""

@@ -1,10 +1,13 @@
 #!/usr/bin/env python3
 """
-CardioPredict Web Platform
+CardioPredict Web Platform - Phase 3
 A professional web interface for cardiovascular risk prediction in microgravity environments
 
-This platform provides access to the AI-powered cardiovascular risk prediction system
-developed for astronaut health monitoring with Earth analog validation.
+Phase 3 Features:
+- Advanced authentication and authorization
+- Real-time collaboration and notifications
+- Advanced ML pipeline management
+- Production-ready monitoring and security
 """
 
 from flask import Flask, render_template, request, jsonify, redirect, url_for
@@ -45,9 +48,26 @@ except ImportError as e:
 from models import db
 from database import init_database
 from database_phase2 import init_phase2_database
+from database_phase3 import init_phase3_database
 
 # Import the API blueprints
 from api import api
+from api_phase2 import api_v2
+
+# Try to import Phase 3 components (graceful fallback if dependencies not available)
+PHASE3_AVAILABLE = True
+try:
+    from api_phase3 import api_v3, jwt
+    from flask_jwt_extended import JWTManager
+    from websocket_server import socketio
+    from celery_tasks import make_celery
+except ImportError as e:
+    print(f"⚠️ Phase 3 dependencies not available: {e}")
+    print("🔄 Running without Phase 3 features (JWT, WebSocket, Celery)")
+    PHASE3_AVAILABLE = False
+    api_v3 = None
+    jwt = None
+    socketio = None
 from api_phase2 import api_v2
 
 # Import configuration
@@ -66,6 +86,24 @@ app.config.from_object(config.get(config_name, config['default']))
 
 # Initialize database
 db.init_app(app)
+
+# Initialize Phase 3 components if available
+if PHASE3_AVAILABLE:
+    # Initialize JWT
+    jwt.init_app(app)
+    
+    # Initialize WebSocket
+    socketio.init_app(app, cors_allowed_origins="*")
+    
+    # Initialize Celery
+    celery = make_celery(app)
+    
+    # Register Phase 3 API
+    app.register_blueprint(api_v3)
+    
+    print("✓ Phase 3 features initialized (JWT, WebSocket, Celery)")
+else:
+    print("⚠️ Phase 3 features disabled due to missing dependencies")
 
 # Register the API blueprints
 app.register_blueprint(api)
@@ -536,13 +574,27 @@ if __name__ == '__main__':
     with app.app_context():
         db.create_all()
         
-        # Initialize database with Phase 2 sample data
+        # Initialize database with sample data
+        init_database(app)
         init_phase2_database(app)
+        
+        # Initialize Phase 3 if available
+        if PHASE3_AVAILABLE:
+            try:
+                init_phase3_database()
+                print("✓ Phase 3 database initialized successfully")
+            except Exception as e:
+                print(f"⚠️ Phase 3 database initialization failed: {e}")
     
     # Get port from environment variable or use default
     port = int(os.environ.get('PORT', 5001))
     host = os.environ.get('HOST', '0.0.0.0')
     debug = os.environ.get('FLASK_ENV') == 'development'
     
-    # Run the application
-    app.run(debug=debug, host=host, port=port)
+    # Run the application with WebSocket support if available
+    if PHASE3_AVAILABLE and socketio:
+        print(f"🚀 Starting CardioPredict with Phase 3 features on {host}:{port}")
+        socketio.run(app, debug=debug, host=host, port=port)
+    else:
+        print(f"🚀 Starting CardioPredict (Phase 1-2) on {host}:{port}")
+        app.run(debug=debug, host=host, port=port)
