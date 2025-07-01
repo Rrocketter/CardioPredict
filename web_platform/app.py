@@ -27,18 +27,19 @@ from database_phase2 import init_phase2_database
 from api import api
 from api_phase2 import api_v2
 
+# Import configuration
+from config import config
+
 # Configure logging
 logging.basicConfig(level=logging.INFO)
 logger = logging.getLogger(__name__)
 
 # Initialize Flask app
 app = Flask(__name__)
-app.config['SECRET_KEY'] = 'cardiopredict-scientific-platform-2025'
 
-# Database configuration
-basedir = os.path.abspath(os.path.dirname(__file__))
-app.config['SQLALCHEMY_DATABASE_URI'] = f'sqlite:///{os.path.join(basedir, "cardiopredict.db")}'
-app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = False
+# Load configuration based on environment
+config_name = os.environ.get('FLASK_ENV', 'development')
+app.config.from_object(config.get(config_name, config['default']))
 
 # Initialize database
 db.init_app(app)
@@ -508,8 +509,17 @@ def internal_error(error):
     return render_template('500.html'), 500
 
 if __name__ == '__main__':
-    # Initialize database with Phase 2 sample data
-    init_phase2_database(app)
+    # Create tables if they don't exist
+    with app.app_context():
+        db.create_all()
+        
+        # Initialize database with Phase 2 sample data
+        init_phase2_database(app)
     
-    # Development server
-    app.run(debug=True, host='0.0.0.0', port=5001)
+    # Get port from environment variable or use default
+    port = int(os.environ.get('PORT', 5001))
+    host = os.environ.get('HOST', '0.0.0.0')
+    debug = os.environ.get('FLASK_ENV') == 'development'
+    
+    # Run the application
+    app.run(debug=debug, host=host, port=port)
