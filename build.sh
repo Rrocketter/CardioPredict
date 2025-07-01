@@ -1,10 +1,14 @@
-#!/usr/bin/env bash
-# Build script for Railway deployment
+#!/bin/bash
+set -e
 
-# Change to web platform directory
+echo "🐍 Python version:"
+python --version
+
+echo "📦 Upgrading pip and build tools..."
+pip install --upgrade pip setuptools wheel
+
+echo "📋 Installing requirements..."
 cd web_platform
-
-# Install dependencies
 pip install -r requirements.txt
 
-echo "Build completed successfully!"
+echo "✅ Build completed successfully!"
