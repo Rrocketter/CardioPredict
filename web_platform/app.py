@@ -9,14 +9,37 @@ developed for astronaut health monitoring with Earth analog validation.
 
 from flask import Flask, render_template, request, jsonify, redirect, url_for
 import json
-import numpy as np
-import pandas as pd
 from pathlib import Path
-import joblib
 from datetime import datetime
 import logging
 import random
 import os
+
+# Try to import ML packages, fallback to mock if not available
+try:
+    import numpy as np
+    import pandas as pd
+    import joblib
+    ML_AVAILABLE = True
+    logger = logging.getLogger(__name__)
+    logger.info("✓ ML packages loaded successfully")
+except ImportError as e:
+    print(f"⚠️ ML packages not available: {e}")
+    print("🔄 Running in web-only mode with mock predictions")
+    ML_AVAILABLE = False
+    # Mock implementations
+    class MockNumPy:
+        @staticmethod
+        def array(data): return data
+    class MockPandas:
+        @staticmethod
+        def DataFrame(data): return data
+    class MockJoblib:
+        @staticmethod
+        def load(path): return None
+    np = MockNumPy()
+    pd = MockPandas()
+    joblib = MockJoblib()
 
 # Import database components
 from models import db

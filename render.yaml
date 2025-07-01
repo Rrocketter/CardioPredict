@@ -2,15 +2,12 @@ services:
   - type: web
     name: cardiopredict
     env: python
-    buildCommand: ./build.sh
+    runtime: python
+    buildCommand: cd web_platform && pip install --upgrade pip setuptools && pip install -r requirements-minimal.txt
     startCommand: cd web_platform && gunicorn --bind 0.0.0.0:$PORT app:app --timeout 120 --workers 1
     envVars:
-      - key: PYTHON_VERSION
-        value: 3.9.16
       - key: FLASK_ENV
         value: production
       - key: SECRET_KEY
         generateValue: true
-      - key: PYTHONPATH
-        value: /opt/render/project/src
     healthCheckPath: /
