@@ -16,6 +16,11 @@ import joblib
 from datetime import datetime
 import logging
 import random
+import os
+
+# Import database components
+from models import db
+from database import init_database
 
 # Import the API blueprint
 from api import api
@@ -27,6 +32,14 @@ logger = logging.getLogger(__name__)
 # Initialize Flask app
 app = Flask(__name__)
 app.config['SECRET_KEY'] = 'cardiopredict-scientific-platform-2025'
+
+# Database configuration
+basedir = os.path.abspath(os.path.dirname(__file__))
+app.config['SQLALCHEMY_DATABASE_URI'] = f'sqlite:///{os.path.join(basedir, "cardiopredict.db")}'
+app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = False
+
+# Initialize database
+db.init_app(app)
 
 # Register the API blueprint
 app.register_blueprint(api)
@@ -75,6 +88,7 @@ class CardioPredict:
                 
         except Exception as e:
             logger.error(f"Error loading models: {e}")
+            logger.info("Continuing with mock prediction capabilities")
             
     def predict_risk(self, biomarker_data):
         """Predict cardiovascular risk from biomarker data"""
@@ -491,5 +505,8 @@ def internal_error(error):
     return render_template('500.html'), 500
 
 if __name__ == '__main__':
+    # Initialize database with sample data
+    init_database(app)
+    
     # Development server
     app.run(debug=True, host='0.0.0.0', port=5001)
