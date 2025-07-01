@@ -21,9 +21,11 @@ import os
 # Import database components
 from models import db
 from database import init_database
+from database_phase2 import init_phase2_database
 
-# Import the API blueprint
+# Import the API blueprints
 from api import api
+from api_phase2 import api_v2
 
 # Configure logging
 logging.basicConfig(level=logging.INFO)
@@ -41,8 +43,9 @@ app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = False
 # Initialize database
 db.init_app(app)
 
-# Register the API blueprint
+# Register the API blueprints
 app.register_blueprint(api)
+app.register_blueprint(api_v2)
 
 # Load the trained models and scalers
 MODEL_DIR = Path('../deployment')
@@ -505,8 +508,8 @@ def internal_error(error):
     return render_template('500.html'), 500
 
 if __name__ == '__main__':
-    # Initialize database with sample data
-    init_database(app)
+    # Initialize database with Phase 2 sample data
+    init_phase2_database(app)
     
     # Development server
     app.run(debug=True, host='0.0.0.0', port=5001)
