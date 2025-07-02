@@ -129,30 +129,7 @@
               <a class="nav-link" href="{{ url_for('research') }}">Research</a>
             </li>
             <li class="nav-item">
-              <a class="nav-link" href="{{ url_for('demo') }}">Live Demo</a>
-            </li>
-            <li class="nav-item">
-              <a class="nav-link" href="{{ url_for('documentation') }}"
-                >Documentation</a
-              >
-            </li>
-            <li class="nav-item">
-              <a class="nav-link" href="{{ url_for('about') }}">About</a>
-            </li>
-            <li class="nav-item">
-              <a class="nav-link" href="{{ url_for('contact') }}">Contact</a>
-            </li>
-            <li class="nav-item">
-              <a class="nav-link" href="{{ url_for('publications') }}"
-                >Publications</a
-              >
-            </li>
-            <li class="nav-item">
-              <a
-                class="nav-link btn btn-primary ms-2 text-white"
-                href="{{ url_for('login') }}"
-                ><i class="fas fa-sign-in-alt me-1"></i>Login</a
-              >
+              <a class="nav-link" href="{{ url_for('predict') }}">Predict</a>
             </li>
           </ul>
         </div>
@@ -199,7 +176,7 @@
               </div>
 
               <div class="cta-buttons">
-                <a href="{{ url_for('demo') }}" class="btn-primary-custom">
+                <a href="{{ url_for('predict') }}" class="btn-primary-custom">
                   <i class="fas fa-rocket me-2"></i>Try Live Demo
                 </a>
                 <a
@@ -628,16 +605,16 @@
             </p>
             <div class="cta-buttons">
               <a
-                href="{{ url_for('demo') }}"
+                href="{{ url_for('predict') }}"
                 class="btn btn-primary btn-lg me-3"
               >
-                <i class="fas fa-rocket me-2"></i>Launch Demo
+                <i class="fas fa-calculator me-2"></i>Try Prediction
               </a>
               <a
-                href="{{ url_for('documentation') }}"
+                href="{{ url_for('research') }}"
                 class="btn btn-outline-primary btn-lg"
               >
-                <i class="fas fa-book me-2"></i>API Documentation
+                <i class="fas fa-microscope me-2"></i>View Research
               </a>
             </div>
           </div>
@@ -790,9 +767,9 @@
           <div class="col-lg-2">
             <h5>Platform</h5>
             <ul class="footer-links">
-              <li><a href="{{ url_for('demo') }}">Live Demo</a></li>
-              <li><a href="{{ url_for('documentation') }}">API Docs</a></li>
-              <li><a href="#">Download</a></li>
+              <li><a href="{{ url_for('predict') }}">Prediction Demo</a></li>
+              <li><a href="{{ url_for('research') }}">Research</a></li>
+              <li><a href="{{ url_for('homepage') }}">Homepage</a></li>
             </ul>
           </div>
           <div class="col-lg-2">
@@ -806,7 +783,7 @@
           <div class="col-lg-2">
             <h5>Support</h5>
             <ul class="footer-links">
-              <li><a href="{{ url_for('about') }}">About</a></li>
+              <li><a href="{{ url_for('research') }}">About</a></li>
               <li><a href="#">Contact</a></li>
               <li><a href="#">FAQ</a></li>
             </ul>

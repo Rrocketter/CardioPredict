@@ -405,9 +405,6 @@ def create_tables():
     except Exception as e:
         logger.error(f"Database initialization error: {e}")
 
-# Initialize database for production
-create_tables()
-
 if __name__ == '__main__':
     print("="*70)
     print("🫀 CardioPredict Research Platform")
@@ -421,4 +418,5 @@ if __name__ == '__main__':
     print("✓ Validated against space medicine research")
     print("="*70)
     
+    create_tables()
     app.run(host='0.0.0.0', port=5002, debug=True)

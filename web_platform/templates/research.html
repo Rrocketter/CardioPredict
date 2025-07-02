@@ -70,15 +70,7 @@
               >
             </li>
             <li class="nav-item">
-              <a class="nav-link" href="{{ url_for('demo') }}">Live Demo</a>
-            </li>
-            <li class="nav-item">
-              <a class="nav-link" href="{{ url_for('documentation') }}"
-                >Documentation</a
-              >
-            </li>
-            <li class="nav-item">
-              <a class="nav-link" href="{{ url_for('about') }}">About</a>
+              <a class="nav-link" href="{{ url_for('predict') }}">Predict</a>
             </li>
           </ul>
         </div>
@@ -709,16 +701,16 @@
             </p>
             <div class="mt-4">
               <a
-                href="{{ url_for('demo') }}"
+                href="{{ url_for('predict') }}"
                 class="btn btn-primary btn-lg me-3"
               >
-                <i class="fas fa-play me-2"></i>Try Interactive Demo
+                <i class="fas fa-calculator me-2"></i>Try Prediction Demo
               </a>
               <a
-                href="{{ url_for('documentation') }}"
+                href="{{ url_for('homepage') }}"
                 class="btn btn-outline-primary btn-lg"
               >
-                <i class="fas fa-download me-2"></i>Download Data
+                <i class="fas fa-home me-2"></i>Back to Homepage
               </a>
             </div>
           </div>
@@ -743,8 +735,8 @@
           <div class="col-lg-2">
             <h5>Platform</h5>
             <ul class="footer-links">
-              <li><a href="{{ url_for('demo') }}">Live Demo</a></li>
-              <li><a href="{{ url_for('documentation') }}">API Docs</a></li>
+              <li><a href="{{ url_for('predict') }}">Live Demo</a></li>
+              <li><a href="{{ url_for('research') }}">API Docs</a></li>
               <li><a href="#">Download</a></li>
             </ul>
           </div>
@@ -759,7 +751,7 @@
           <div class="col-lg-2">
             <h5>Support</h5>
             <ul class="footer-links">
-              <li><a href="{{ url_for('about') }}">About</a></li>
+              <li><a href="{{ url_for('research') }}">About</a></li>
               <li><a href="#">Contact</a></li>
               <li><a href="#">FAQ</a></li>
             </ul>

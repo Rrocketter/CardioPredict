@@ -94,7 +94,7 @@
         background: linear-gradient(135deg, var(--success-green), #20c997);
       }
 
-      .risk-medium {
+      .risk-medium, .risk-moderate {
         background: linear-gradient(135deg, var(--warning-orange), #ffc107);
       }
 
@@ -167,12 +167,6 @@
         margin-right: 1rem;
         width: 40px;
         text-align: center;
-      }
-
-      .metric-badge {
-        font-size: 1.5rem;
-        font-weight: 700;
-        color: var(--primary-blue);
       }
     </style>
   </head>
@@ -343,7 +337,6 @@
                         min="0"
                         max="100"
                         placeholder="Enter CRP level"
-                        {% if prediction and prediction.biomarker_data.crp %}value="{{ prediction.biomarker_data.crp }}"{% endif %}
                       />
                       <div class="invalid-feedback"></div>
                     </div>
@@ -363,8 +356,6 @@
                         min="0"
                         max="50"
                         placeholder="Enter PF4 level"
-                      
-                        {% if prediction and prediction.biomarker_data.pf4 %}value="{{ prediction.biomarker_data.pf4 }}"{% endif %}
                       />
                       <div class="invalid-feedback"></div>
                     </div>
@@ -382,8 +373,6 @@
                         min="0"
                         max="500"
                         placeholder="Enter Fetuin A36 level"
-                      
-                        {% if prediction and prediction.biomarker_data.fetuin_a36 %}value="{{ prediction.biomarker_data.fetuin_a36 }}"{% endif %}
                       />
                       <div class="invalid-feedback"></div>
                     </div>
@@ -401,8 +390,6 @@
                         min="100"
                         max="800"
                         placeholder="Enter Fibrinogen level"
-                      
-                        {% if prediction and prediction.biomarker_data.fibrinogen %}value="{{ prediction.biomarker_data.fibrinogen }}"{% endif %}
                       />
                       <div class="invalid-feedback"></div>
                     </div>
@@ -421,8 +408,6 @@
                         min="0"
                         max="10"
                         placeholder="Enter Troponin I level"
-                      
-                        {% if prediction and prediction.biomarker_data.troponin_i %}value="{{ prediction.biomarker_data.troponin_i }}"{% endif %}
                       />
                       <div class="invalid-feedback"></div>
                     </div>
@@ -442,8 +427,6 @@
                         min="0"
                         max="5000"
                         placeholder="Enter BNP level"
-                      
-                        {% if prediction and prediction.biomarker_data.bnp %}value="{{ prediction.biomarker_data.bnp }}"{% endif %}
                       />
                       <div class="invalid-feedback"></div>
                     </div>
@@ -462,8 +445,6 @@
                         min="50"
                         max="300"
                         placeholder="Enter LDL level"
-                      
-                        {% if prediction and prediction.biomarker_data.ldl_cholesterol %}value="{{ prediction.biomarker_data.ldl_cholesterol }}"{% endif %}
                       />
                       <div class="invalid-feedback"></div>
                     </div>
@@ -481,8 +462,6 @@
                         min="20"
                         max="150"
                         placeholder="Enter HDL level"
-                      
-                        {% if prediction and prediction.biomarker_data.hdl_cholesterol %}value="{{ prediction.biomarker_data.hdl_cholesterol }}"{% endif %}
                       />
                       <div class="invalid-feedback"></div>
                     </div>
@@ -500,8 +479,6 @@
                         min="80"
                         max="200"
                         placeholder="Enter systolic BP"
-                      
-                        {% if prediction and prediction.biomarker_data.systolic_bp %}value="{{ prediction.biomarker_data.systolic_bp }}"{% endif %}
                       />
                       <div class="invalid-feedback"></div>
                     </div>
@@ -521,8 +498,6 @@
                         min="1"
                         max="1000"
                         placeholder="Enter duration"
-                      
-                        {% if prediction and prediction.biomarker_data.mission_duration %}value="{{ prediction.biomarker_data.mission_duration }}"{% endif %}
                       />
                       <div class="invalid-feedback"></div>
                     </div>
@@ -548,8 +523,88 @@
                 </h5>
               </div>
               <div class="card-body">
+                {% if prediction %}
+                <!-- Prediction Results -->
+                <div id="prediction-results" class="prediction-card" style="display: block;">
+                  <div class="risk-score-display">
+                    <div
+                      id="risk-score-circle"
+                      class="risk-score-circle risk-{{ prediction.risk_category.lower() }}"
+                    >
+                      <span id="risk-score-value" class="risk-score-value"
+                        >{{ "%.1f"|format(prediction.cv_risk_score) }}</span
+                      >
+                      <span class="risk-score-label">Risk Score</span>
+                    </div>
+                    <h6 id="risk-level" class="mb-0">{{ prediction.risk_category }} Risk</h6>
+                    <p id="risk-description" class="text-muted small mb-3">
+                      {% if prediction.risk_category == 'Low' %}
+                        Cardiovascular parameters within normal ranges
+                      {% elif prediction.risk_category == 'Moderate' %}
+                        Some elevated biomarkers require monitoring
+                      {% else %}
+                        Multiple elevated cardiovascular risk factors
+                      {% endif %}
+                    </p>
+
+                    <div class="mb-3">
+                      <label class="form-label small">Model Confidence</label>
+                      <div class="progress">
+                        <div
+                          id="confidence-bar"
+                          class="progress-bar bg-info"
+                          style="width: {{ prediction.confidence * 100 }}%"
+                        >
+                          <span id="confidence-value">{{ "%.1f"|format(prediction.confidence * 100) }}%</span>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+
+                  <!-- Detailed Analysis -->
+                  <div class="mt-4">
+                    <h6>
+                      <i class="fas fa-microscope me-2"></i>Analysis Details
+                    </h6>
+                    <div id="analysis-details">
+                      <div class="mb-2">
+                        <span class="fw-medium">Risk Category:</span>
+                        <span class="badge bg-{{ prediction.risk_color }} ms-2">{{ prediction.risk_category }}</span>
+                      </div>
+                      <div class="mb-2">
+                        <span class="fw-medium">Assessment Time:</span>
+                        <span class="text-muted ms-2">{{ prediction.timestamp }}</span>
+                      </div>
+                    </div>
+                  </div>
+
+                  <!-- Recommendations -->
+                  <div class="mt-4">
+                    <h6>
+                      <i class="fas fa-lightbulb me-2"></i>Recommendations
+                    </h6>
+                    <div id="recommendations">
+                      {% for rec in prediction.recommendations %}
+                      <div class="mb-1">
+                        <i class="fas fa-check-circle text-success me-2"></i>{{ rec }}
+                      </div>
+                      {% endfor %}
+                    </div>
+                  </div>
+
+                  <!-- Model Information -->
+                  <div class="mt-4">
+                    <small class="text-muted">
+                      <i class="fas fa-info-circle me-1"></i>
+                      Prediction based on
+                      <span id="model-used">Ridge Regression Model</span> (R²
+                      = <span id="model-accuracy">0.998</span>)
+                    </small>
+                  </div>
+                </div>
+                {% else %}
                 <!-- Default State -->
-                <div id="default-state" class="text-center py-4" {% if prediction %}style="display: none;"{% endif %}>
+                <div id="default-state" class="text-center py-4">
                   <i
                     class="fas fa-heartbeat text-muted mb-3"
                     style="font-size: 3rem"
@@ -562,127 +617,12 @@
                     a comprehensive cardiovascular risk assessment.
                   </p>
                 </div>
-
-                <!-- Prediction Results (hidden initially) -->
-                <div id="prediction-results" class="prediction-card" {% if prediction %}style="display: block;"{% endif %}>
-                  <div class="risk-score-display">
-                    <div
-                      id="risk-score-circle"
-                      class="risk-score-circle {% if prediction %}risk-{{ prediction.risk_color }}{% else %}risk-low{% endif %}"
-                    >
-                      <span id="risk-score-value" class="risk-score-value">
-                        {% if prediction %}{{ "%.1f"|format(prediction.cv_risk_score) }}{% else %}--{% endif %}
-                      </span>
-                      <span class="risk-score-label">Risk Score</span>
-                    </div>
-                    <h6 id="risk-level" class="mb-0">
-                      {% if prediction %}{{ prediction.risk_category }} Risk{% else %}Risk Level{% endif %}
-                    </h6>
-                    <p id="risk-description" class="text-muted small mb-3">
-                      {% if prediction %}
-                        {% if prediction.risk_category == 'Low' %}
-                          Cardiovascular parameters within acceptable ranges
-                        {% elif prediction.risk_category == 'Moderate' %}
-                          Some elevated biomarkers require monitoring
-                        {% else %}
-                          Multiple elevated cardiovascular risk factors
-                        {% endif %}
-                      {% else %}
-                        Assessment description
-                      {% endif %}
-                    </p>
-
-                    <div class="mb-3">
-                      <label class="form-label small">Model Confidence</label>
-                      <div class="progress">
-                        <div
-                          id="confidence-bar"
-                          class="progress-bar bg-info"
-                          style="width: {% if prediction %}{{ (prediction.confidence * 100)|int }}{% else %}0{% endif %}%"
-                        >
-                          <span id="confidence-value">
-                            {% if prediction %}{{ (prediction.confidence * 100)|int }}%{% else %}0%{% endif %}
-                          </span>
-                        </div>
-                      </div>
-                    </div>
-                  </div>
-
-                  <!-- Detailed Analysis -->
-                  <div class="mt-4">
-                    <h6>
-                      <i class="fas fa-microscope me-2"></i>Analysis Details
-                    </h6>
-                    <div id="analysis-details">
-                      {% if prediction %}
-                        {% set biomarkers = prediction.biomarker_data %}
-                        <div class="mb-2">
-                          <span class="fw-medium">Inflammation:</span>
-                          <span class="badge bg-{% if biomarkers.crp > 3 %}warning{% else %}success{% endif %} ms-2">
-                            {% if biomarkers.crp > 3 %}Elevated{% else %}Normal{% endif %}
-                          </span>
-                        </div>
-                        <div class="mb-2">
-                          <span class="fw-medium">Platelet Function:</span>
-                          <span class="badge bg-{% if biomarkers.pf4 > 15 %}warning{% else %}success{% endif %} ms-2">
-                            {% if biomarkers.pf4 > 15 %}Activated{% else %}Normal{% endif %}
-                          </span>
-                        </div>
-                        <div class="mb-2">
-                          <span class="fw-medium">Cardiac Injury:</span>
-                          <span class="badge bg-{% if biomarkers.troponin_i > 0.02 %}danger{% else %}success{% endif %} ms-2">
-                            {% if biomarkers.troponin_i > 0.02 %}Detected{% else %}None{% endif %}
-                          </span>
-                        </div>
-                        <div class="mb-2">
-                          <span class="fw-medium">Heart Function:</span>
-                          <span class="badge bg-{% if biomarkers.bnp > 80 %}warning{% else %}success{% endif %} ms-2">
-                            {% if biomarkers.bnp > 80 %}Impaired{% else %}Normal{% endif %}
-                          </span>
-                        </div>
-                      {% else %}
-                        <!-- Will be populated by JavaScript -->
-                      {% endif %}
-                    </div>
-                  </div>
-
-                  <!-- Recommendations -->
-                  <div class="mt-4">
-                    <h6>
-                      <i class="fas fa-lightbulb me-2"></i>Recommendations
-                    </h6>
-                    <div id="recommendations">
-                      {% if prediction %}
-                        {% for rec in prediction.recommendations %}
-                        <div class="mb-1">
-                          <i class="fas fa-check-circle text-success me-2"></i>{{ rec }}
-                        </div>
-                        {% endfor %}
-                      {% else %}
-                        <!-- Will be populated by JavaScript -->
-                      {% endif %}
-                    </div>
-                  </div>
-
-                  <!-- Model Information -->
-                  <div class="mt-4">
-                    <small class="text-muted">
-                      <i class="fas fa-info-circle me-1"></i>
-                      Prediction based on
-                      <span id="model-used">Ridge Regression Model</span> (R²
-                      = <span id="model-accuracy">0.998</span>)
-                      {% if prediction %}
-                        <br><strong>Environment:</strong> {{ prediction.environment.title() }}
-                        <br><strong>Timestamp:</strong> {{ prediction.timestamp }}
-                      {% endif %}
-                    </small>
-                  </div>
-                </div>
+                {% endif %}
               </div>
             </div>
 
-            <!-- Model Performance Info -->
-            <div class="card shadow-custom mt-3">
+            <!-- Model Performance Card -->
+            <div class="card shadow-custom mt-4">
               <div class="card-header bg-info text-white">
                 <h6 class="mb-0">
                   <i class="fas fa-chart-bar me-2"></i>Model Performance
@@ -691,76 +631,51 @@
               <div class="card-body">
                 <div class="row text-center">
                   <div class="col-6">
-                    <div class="metric-badge">99.8%</div>
-                    <small class="d-block">Accuracy</small>
+                    <div class="fw-bold text-success">99.8%</div>
+                    <small class="text-muted">Accuracy</small>
                   </div>
                   <div class="col-6">
-                    <div class="metric-badge">0.998</div>
-                    <small class="d-block">R² Score</small>
+                    <div class="fw-bold text-primary">0.998</div>
+                    <small class="text-muted">R² Score</small>
                   </div>
                 </div>
-                <hr />
+                <hr>
                 <small class="text-muted">
-                  <i class="fas fa-shield-alt me-1"></i>
-                  Validated against NASA Inspiration4 mission data and published bedrest
-                  studies
+                  <i class="fas fa-rocket me-1"></i>
+                  Trained on NASA Inspiration4 mission data and validated on Earth analog studies.
                 </small>
               </div>
             </div>
           </div>
         </div>
 
-        <!-- Sample Data Information -->
-        <div class="row mt-4">
-          <div class="col-lg-12">
-            <div class="card border-primary">
-              <div class="card-header bg-light">
-                <h6 class="mb-0">
-                  <i class="fas fa-info-circle text-primary me-2"></i>About This
-                  Demo
-                </h6>
+        <!-- Technical Information -->
+        <div class="row mt-5">
+          <div class="col-12">
+            <div class="card shadow-custom">
+              <div class="card-header">
+                <h5 class="mb-0">
+                  <i class="fas fa-info-circle me-2"></i>About This Prediction System
+                </h5>
               </div>
               <div class="card-body">
                 <div class="row">
                   <div class="col-md-6">
-                    <h6>Sample Data Scenarios</h6>
+                    <h6>Model Details</h6>
                     <ul class="list-unstyled">
-                      <li>
-                        <i class="fas fa-rocket text-primary me-2"></i
-                        ><strong>Space Mission:</strong> 14-day SpaceX mission
-                        profile
-                      </li>
-                      <li>
-                        <i class="fas fa-bed text-warning me-2"></i
-                        ><strong>Bedrest Study:</strong> 60-day bedrest
-                        simulation
-                      </li>
-                      <li>
-                        <i class="fas fa-hospital text-success me-2"></i
-                        ><strong>Hospital Patient:</strong> Post-surgical
-                        monitoring
-                      </li>
+                      <li><i class="fas fa-check text-success me-2"></i>Ridge Regression Algorithm</li>
+                      <li><i class="fas fa-check text-success me-2"></i>99.8% Prediction Accuracy</li>
+                      <li><i class="fas fa-check text-success me-2"></i>R² Score: 0.998</li>
+                      <li><i class="fas fa-check text-success me-2"></i>10 Key Biomarkers</li>
                     </ul>
                   </div>
                   <div class="col-md-6">
-                    <h6>Model Features</h6>
+                    <h6>Training Data</h6>
                     <ul class="list-unstyled">
-                      <li>
-                        <i class="fas fa-check text-success me-2"></i>Real-time
-                        risk assessment
-                      </li>
-                      <li>
-                        <i class="fas fa-check text-success me-2"></i>Clinical
-                        decision support
-                      </li>
-                      <li>
-                        <i class="fas fa-check text-success me-2"></i
-                        >Environment-specific modeling
-                      </li>
-                      <li>
-                        <i class="fas fa-check text-success me-2"></i
-                        >Interpretable predictions
-                      </li>
+                      <li><i class="fas fa-rocket text-primary me-2"></i>NASA SpaceX Inspiration4 Mission</li>
+                      <li><i class="fas fa-bed text-warning me-2"></i>Earth Analog Bedrest Studies</li>
+                      <li><i class="fas fa-hospital text-success me-2"></i>Clinical Validation Cohorts</li>
+                      <li><i class="fas fa-users text-info me-2"></i>Multi-environment Dataset</li>
                     </ul>
                   </div>
                 </div>
@@ -771,14 +686,33 @@
       </div>
     </div>
 
+    <!-- Footer -->
+    <footer class="footer bg-dark text-light py-4 mt-5">
+      <div class="container">
+        <div class="row align-items-center">
+          <div class="col-md-6">
+            <p class="mb-0">
+              <i class="fas fa-heartbeat me-2"></i>
+              <strong>CardioPredict</strong> - AI-Powered Cardiovascular Risk Assessment
+            </p>
+          </div>
+          <div class="col-md-6 text-md-end">
+            <p class="mb-0">
+              <i class="fas fa-flask me-2"></i>Publication-Ready Research Platform
+            </p>
+          </div>
+        </div>
+      </div>
+    </footer>
+
     <!-- JavaScript -->
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
     <script src="{{ url_for('static', filename='js/main.js') }}"></script>
 
     <script>
-      // Demo-specific JavaScript
+      // Enhanced demo functionality
       document.addEventListener("DOMContentLoaded", function () {
-        // Environment selection handling
+        // Environment option selection
         const environmentOptions = document.querySelectorAll(
           ".environment-option"
         );
@@ -797,18 +731,47 @@
           });
         });
 
-        // Form submission handling
+        // Form submission handling with validation
         const form = document.getElementById("predictionForm");
-        form.addEventListener("submit", function (e) {
-          // Don't prevent default for our Flask form submission
-          // e.preventDefault();
-          // handlePredictionSubmission();
-        });
+        if (form) {
+          form.addEventListener("submit", function (e) {
+            if (!validateForm()) {
+              e.preventDefault();
+              return false;
+            }
+          });
+        }
       });
 
       function updateEnvironmentContext(environment) {
         // Update sample data and context based on selected environment
         console.log("Environment selected:", environment);
+      }
+
+      function validateForm() {
+        const inputs = document.querySelectorAll('#predictionForm input[type="number"]');
+        let isValid = true;
+        let hasValues = false;
+
+        inputs.forEach(input => {
+          input.classList.remove('is-invalid', 'is-valid');
+          if (input.value && input.value.trim() !== '') {
+            hasValues = true;
+            if (parseFloat(input.value) >= parseFloat(input.min) && parseFloat(input.value) <= parseFloat(input.max)) {
+              input.classList.add('is-valid');
+            } else {
+              input.classList.add('is-invalid');
+              isValid = false;
+            }
+          }
+        });
+
+        if (!hasValues) {
+          alert('Please enter at least one biomarker value to make a prediction.');
+          return false;
+        }
+
+        return isValid;
       }
 
       function loadSampleData() {
@@ -895,145 +858,329 @@
           }
         }, 3000);
       }
-
-      function handlePredictionSubmission() {
-        // Show loading state
-        showNotification("Analyzing biomarkers...", "info");
-
-        // Collect form data
-        const formData = new FormData(
-          document.getElementById("predictionForm")
-        );
-        const environment = document.querySelector(
-          'input[name="environment"]:checked'
-        ).value;
-        formData.append("environment", environment);
-
-        // Simulate API call (replace with actual API endpoint)
-        setTimeout(() => {
-          const mockPrediction = generateMockPrediction(formData);
-          displayPredictionResults(mockPrediction);
-        }, 2000);
-      }
-
-      function generateMockPrediction(formData) {
-        // Generate realistic mock prediction based on input values
-        const crp = parseFloat(formData.get("crp")) || 0;
-        const pf4 = parseFloat(formData.get("pf4")) || 0;
-        const troponin = parseFloat(formData.get("troponin_i")) || 0;
-        const bnp = parseFloat(formData.get("bnp")) || 0;
-
-        // Simple risk calculation (replace with actual model)
-        let riskScore = 30;
-        if (crp > 3) riskScore += 15;
-        if (pf4 > 15) riskScore += 10;
-        if (troponin > 0.02) riskScore += 20;
-        if (bnp > 80) riskScore += 15;
-
-        riskScore = Math.min(riskScore, 95);
-
-        let riskLevel, riskDescription, riskClass;
-        if (riskScore < 30) {
-          riskLevel = "Low Risk";
-          riskDescription = "Cardiovascular parameters within normal ranges";
-          riskClass = "risk-low";
-        } else if (riskScore < 70) {
-          riskLevel = "Moderate Risk";
-          riskDescription = "Some elevated biomarkers require monitoring";
-          riskClass = "risk-medium";
-        } else {
-          riskLevel = "High Risk";
-          riskDescription = "Multiple elevated cardiovascular risk factors";
-          riskClass = "risk-high";
-        }
-
-        return {
-          risk_score: riskScore,
-          risk_level: riskLevel,
-          risk_description: riskDescription,
-          risk_class: riskClass,
-          confidence: 95.0,
-          model_used: "Ridge Regression Model",
-          model_accuracy: "0.998",
-          recommendations: [
-            "Continue regular cardiovascular monitoring",
-            "Maintain current exercise countermeasures",
-            "Monitor inflammatory markers closely",
-          ],
-          analysis: {
-            Inflammation: crp > 3 ? "Elevated" : "Normal",
-            "Platelet Function": pf4 > 15 ? "Activated" : "Normal",
-            "Cardiac Injury": troponin > 0.02 ? "Detected" : "None",
-            "Heart Function": bnp > 80 ? "Impaired" : "Normal",
-          },
-        };
-      }
-
-      function displayPredictionResults(results) {
-        // Hide default state and show results
-        document.getElementById("default-state").style.display = "none";
-        document.getElementById("prediction-results").style.display = "block";
-
-        // Update risk score display
-        document.getElementById("risk-score-value").textContent =
-          results.risk_score.toFixed(1);
-        document.getElementById("risk-level").textContent = results.risk_level;
-        document.getElementById("risk-description").textContent =
-          results.risk_description;
-
-        // Update risk circle color
-        const riskCircle = document.getElementById("risk-score-circle");
-        riskCircle.className = `risk-score-circle ${results.risk_class}`;
-
-        // Update confidence bar
-        document.getElementById(
-          "confidence-value"
-        ).textContent = `${results.confidence.toFixed(1)}%`;
-        document.getElementById(
-          "confidence-bar"
-        ).style.width = `${results.confidence}%`;
-
-        // Update model information
-        document.getElementById("model-used").textContent = results.model_used;
-        document.getElementById("model-accuracy").textContent =
-          results.model_accuracy;
-
-        // Populate analysis details
-        const analysisDiv = document.getElementById("analysis-details");
-        analysisDiv.innerHTML = "";
-        Object.keys(results.analysis).forEach((key) => {
-          const item = document.createElement("div");
-          item.className = "mb-2";
-          const status = results.analysis[key];
-          const statusClass =
-            status === "Normal"
-              ? "success"
-              : status === "Elevated" || status === "Activated"
-              ? "warning"
-              : "danger";
-          item.innerHTML = `
-                    <span class="fw-medium">${key}:</span>
-                    <span class="badge bg-${statusClass} ms-2">${status}</span>
-                `;
-          analysisDiv.appendChild(item);
-        });
-
-        // Populate recommendations
-        const recommendationsDiv = document.getElementById("recommendations");
-        recommendationsDiv.innerHTML = "";
-        results.recommendations.forEach((rec) => {
-          const item = document.createElement("div");
-          item.className = "mb-1";
-          item.innerHTML = `<i class="fas fa-check-circle text-success me-2"></i>${rec}`;
-          recommendationsDiv.appendChild(item);
-        });
-
-        // Scroll to results
-        document.getElementById("prediction-results").scrollIntoView({
-          behavior: "smooth",
-          block: "center",
-        });
-      }
     </script>
   </body>
 </html>
+              </div>
+            </div>
+
+            <div class="col-md-8 text-start">
+              <h5 class="fw-bold mb-3">Clinical Recommendations</h5>
+              <div class="recommendations">
+                {% for recommendation in prediction.recommendations %}
+                <div class="recommendation-item">
+                  <i
+                    class="fas fa-{{ 'exclamation-triangle' if loop.index <= 2 else 'info-circle' }} me-2 text-{{ prediction.risk_color }}"
+                  ></i>
+                  {{ recommendation }}
+                </div>
+                {% endfor %}
+              </div>
+
+              <div class="mt-3 text-muted">
+                <small>
+                  <i class="fas fa-clock me-1"></i>
+                  Generated: {{ prediction.timestamp }}
+                </small>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+  {% endif %}
+
+  <!-- Prediction Form -->
+  <div class="row">
+    <div class="col-12">
+      <div class="card">
+        <div class="card-header">
+          <h5 class="mb-0">
+            <i class="fas fa-user-md me-2"></i>
+            Patient Biomarker Input {% if prediction %}
+            <span class="badge bg-success ms-2">Prediction Complete</span>
+            {% endif %}
+          </h5>
+        </div>
+        <div class="card-body">
+          {% if error %}
+          <div class="alert alert-danger" role="alert">
+            <i class="fas fa-exclamation-triangle me-2"></i>
+            {{ error }}
+          </div>
+          {% endif %}
+
+          <form
+            method="POST"
+            id="predictForm"
+            class="needs-validation"
+            novalidate
+          >
+            <div class="feature-grid">
+              {% for feature in features %}
+              <div class="mb-3">
+                <label for="{{ feature }}" class="form-label">
+                  {{ feature.replace('_', ' ').title() }}
+                  <i
+                    class="fas fa-question-circle text-muted ms-1"
+                    data-bs-toggle="tooltip"
+                    data-bs-placement="top"
+                    title="Enter measured biomarker value"
+                  ></i>
+                </label>
+                <div class="input-group">
+                  {% if feature.endswith('_zscore') %}
+                  <span class="input-group-text">Z</span>
+                  {% elif 'mg_dl' in feature %}
+                  <span class="input-group-text">mg/dL</span>
+                  {% elif feature == 'CRP' %}
+                  <span class="input-group-text">ng/mL</span>
+                  {% elif feature in ['PF4', 'SAP', 'Haptoglobin'] %}
+                  <span class="input-group-text">pg/mL</span>
+                  {% else %}
+                  <span class="input-group-text">Units</span>
+                  {% endif %}
+
+                  <input
+                    type="number"
+                    class="form-control biomarker-input"
+                    id="{{ feature }}"
+                    name="{{ feature }}"
+                    step="{{ '0.1' if '_zscore' in feature or feature == 'Fibrinogen_mg_dl' else '1' }}"
+                    min="0"
+                    value="{{ form_data.get(feature, '') if form_data else '' }}"
+                    placeholder="Enter {{ feature.replace('_', ' ').lower() }} value"
+                    data-bs-toggle="tooltip"
+                    data-bs-placement="top"
+                    title="Enter measured biomarker value"
+                  />
+                </div>
+                <div class="form-text">
+                  Normal ranges vary by biomarker - consult reference values
+                </div>
+              </div>
+              {% endfor %}
+            </div>
+
+            <div class="d-flex justify-content-between align-items-center mt-4">
+              <div>
+                <button type="reset" class="btn btn-outline-secondary me-2">
+                  <i class="fas fa-undo me-2"></i>
+                  Reset Form
+                </button>
+                <button
+                  type="button"
+                  class="btn btn-outline-info"
+                  onclick="fillSampleData()"
+                >
+                  <i class="fas fa-vial me-2"></i>
+                  Load Sample Data
+                </button>
+              </div>
+
+              <div>
+                <button type="submit" class="btn btn-primary btn-lg px-4">
+                  <i class="fas fa-brain me-2"></i>
+                  Calculate Risk
+                </button>
+              </div>
+            </div>
+          </form>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Model Information -->
+  <div class="row mt-4">
+    <div class="col-12">
+      <div class="card bg-light">
+        <div class="card-body">
+          <h6 class="fw-bold mb-3">
+            <i class="fas fa-info-circle me-2"></i>
+            Model Information
+          </h6>
+          <div class="row g-3">
+            <div class="col-md-3">
+              <div class="text-center">
+                <div class="h5 text-primary fw-bold">99.8%</div>
+                <small class="text-muted">Model Accuracy (R²)</small>
+              </div>
+            </div>
+            <div class="col-md-3">
+              <div class="text-center">
+                <div class="h5 text-success fw-bold">{{ features|length }}</div>
+                <small class="text-muted">Key Biomarkers</small>
+              </div>
+            </div>
+            <div class="col-md-3">
+              <div class="text-center">
+                <div class="h5 text-info fw-bold">28</div>
+                <small class="text-muted">Training Samples</small>
+              </div>
+            </div>
+            <div class="col-md-3">
+              <div class="text-center">
+                <div class="h5 text-warning fw-bold">Cross-Val</div>
+                <small class="text-muted">Validation Method</small>
+              </div>
+            </div>
+          </div>
+
+          <div class="mt-3">
+            <small class="text-muted">
+              <i class="fas fa-shield-alt me-1"></i>
+              This model has been validated on NASA OSDR datasets and bedrest
+              studies. Results should be interpreted by qualified medical
+              personnel.
+            </small>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+{% endblock %} {% block extra_scripts %}
+<script>
+  // Feature descriptions for tooltips
+  const featureDescriptions = {
+    CRP: "C-Reactive Protein - Inflammatory marker (normal: <3,000 ng/mL)",
+    PF4: "Platelet Factor 4 - Thrombotic risk marker (normal: 8,000-15,000 pg/mL)",
+    SAP: "Serum Amyloid P - Acute phase protein (normal: 20,000-50,000 pg/mL)",
+    Fibrinogen_mg_dl: "Fibrinogen - Clotting factor (normal: 200-400 mg/dL)",
+    Haptoglobin:
+      "Haptoglobin - Hemoglobin-binding protein (normal: 30,000-200,000 pg/mL)",
+    AGP_Change_From_Baseline: "Alpha-1 Acid Glycoprotein change from baseline",
+    PF4_Change_From_Baseline: "PF4 change from baseline values",
+    CRP_zscore: "CRP Z-score (standardized value)",
+    PF4_zscore: "PF4 Z-score (standardized value)",
+    SAP_zscore: "SAP Z-score (standardized value)",
+  };
+
+  function get_feature_description(feature) {
+    return featureDescriptions[feature] || "Enter measured biomarker value";
+  }
+
+  function get_normal_range(feature) {
+    const ranges = {
+      CRP: "Normal: <3,000 ng/mL",
+      PF4: "Normal: 8,000-15,000 pg/mL",
+      SAP: "Normal: 20,000-50,000 pg/mL",
+      Fibrinogen_mg_dl: "Normal: 200-400 mg/dL",
+      Haptoglobin: "Normal: 30,000-200,000 pg/mL",
+      AGP_Change_From_Baseline: "Change from baseline (%)",
+      PF4_Change_From_Baseline: "Change from baseline (%)",
+      CRP_zscore: "Z-score: typically -2 to +2",
+      PF4_zscore: "Z-score: typically -2 to +2",
+      SAP_zscore: "Z-score: typically -2 to +2",
+    };
+    return ranges[feature] || "Consult reference ranges";
+  }
+
+  function fillSampleData() {
+    // Sample data representing a moderate risk patient
+    const sampleValues = {
+      CRP: 15000000,
+      PF4: 12000,
+      SAP: 35000,
+      Fibrinogen_mg_dl: 350,
+      Haptoglobin: 85000,
+      AGP_Change_From_Baseline: 15,
+      PF4_Change_From_Baseline: 25,
+      CRP_zscore: 1.2,
+      PF4_zscore: 0.8,
+      SAP_zscore: 0.5,
+    };
+
+    Object.entries(sampleValues).forEach(([feature, value]) => {
+      const input = document.getElementById(feature);
+      if (input) {
+        input.value = value;
+        input.classList.add("is-valid");
+      }
+    });
+
+    CardioPredict.showNotification(
+      "Sample data loaded successfully!",
+      "success"
+    );
+  }
+
+  document.addEventListener("DOMContentLoaded", function () {
+    // Enhanced form validation
+    const form = document.getElementById("predictForm");
+    const inputs = form.querySelectorAll('input[type="number"]');
+
+    inputs.forEach((input) => {
+      input.addEventListener("input", function () {
+        validateBiomarkerInput(this);
+      });
+    });
+
+    function validateBiomarkerInput(input) {
+      const value = parseFloat(input.value);
+      const feature = input.id;
+
+      input.classList.remove("is-valid", "is-invalid");
+
+      if (isNaN(value) || value < 0) {
+        if (input.value !== "") {
+          input.classList.add("is-invalid");
+        }
+        return;
+      }
+
+      // Feature-specific validation
+      let isValid = true;
+
+      if (feature.includes("zscore")) {
+        isValid = value >= -5 && value <= 5;
+      } else if (feature === "CRP") {
+        isValid = value <= 50000000; // Reasonable upper limit
+      } else if (feature === "Fibrinogen_mg_dl") {
+        isValid = value <= 1000;
+      }
+
+      if (isValid) {
+        input.classList.add("is-valid");
+      } else {
+        input.classList.add("is-invalid");
+      }
+    }
+
+    // Form submission handling
+    form.addEventListener("submit", function (e) {
+      const submitBtn = this.querySelector('button[type="submit"]');
+
+      if (this.checkValidity()) {
+        submitBtn.innerHTML =
+          '<i class="fas fa-spinner fa-spin me-2"></i>Calculating...';
+        submitBtn.disabled = true;
+      } else {
+        e.preventDefault();
+        e.stopPropagation();
+        CardioPredict.showNotification(
+          "Please check your input values",
+          "warning"
+        );
+      }
+
+      this.classList.add("was-validated");
+    });
+  });
+
+  // Initialize tooltips with proper descriptions
+  document.addEventListener("DOMContentLoaded", function () {
+    // Update all tooltip descriptions
+    document
+      .querySelectorAll('[data-bs-toggle="tooltip"]')
+      .forEach((tooltip) => {
+        const feature = tooltip.closest(".mb-3").querySelector("input").id;
+        if (feature && featureDescriptions[feature]) {
+          tooltip.setAttribute("title", featureDescriptions[feature]);
+        }
+      });
+  });
+</script>
+{% endblock %}
