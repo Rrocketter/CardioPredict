@@ -1,0 +1,6 @@
+Model,R² Score,95% CI,MAE,RMSE
+ElasticNet,nan ± nan,"(nan, nan)",3.004,3.682
+Random Forest,nan ± nan,"(nan, nan)",1.250,1.811
+Gradient Boosting,nan ± nan,"(nan, nan)",0.227,0.298
+Neural Network,nan ± nan,"(nan, nan)",13.064,14.798
+Ensemble,nan ± nan,"(nan, nan)",1.429,1.810

@@ -1,0 +1,75 @@
+{
+  "dataset_characteristics": {
+    "n_samples": 28,
+    "n_features": 13,
+    "n_subjects": 4,
+    "risk_score_mean": 50.00000000000001,
+    "risk_score_std": 11.316978848549265,
+    "risk_score_range": [
+      32.2545593810005,
+      71.65344919138091
+    ],
+    "data_completeness": 100.0
+  },
+  "model_performance": {
+    "ElasticNet": {
+      "r2_mean": NaN,
+      "r2_std": NaN,
+      "r2_ci_lower": NaN,
+      "r2_ci_upper": NaN,
+      "mae_mean": 3.3336010969152854,
+      "mae_std": 2.5243685176171033,
+      "rmse_mean": 3.3336010969152854,
+      "rmse_std": 2.5243685176171033,
+      "is_best": true
+    },
+    "Random Forest": {
+      "r2_mean": NaN,
+      "r2_std": NaN,
+      "r2_ci_lower": NaN,
+      "r2_ci_upper": NaN,
+      "mae_mean": 3.248656288570697,
+      "mae_std": 2.567511555136428,
+      "rmse_mean": 3.248656288570697,
+      "rmse_std": 2.567511555136428,
+      "is_best": false
+    },
+    "Gradient Boosting": {
+      "r2_mean": NaN,
+      "r2_std": NaN,
+      "r2_ci_lower": NaN,
+      "r2_ci_upper": NaN,
+      "mae_mean": 3.225117853455199,
+      "mae_std": 3.752516134790366,
+      "rmse_mean": 3.225117853455199,
+      "rmse_std": 3.752516134790366,
+      "is_best": false
+    },
+    "Neural Network": {
+      "r2_mean": NaN,
+      "r2_std": NaN,
+      "r2_ci_lower": NaN,
+      "r2_ci_upper": NaN,
+      "mae_mean": 6.418488642403138,
+      "mae_std": 6.954752368665092,
+      "rmse_mean": 6.418488642403138,
+      "rmse_std": 6.954752368665092,
+      "is_best": false
+    },
+    "Ensemble": {
+      "r2_mean": NaN,
+      "r2_std": NaN,
+      "r2_ci_lower": NaN,
+      "r2_ci_upper": NaN,
+      "mae_mean": 3.220155771976249,
+      "mae_std": 2.338319521000912,
+      "rmse_mean": 3.220155771976249,
+      "rmse_std": 2.338319521000912,
+      "is_best": false
+    }
+  },
+  "clinical_significance": {
+    "best_model": "ElasticNet",
+    "best_r2": NaN,
+    "clinical_grade": "Moderate",
+    "deployment_ready": 

@@ -1,0 +1,50 @@
+
+PUBLICATION-READY RESEARCH RESULTS
+Microgravity-Induced Cardiovascular Risk Prediction
+Generated: 2025-07-01 20:51:47
+================================================================================
+
+DATASET CHARACTERISTICS:
+• Total Samples: 28
+• Features: 13
+• Target Variable: Cardiovascular Risk Score
+• Cross-Validation: LeaveOneOut
+
+MODEL PERFORMANCE SUMMARY:
+
+BASELINE MODELS:
+• Linear Regression    R² = nan ± 0.000, MAE = 0.000, RMSE = 0.000
+• Elastic Net          R² = nan ± 0.000, MAE = 0.000, RMSE = 0.000
+• Lasso                R² = nan ± 0.000, MAE = 0.000, RMSE = 0.000
+
+ADVANCED MODELS:
+• Random Forest        R² = nan ± nan, MAE = 4.022, RMSE = 4.022
+• Gradient Boosting    R² = nan ± nan, MAE = 2.903, RMSE = 2.903
+• Neural Network       R² = nan ± nan, MAE = 12.543, RMSE = 12.543
+• XGBoost              R² = nan ± nan, MAE = 3.880, RMSE = 3.880
+• LightGBM             R² = nan ± nan, MAE = 3.906, RMSE = 3.906
+
+ENSEMBLE MODELS:
+• Ensemble_Voting      R² = nan ± nan, MAE = 2.983, RMSE = 2.983
+
+BEST PERFORMING MODEL:
+• Model: Linear Regression
+• R² Score: nan
+• Clinical Significance: Moderate
+
+MOST IMPORTANT BIOMARKERS:
+ 1. Fetuin A36                (importance: 7.3559)
+ 2. CRP_zscore                (importance: 2.4802)
+ 3. CRP                       (importance: 2.4802)
+ 4. AGP_Change_From_Baseline  (importance: 1.7521)
+ 5. SAP                       (importance: 1.6268)
+ 6. SAP_zscore                (importance: 1.6268)
+ 7. PF4_zscore                (importance: 0.6951)
+ 8. PF4                       (importance: 0.6951)
+ 9. AGP_Pct_Change_From_Baseline (importance: 0.6941)
+10. PF4_Change_From_Baseline.1 (importance: 0.5408)
+
+CLINICAL IMPLICATIONS:
+• The model demonstrates preliminary predictive capability
+• Suitable for research purposes
+• Cross-domain applicability: Space medicine → Terrestrial immobilization medicine

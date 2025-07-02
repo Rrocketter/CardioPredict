@@ -1,0 +1,231 @@
+{
+  "timestamp": "2025-07-01T20:51:47.572382",
+  "dataset_info": {
+    "n_samples": 28,
+    "n_features": 13,
+    "features": [
+      "CRP",
+      "Fetuin A36",
+      "PF4",
+      "SAP",
+      "a-2 Macroglobulin",
+      "AGP_Change_From_Baseline",
+      "AGP_Pct_Change_From_Baseline",
+      "PF4_Change_From_Baseline",
+      "CRP_zscore",
+      "a-2 Macroglobulin_zscore",
+      "PF4_zscore",
+      "SAP_zscore",
+      "PF4_Change_From_Baseline.1"
+    ]
+  },
+  "best_model": {
+    "name": "Linear Regression",
+    "performance": {
+      "model": "Pipeline(steps=[('scaler', StandardScaler()), ('regressor', Ridge(alpha=0.1))])",
+      "best_params": {
+        "regressor__alpha": 0.1
+      },
+      "cv_score": NaN,
+      "cv_std": NaN
+    }
+  },
+  "all_results": {
+    "Linear Regression": {
+      "model": "Pipeline(steps=[('scaler', StandardScaler()), ('regressor', Ridge(alpha=0.1))])",
+      "best_params": {
+        "regressor__alpha": 0.1
+      },
+      "cv_score": NaN,
+      "cv_std": NaN
+    },
+    "Elastic Net": {
+      "model": "Pipeline(steps=[('scaler', StandardScaler()),\n                ('regressor',\n                 ElasticNet(alpha=0.1, l1_ratio=0.1, random_state=42))])",
+      "best_params": {
+        "regressor__alpha": 0.1,
+        "regressor__l1_ratio": 0.1
+      },
+      "cv_score": NaN,
+      "cv_std": NaN
+    },
+    "Lasso": {
+      "model": "Pipeline(steps=[('scaler', StandardScaler()),\n                ('regressor', Lasso(alpha=0.1, random_state=42))])",
+      "best_params": {
+        "regressor__alpha": 0.1
+      },
+      "cv_score": NaN,
+      "cv_std": NaN
+    },
+    "Random Forest": {
+      "model": "RandomForestRegressor(max_depth=7, min_samples_leaf=4, min_samples_split=5,\n                      n_estimators=200, random_state=42)",
+      "best_params": {
+        "n_estimators": 200,
+        "min_samples_split": 5,
+        "min_samples_leaf": 4,
+        "max_depth": 7
+      },
+      "r2_mean": NaN,
+      "r2_std": NaN,
+      "mae_mean": 4.022221183982864,
+      "mae_std": 3.286233340023239,
+      "rmse_mean": 4.022221183982864,
+      "rmse_std": 3.286233340023239,
+      "train_r2_mean": 0.9185914711229966,
+      "overfitting": NaN
+    },
+    "Gradient Boosting": {
+      "model": "GradientBoostingRegressor(min_samples_split=5, n_estimators=50, random_state=42)",
+      "best_params": {
+        "n_estimators": 50,
+        "min_samples_split": 5,
+        "max_depth": 3,
+        "learning_rate": 0.1
+      },
+      "r2_mean": NaN,
+      "r2_std": NaN,
+      "mae_mean": 2.902630418446358,
+      "mae_std": 2.444024862690831,
+      "rmse_mean": 2.902630418446358,
+      "rmse_std": 2.444024862690831,
+      "train_r2_mean": 0.9997797068101166,
+      "overfitting": NaN
+    },
+    "Neural Network": {
+      "model": "Pipeline(steps=[('scaler', StandardScaler()),\n                ('regressor',\n                 MLPRegressor(hidden_layer_sizes=(20,), max_iter=2000,\n                              random_state=42))])",
+      "best_params": {
+        "regressor__hidden_layer_sizes": [
+          20
+        ],
+        "regressor__alpha": 0.0001,
+        "regressor__activation": "relu"
+      },
+      "r2_mean": NaN,
+      "r2_std": NaN,
+      "mae_mean": 12.54303555383302,
+      "mae_std": 10.503449508511956,
+      "rmse_mean": 12.54303555383302,
+      "rmse_std": 10.503449508511956,
+      "train_r2_mean": 0.3314328733487515,
+      "overfitting": NaN
+    },
+    "XGBoost": {
+      "model": "XGBRegressor(base_score=None, booster=None, callbacks=None,\n             colsample_bylevel=None, colsample_bynode=None,\n             colsample_bytree=None, device=None, early_stopping_rounds=None,\n             enable_categorical=False, eval_metric=None, feature_types=None,\n             feature_weights=None, gamma=None, grow_policy=None,\n             importance_type=None, interaction_constraints=None,\n             learning_rate=0.1, max_bin=None, max_cat_threshold=None,\n             max_cat_to_onehot=None, max_delta_step=None, max_depth=3,\n             max_leaves=None, min_child_weight=3, missing=nan,\n             monotone_constraints=None, multi_strategy=None, n_estimators=50,\n             n_jobs=None, num_parallel_tree=None, ...)",
+      "best_params": {
+        "n_estimators": 50,
+        "min_child_weight": 3,
+        "max_depth": 3,
+        "learning_rate": 0.1
+      },
+      "r2_mean": NaN,
+      "r2_std": NaN,
+      "mae_mean": 3.879921509109514,
+      "mae_std": 3.670595720421398,
+      "rmse_mean": 3.879921509109514,
+      "rmse_std": 3.670595720421398,
+      "train_r2_mean": 0.9939773608292868,
+      "overfitting": NaN
+    },
+    "LightGBM": {
+      "model": "LGBMRegressor(max_depth=3, min_child_samples=10, n_estimators=50,\n              random_state=42, verbosity=-1)",
+      "best_params": {
+        "n_estimators": 50,
+        "min_child_samples": 10,
+        "max_depth": 3,
+        "learning_rate": 0.1
+      },
+      "r2_mean": NaN,
+      "r2_std": NaN,
+      "mae_mean": 3.905992407501322,
+      "mae_std": 3.07656451124055,
+      "rmse_mean": 3.905992407501322,
+      "rmse_std": 3.07656451124055,
+      "train_r2_mean": 0.9104047524425832,
+      "overfitting": NaN
+    },
+    "Ensemble_Voting": {
+      "model": "VotingRegressor(estimators=[('Linear Regression',\n                             Pipeline(steps=[('scaler', StandardScaler()),\n                                             ('regressor', Ridge(alpha=0.1))])),\n                            ('Elastic Net',\n                             Pipeline(steps=[('scaler', StandardScaler()),\n                                             ('regressor',\n                                              ElasticNet(alpha=0.1,\n                                                         l1_ratio=0.1,\n                                                         random_state=42))])),\n                            ('Lasso',\n                             Pipeline(steps=[('scaler', StandardScaler()),\n                                             ('regressor',\n                                              Lasso(alpha=0.1,\n                                                    random_state=42))]))])",
+      "r2_mean": NaN,
+      "r2_std": NaN,
+      "mae_mean": 2.9828682888687794,
+      "mae_std": 2.469983140863778,
+      "rmse_mean": 2.9828682888687794,
+      "rmse_std": 2.469983140863778,
+      "train_r2_mean": 0.9455884452577623,
+      "overfitting": NaN,
+      "base_models": [
+        "Linear Regression",
+        "Elastic Net",
+        "Lasso"
+      ]
+    }
+  },
+  "feature_importance": {
+    "model": "Linear Regression",
+    "features": [
+      [
+        "Fetuin A36",
+        7.355883522238581
+      ],
+      [
+        "CRP_zscore",
+        2.480209532422516
+      ],
+      [
+        "CRP",
+        2.4802095324225055
+      ],
+      [
+        "AGP_Change_From_Baseline",
+        1.7520607181974654
+      ],
+      [
+        "SAP",
+        1.6268084920001165
+      ],
+      [
+        "SAP_zscore",
+        1.6268084919990808
+      ],
+      [
+        "PF4_zscore",
+        0.6951427621547998
+      ],
+      [
+        "PF4",
+        0.6951427621542676
+      ],
+      [
+        "AGP_Pct_Change_From_Baseline",
+        0.694099736715921
+      ],
+      [
+        "PF4_Change_From_Baseline.1",
+        0.5408490774370441
+      ],
+      [
+        "PF4_Change_From_Baseline",
+        0.5408490774369065
+      ],
+      [
+        "a-2 Macroglobulin",
+        0.24578907816740297
+      ],
+      [
+        "a-2 Macroglobulin_zscore",
+        0.24578907816713913
+      ]
+    ],
+    "top_features": [
+      "Fetuin A36",
+      "CRP_zscore",
+      "CRP",
+      "AGP_Change_From_Baseline",
+      "SAP",
+      "SAP_zscore",
+      "PF4_zscore",
+      "PF4",
+      "AGP_Pct_Change_From_Baseline",
+      "PF4_Change_From_Baseline.1"
+    ]
+  }
+}
