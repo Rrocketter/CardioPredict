@@ -1,10 +1,9 @@
 #!/usr/bin/env python3
 """
-Phase 2: ML Model Development for Cardiovascular Risk Prediction
-Week 1: Feature Selection and Baseline Models
+ml model stuff for cardiovascular risk prediction
+week 1 - just basic feature selection and baseline models
 
-This module implements the initial machine learning pipeline for predicting
-cardiovascular risk in microgravity environments with Earth analog validation.
+trying to predict heart problems in space with earth data too
 """
 
 import pandas as pd
@@ -41,11 +40,11 @@ class CardiovascularRiskMLPipeline:
         self.feature_selector = None
         self.selected_features = None
         
-        print("🧠 Cardiovascular Risk ML Pipeline Initialized")
+        print("Cardiovascular Risk ML Pipeline Initialized")
         print(f"Models will be saved to: {self.models_dir}")
     
     def load_processed_data(self):
-        """Load preprocessed cardiovascular data"""
+        # just load the processed heart data
         print("\n" + "="*60)
         print("LOADING PROCESSED DATA")
         print("="*60)
@@ -66,7 +65,7 @@ class CardiovascularRiskMLPipeline:
         return self.data
     
     def prepare_features_and_target(self):
-        """Prepare feature matrix X and target vector y"""
+        # just get features and target ready
         print("\n" + "="*60)
         print("PREPARING FEATURES AND TARGET")
         print("="*60)
@@ -97,22 +96,22 @@ class CardiovascularRiskMLPipeline:
         
         # Handle any remaining missing values
         if np.isnan(self.X).any():
-            print("⚠️  Handling remaining missing values...")
+            print("handling remaining missing values...")
             from sklearn.impute import SimpleImputer
             imputer = SimpleImputer(strategy='median')
             self.X = imputer.fit_transform(self.X)
-            print("✓ Missing values imputed")
+            print("missing values imputed")
         
         # Check for infinite values
         if np.isinf(self.X).any():
-            print("⚠️  Handling infinite values...")
+            print("handling infinite values...")
             self.X = np.nan_to_num(self.X, nan=0.0, posinf=1e10, neginf=-1e10)
-            print("✓ Infinite values handled")
+            print("infinite values handled")
         
         return self.X, self.y
     
     def perform_feature_selection(self, k_best=20):
-        """Perform comprehensive feature selection"""
+        # pick the best features somehow
         print("\n" + "="*60)
         print("FEATURE SELECTION ANALYSIS")
         print("="*60)
@@ -204,7 +203,7 @@ class CardiovascularRiskMLPipeline:
         feature_indices = [self.feature_names.index(f) for f in consensus_features]
         self.X_selected = self.X[:, feature_indices]
         
-        print(f"\n✅ Final selected features: {len(consensus_features)}")
+        print(f"\nFinal selected features: {len(consensus_features)}")
         print("Selected features:")
         for i, feature in enumerate(consensus_features, 1):
             print(f"  {i:2d}. {feature}")
@@ -212,7 +211,7 @@ class CardiovascularRiskMLPipeline:
         return self.X_selected
     
     def setup_cross_validation(self):
-        """Setup time-series aware cross-validation"""
+        # setup cross validation for time series stuff
         print("\n" + "="*60)
         print("CROSS-VALIDATION SETUP")
         print("="*60)
@@ -238,7 +237,7 @@ class CardiovascularRiskMLPipeline:
         return self.cv_splitter
     
     def train_baseline_models(self):
-        """Train baseline machine learning models"""
+        # train some basic ml models
         print("\n" + "="*60)
         print("BASELINE MODEL TRAINING")
         print("="*60)
@@ -308,7 +307,7 @@ class CardiovascularRiskMLPipeline:
         best_model_name = max(results.keys(), key=lambda k: results[k]['r2_mean'])
         best_score = results[best_model_name]['r2_mean']
         
-        print(f"\n🏆 BEST BASELINE MODEL: {best_model_name}")
+        print(f"\nBEST BASELINE MODEL: {best_model_name}")
         print(f"   R² Score: {best_score:.3f}")
         print(f"   MAE:      {results[best_model_name]['mae_mean']:.2f}")
         print(f"   RMSE:     {results[best_model_name]['rmse_mean']:.2f}")
@@ -316,7 +315,7 @@ class CardiovascularRiskMLPipeline:
         return results
     
     def hyperparameter_optimization(self):
-        """Optimize hyperparameters for best performing models"""
+        # tune hyperparameters for better models
         print("\n" + "="*60)
         print("HYPERPARAMETER OPTIMIZATION")
         print("="*60)
@@ -389,7 +388,7 @@ class CardiovascularRiskMLPipeline:
         return optimized_models
     
     def analyze_feature_importance(self):
-        """Analyze feature importance from best models"""
+        # see which features matter most
         print("\n" + "="*60)
         print("FEATURE IMPORTANCE ANALYSIS")
         print("="*60)
@@ -456,7 +455,7 @@ class CardiovascularRiskMLPipeline:
         return feature_importance_df
     
     def save_models_and_results(self):
-        """Save trained models and results"""
+        # save everything
         print("\n" + "="*60)
         print("SAVING MODELS AND RESULTS")
         print("="*60)
@@ -515,7 +514,7 @@ class CardiovascularRiskMLPipeline:
         return results_summary
     
     def generate_ml_report(self):
-        """Generate comprehensive ML development report"""
+        # make a report about how everything went
         print("\n" + "="*80)
         print("MACHINE LEARNING DEVELOPMENT REPORT")
         print("="*80)
@@ -531,13 +530,13 @@ class CardiovascularRiskMLPipeline:
             best_score = self.models[best_model_name]['r2_mean']
             models_source = self.models
         
-        print(f"📊 DATASET SUMMARY:")
+        print(f"DATASET SUMMARY:")
         print(f"   • Total samples: {len(self.data)}")
         print(f"   • Features selected: {len(self.selected_features)}")
         print(f"   • Target variable: CV_Risk_Score")
         print(f"   • Target range: {self.y.min():.1f} - {self.y.max():.1f}")
         
-        print(f"\n🎯 MODEL PERFORMANCE:")
+        print(f"\nMODEL PERFORMANCE:")
         print(f"   • Best model: {best_model_name}")
         print(f"   • R² Score: {best_score:.3f}")
         
@@ -547,13 +546,13 @@ class CardiovascularRiskMLPipeline:
                 print(f"   • MAE: {model_info['mae_mean']:.2f}")
                 print(f"   • RMSE: {model_info['rmse_mean']:.2f}")
         
-        print(f"\n🔬 FEATURE INSIGHTS:")
+        print(f"\nFEATURE INSIGHTS:")
         print(f"   • Original features: {len(self.feature_names)}")
         print(f"   • Selected features: {len(self.selected_features)}")
         print(f"   • Feature reduction: {(1 - len(self.selected_features)/len(self.feature_names))*100:.1f}%")
         
         # Performance interpretation
-        print(f"\n📈 PERFORMANCE INTERPRETATION:")
+        print(f"\nPERFORMANCE INTERPRETATION:")
         if best_score >= 0.8:
             performance_level = "Excellent"
             interpretation = "Model explains >80% of variance - ready for clinical validation"
@@ -570,7 +569,7 @@ class CardiovascularRiskMLPipeline:
         print(f"   • Performance level: {performance_level}")
         print(f"   • Interpretation: {interpretation}")
         
-        print(f"\n🎯 NEXT STEPS:")
+        print(f"\nNEXT STEPS:")
         if best_score >= 0.6:
             print(f"   ✓ Ready for Week 2: Advanced models and ensemble methods")
             print(f"   ✓ Consider Neural Networks and Gradient Boosting")
@@ -580,7 +579,7 @@ class CardiovascularRiskMLPipeline:
             print(f"   • Consider additional biomarker interactions")
             print(f"   • Review temporal feature construction")
         
-        print(f"\n🏥 CLINICAL RELEVANCE:")
+        print(f"\nCLINICAL RELEVANCE:")
         print(f"   • Cardiovascular risk prediction capability established")
         print(f"   • Model suitable for longitudinal monitoring")
         print(f"   • Ready for Earth analog validation (bedrest study)")
@@ -593,8 +592,8 @@ class CardiovascularRiskMLPipeline:
         }
     
     def run_week1_pipeline(self):
-        """Run complete Week 1 ML development pipeline"""
-        print("🚀 STARTING WEEK 1: ML MODEL DEVELOPMENT")
+        # just run all the ml stuff for week 1
+        print("STARTING WEEK 1: ML MODEL DEVELOPMENT")
         print("="*80)
         
         try:
@@ -625,31 +624,31 @@ class CardiovascularRiskMLPipeline:
             # Step 9: Generate report
             report = self.generate_ml_report()
             
-            print(f"\n🎉 WEEK 1 COMPLETE!")
-            print(f"✅ Baseline models trained and optimized")
-            print(f"✅ Feature selection completed")
-            print(f"✅ Models saved for future use")
-            print(f"📊 Best model: {report['best_model']} (R² = {report['best_score']:.3f})")
+            print(f"\nWEEK 1 COMPLETE!")
+            print(f"Baseline models trained and optimized")
+            print(f"Feature selection completed")
+            print(f"Models saved for future use")
+            print(f"Best model: {report['best_model']} (R² = {report['best_score']:.3f})")
             
             return report
             
         except Exception as e:
-            print(f"❌ Error in Week 1 pipeline: {e}")
+            print(f"Error in Week 1 pipeline: {e}")
             raise
 
 
 def main():
-    """Run Week 1 ML development"""
+    # just run week 1 stuff
     print("Cardiovascular Risk Prediction - Week 1: ML Model Development")
     print("="*80)
     
-    # Initialize ML pipeline
+    # start ml pipeline
     ml_pipeline = CardiovascularRiskMLPipeline()
     
-    # Run complete Week 1 pipeline
+    # run all the week 1 stuff
     report = ml_pipeline.run_week1_pipeline()
     
-    print("\n🎯 READY FOR WEEK 2:")
+    print("\nREADY FOR WEEK 2:")
     print("• Advanced ML models (Neural Networks, Gradient Boosting)")
     print("• Ensemble methods")
     print("• Bedrest data integration")

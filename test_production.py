@@ -10,7 +10,7 @@ import time
 
 def test_production_setup():
     """Test the production configuration"""
-    print("🚀 Testing CardioPredict Production Setup...")
+    print("Testing CardioPredict Production Setup...")
     
     # Set environment variables
     os.environ['FLASK_ENV'] = 'production'
@@ -37,11 +37,11 @@ def test_production_setup():
             from models import db
             print("✓ Database models loaded successfully")
         
-        print("✅ All production setup tests passed!")
+        print("All production setup tests passed!")
         return True
         
     except Exception as e:
-        print(f"❌ Error in production setup: {e}")
+        print(f"Error in production setup: {e}")
         return False
 
 if __name__ == '__main__':

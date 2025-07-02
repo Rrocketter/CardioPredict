@@ -97,7 +97,7 @@ class CardiovascularRiskMLPipeline:
         
         # Handle any remaining missing values
         if np.isnan(self.X).any():
-            print("⚠️  Handling remaining missing values...")
+            print("Handling remaining missing values...")
             from sklearn.impute import SimpleImputer
             imputer = SimpleImputer(strategy='median')
             self.X = imputer.fit_transform(self.X)
@@ -105,7 +105,7 @@ class CardiovascularRiskMLPipeline:
         
         # Check for infinite values
         if np.isinf(self.X).any():
-            print("⚠️  Handling infinite values...")
+            print("Handling infinite values...")
             self.X = np.nan_to_num(self.X, nan=0.0, posinf=1e10, neginf=-1e10)
             print("✓ Infinite values handled")
         
@@ -204,7 +204,7 @@ class CardiovascularRiskMLPipeline:
         feature_indices = [self.feature_names.index(f) for f in consensus_features]
         self.X_selected = self.X[:, feature_indices]
         
-        print(f"\n✅ Final selected features: {len(consensus_features)}")
+        print(f"\nFinal selected features: {len(consensus_features)}")
         print("Selected features:")
         for i, feature in enumerate(consensus_features, 1):
             print(f"  {i:2d}. {feature}")
@@ -308,7 +308,7 @@ class CardiovascularRiskMLPipeline:
         best_model_name = max(results.keys(), key=lambda k: results[k]['r2_mean'])
         best_score = results[best_model_name]['r2_mean']
         
-        print(f"\n🏆 BEST BASELINE MODEL: {best_model_name}")
+        print(f"\nBEST BASELINE MODEL: {best_model_name}")
         print(f"   R² Score: {best_score:.3f}")
         print(f"   MAE:      {results[best_model_name]['mae_mean']:.2f}")
         print(f"   RMSE:     {results[best_model_name]['rmse_mean']:.2f}")
@@ -531,13 +531,13 @@ class CardiovascularRiskMLPipeline:
             best_score = self.models[best_model_name]['r2_mean']
             models_source = self.models
         
-        print(f"📊 DATASET SUMMARY:")
+        print(f"DATASET SUMMARY:")
         print(f"   • Total samples: {len(self.data)}")
         print(f"   • Features selected: {len(self.selected_features)}")
         print(f"   • Target variable: CV_Risk_Score")
         print(f"   • Target range: {self.y.min():.1f} - {self.y.max():.1f}")
         
-        print(f"\n🎯 MODEL PERFORMANCE:")
+        print(f"\nMODEL PERFORMANCE:")
         print(f"   • Best model: {best_model_name}")
         print(f"   • R² Score: {best_score:.3f}")
         
@@ -547,13 +547,13 @@ class CardiovascularRiskMLPipeline:
                 print(f"   • MAE: {model_info['mae_mean']:.2f}")
                 print(f"   • RMSE: {model_info['rmse_mean']:.2f}")
         
-        print(f"\n🔬 FEATURE INSIGHTS:")
+        print(f"\nFEATURE INSIGHTS:")
         print(f"   • Original features: {len(self.feature_names)}")
         print(f"   • Selected features: {len(self.selected_features)}")
         print(f"   • Feature reduction: {(1 - len(self.selected_features)/len(self.feature_names))*100:.1f}%")
         
         # Performance interpretation
-        print(f"\n📈 PERFORMANCE INTERPRETATION:")
+        print(f"\nPERFORMANCE INTERPRETATION:")
         if best_score >= 0.8:
             performance_level = "Excellent"
             interpretation = "Model explains >80% of variance - ready for clinical validation"
@@ -570,7 +570,7 @@ class CardiovascularRiskMLPipeline:
         print(f"   • Performance level: {performance_level}")
         print(f"   • Interpretation: {interpretation}")
         
-        print(f"\n🎯 NEXT STEPS:")
+        print(f"\nNEXT STEPS:")
         if best_score >= 0.6:
             print(f"   ✓ Ready for Week 2: Advanced models and ensemble methods")
             print(f"   ✓ Consider Neural Networks and Gradient Boosting")
@@ -580,7 +580,7 @@ class CardiovascularRiskMLPipeline:
             print(f"   • Consider additional biomarker interactions")
             print(f"   • Review temporal feature construction")
         
-        print(f"\n🏥 CLINICAL RELEVANCE:")
+        print(f"\nCLINICAL RELEVANCE:")
         print(f"   • Cardiovascular risk prediction capability established")
         print(f"   • Model suitable for longitudinal monitoring")
         print(f"   • Ready for Earth analog validation (bedrest study)")
@@ -594,7 +594,7 @@ class CardiovascularRiskMLPipeline:
     
     def run_week1_pipeline(self):
         """Run complete Week 1 ML development pipeline"""
-        print("🚀 STARTING WEEK 1: ML MODEL DEVELOPMENT")
+        print("STARTING WEEK 1: ML MODEL DEVELOPMENT")
         print("="*80)
         
         try:
@@ -625,16 +625,16 @@ class CardiovascularRiskMLPipeline:
             # Step 9: Generate report
             report = self.generate_ml_report()
             
-            print(f"\n🎉 WEEK 1 COMPLETE!")
-            print(f"✅ Baseline models trained and optimized")
-            print(f"✅ Feature selection completed")
-            print(f"✅ Models saved for future use")
-            print(f"📊 Best model: {report['best_model']} (R² = {report['best_score']:.3f})")
+            print(f"\nWEEK 1 COMPLETE!")
+            print(f"Baseline models trained and optimized")
+            print(f"Feature selection completed")
+            print(f"Models saved for future use")
+            print(f"Best model: {report['best_model']} (R² = {report['best_score']:.3f})")
             
             return report
             
         except Exception as e:
-            print(f"❌ Error in Week 1 pipeline: {e}")
+            print(f"Error in Week 1 pipeline: {e}")
             raise
 
 
@@ -649,7 +649,7 @@ def main():
     # Run complete Week 1 pipeline
     report = ml_pipeline.run_week1_pipeline()
     
-    print("\n🎯 READY FOR WEEK 2:")
+    print("\nREADY FOR WEEK 2:")
     print("• Advanced ML models (Neural Networks, Gradient Boosting)")
     print("• Ensemble methods")
     print("• Bedrest data integration")

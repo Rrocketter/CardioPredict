@@ -15,7 +15,7 @@ try:
     import numpy as np
     ML_AVAILABLE = True
 except ImportError:
-    print("⚠️ NumPy not available in API module - using mock implementation")
+    print("NumPy not available in API module - using mock implementation")
     class MockNumPy:
         @staticmethod
         def array(data): return data

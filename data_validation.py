@@ -50,9 +50,9 @@ class DataValidator:
         missing_counts = df.isnull().sum()
         print(f"1. Missing Values Check:")
         if missing_counts.sum() == 0:
-            print(f"   ✅ No missing values found")
+            print(f"   No missing values found")
         else:
-            print(f"   ⚠️  Missing values found:")
+            print(f"   Missing values found:")
             for col, count in missing_counts[missing_counts > 0].items():
                 print(f"      • {col}: {count}")
         
@@ -60,8 +60,8 @@ class DataValidator:
         print(f"\n2. Data Types Validation:")
         numeric_cols = df.select_dtypes(include=[np.number]).columns
         categorical_cols = df.select_dtypes(exclude=[np.number]).columns
-        print(f"   ✅ Numeric columns: {len(numeric_cols)}")
-        print(f"   ✅ Categorical columns: {len(categorical_cols)}")
+        print(f"   Numeric columns: {len(numeric_cols)}")
+        print(f"   Categorical columns: {len(categorical_cols)}")
         
         # 3. Check value ranges
         print(f"\n3. Value Range Validation:")
@@ -69,23 +69,23 @@ class DataValidator:
         # Risk scores should be 0-100
         risk_scores = df['CV_Risk_Score']
         if risk_scores.min() >= 0 and risk_scores.max() <= 100:
-            print(f"   ✅ CV Risk Scores in valid range: {risk_scores.min():.1f} - {risk_scores.max():.1f}")
+            print(f"   CV Risk Scores in valid range: {risk_scores.min():.1f} - {risk_scores.max():.1f}")
         else:
-            print(f"   ⚠️  CV Risk Scores out of range: {risk_scores.min():.1f} - {risk_scores.max():.1f}")
+            print(f"   CV Risk Scores out of range: {risk_scores.min():.1f} - {risk_scores.max():.1f}")
         
         # Days from launch should have negative (pre) and positive (post) values
         days_from_launch = df['Days_From_Launch']
         if days_from_launch.min() < 0 and days_from_launch.max() > 0:
-            print(f"   ✅ Timeline covers pre/post flight: {days_from_launch.min()} to {days_from_launch.max()} days")
+            print(f"   Timeline covers pre/post flight: {days_from_launch.min()} to {days_from_launch.max()} days")
         else:
-            print(f"   ⚠️  Timeline issue: {days_from_launch.min()} to {days_from_launch.max()} days")
+            print(f"   Timeline issue: {days_from_launch.min()} to {days_from_launch.max()} days")
         
         # 4. Check subject coverage
         print(f"\n4. Subject Coverage Validation:")
         subjects = df['ID'].unique()
         timepoints_per_subject = df.groupby('ID')['Days_From_Launch'].nunique()
-        print(f"   ✅ Subjects: {len(subjects)} ({list(subjects)})")
-        print(f"   ✅ Timepoints per subject:")
+        print(f"   Subjects: {len(subjects)} ({list(subjects)})")
+        print(f"   Timepoints per subject:")
         for subject, timepoints in timepoints_per_subject.items():
             print(f"      • {subject}: {timepoints} timepoints")
         
@@ -95,9 +95,9 @@ class DataValidator:
         change_features = [col for col in df.columns if '_Change_From_Baseline' in col]
         slope_features = [col for col in df.columns if '_Slope' in col]
         
-        print(f"   ✅ Baseline features: {len(baseline_features)}")
-        print(f"   ✅ Change features: {len(change_features)}")
-        print(f"   ✅ Slope features: {len(slope_features)}")
+        print(f"   Baseline features: {len(baseline_features)}")
+        print(f"   Change features: {len(change_features)}")
+        print(f"   Slope features: {len(slope_features)}")
         
         return True
     
@@ -233,7 +233,7 @@ class DataValidator:
             }
         }
         
-        print("📅 4-WEEK DEVELOPMENT SCHEDULE:")
+        print("4-WEEK DEVELOPMENT SCHEDULE:")
         for week, details in roadmap.items():
             print(f"\n{week.upper().replace('_', ' ')}:")
             print("   Tasks:")
@@ -243,7 +243,7 @@ class DataValidator:
             for deliverable in details['deliverables']:
                 print(f"     ✓ {deliverable}")
         
-        print(f"\n🎯 FINAL GOAL:")
+        print(f"\nFINAL GOAL:")
         print(f"   Cardiovascular Risk Prediction Model for:")
         print(f"   • Astronauts (microgravity exposure)")
         print(f"   • Bedridden patients (immobilization)")
@@ -297,26 +297,26 @@ class DataValidator:
             }
         }
         
-        print("📊 PROJECT OVERVIEW:")
+        print("PROJECT OVERVIEW:")
         print(f"   Title: {report['project_overview']['title']}")
         print(f"   Data: {report['project_overview']['data_source']}")
         print(f"   Population: {report['project_overview']['study_population']}")
         print(f"   Duration: {report['project_overview']['mission_duration']}")
         
-        print(f"\n📈 DATASET CHARACTERISTICS:")
+        print(f"\nDATASET CHARACTERISTICS:")
         print(f"   Samples: {report['dataset_characteristics']['total_samples']}")
         print(f"   Subjects: {report['dataset_characteristics']['unique_subjects']}")
         print(f"   Features: {report['dataset_characteristics']['feature_count']}")
         print(f"   Biomarkers: {report['dataset_characteristics']['biomarkers_measured']}")
         print(f"   Completeness: {report['dataset_characteristics']['data_completeness']}")
         
-        print(f"\n🔬 KEY FINDINGS:")
+        print(f"\nKEY FINDINGS:")
         print(f"   Risk Score Range: {report['key_findings']['risk_score_range']}")
         print(f"   Pre-flight Risk: {report['key_findings']['pre_flight_risk']}")
         print(f"   Post-flight Risk: {report['key_findings']['post_flight_risk']}")
         print(f"   Age Range: {report['key_findings']['demographics']['age_range']}")
         
-        print(f"\n🏥 CLINICAL RELEVANCE:")
+        print(f"\nCLINICAL RELEVANCE:")
         print(f"   Validated Biomarkers:")
         for biomarker in report['clinical_relevance']['biomarkers_validated']:
             print(f"     • {biomarker}")
@@ -371,11 +371,11 @@ def main():
     # Generate summary report
     validator.generate_data_summary_report()
     
-    print("\n🎯 VALIDATION COMPLETE - READY FOR MODEL DEVELOPMENT!")
-    print("✅ Data quality verified")
-    print("✅ Cardiovascular patterns identified") 
-    print("✅ Bedrest integration planned")
-    print("✅ Development roadmap created")
+    print("\nVALIDATION COMPLETE - READY FOR MODEL DEVELOPMENT!")
+    print("Data quality verified")
+    print("Cardiovascular patterns identified") 
+    print("Bedrest integration planned")
+    print("Development roadmap created")
 
 
 if __name__ == "__main__":

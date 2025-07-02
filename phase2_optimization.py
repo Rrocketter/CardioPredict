@@ -41,26 +41,26 @@ from scipy import stats
 try:
     import xgboost as xgb
     XGBOOST_AVAILABLE = True
-    print("✅ XGBoost available")
+    print("XGBoost available")
 except ImportError:
     XGBOOST_AVAILABLE = False
-    print("⚠️  XGBoost not available")
+    print("XGBoost not available")
 
 try:
     import lightgbm as lgb
     LIGHTGBM_AVAILABLE = True
-    print("✅ LightGBM available")
+    print("LightGBM available")
 except ImportError:
     LIGHTGBM_AVAILABLE = False
-    print("⚠️  LightGBM not available")
+    print("LightGBM not available")
 
 try:
     import catboost as cb
     CATBOOST_AVAILABLE = True
-    print("✅ CatBoost available")
+    print("CatBoost available")
 except ImportError:
     CATBOOST_AVAILABLE = False
-    print("⚠️  CatBoost not available")
+    print("CatBoost not available")
 
 class AdvancedMLOptimizer:
     def __init__(self, processed_data_dir="processed_data", models_dir="models"):
@@ -76,7 +76,7 @@ class AdvancedMLOptimizer:
         self.ensemble_models = {}
         self.feature_engineered_data = {}
         
-        print("🔧 Advanced ML Optimizer Initialized (Part 2/3)")
+        print("Advanced ML Optimizer Initialized (Part 2/3)")
         print(f"Building on Part 1 results")
     
     def load_data_and_setup(self):
@@ -185,7 +185,7 @@ class AdvancedMLOptimizer:
                 print(f"   ✓ Temporal features: {X_temporal.shape[1]} features")
             else:
                 feature_sets['temporal'] = X_enhanced
-                print("   ⚠️  Temporal feature mismatch - using enhanced features")
+                print("   Temporal feature mismatch - using enhanced features")
         else:
             feature_sets['temporal'] = feature_sets['enhanced']
         
@@ -195,7 +195,7 @@ class AdvancedMLOptimizer:
         print(f"4. Scaled features: {feature_sets['scaled'].shape[1]} features")
         
         self.feature_sets = feature_sets
-        print(f"\n✅ Created {len(feature_sets)} feature sets")
+        print(f"\nCreated {len(feature_sets)} feature sets")
         
         return feature_sets
     
@@ -321,7 +321,7 @@ class AdvancedMLOptimizer:
                            key=lambda k: optimization_results[k]['best_score'])
             best_score = optimization_results[best_model]['best_score']
             
-            print(f"\n🏆 BEST OPTIMIZED MODEL: {best_model}")
+            print(f"\nBEST OPTIMIZED MODEL: {best_model}")
             print(f"   R² Score: {best_score:.3f}")
             
             # Compare with baseline
@@ -329,7 +329,7 @@ class AdvancedMLOptimizer:
             print(f"   Baseline comparison: {improvement:+.3f}")
             
             if improvement > 0:
-                print("   🎯 SUCCESS: Beat the baseline!")
+                print("   SUCCESS: Beat the baseline!")
             else:
                 print("   📉 Still below baseline - trying ensembles...")
         
@@ -397,7 +397,7 @@ class AdvancedMLOptimizer:
                 print(f"   ✓ Best architecture: {nn_search.best_params_['hidden_layer_sizes']}")
                 
             except Exception as e:
-                print(f"   ❌ Error optimizing {config['name']}: {e}")
+                print(f"   Error optimizing {config['name']}: {e}")
         
         self.optimized_models.update(nn_results)
         return nn_results
@@ -565,7 +565,7 @@ class AdvancedMLOptimizer:
                               key=lambda k: ensemble_results[k].get('r2_mean', 0))
             best_score = ensemble_results[best_ensemble]['r2_mean']
             
-            print(f"\n🏆 BEST ENSEMBLE: {best_ensemble}")
+            print(f"\nBEST ENSEMBLE: {best_ensemble}")
             print(f"   R² Score: {best_score:.3f}")
             
             # Compare with baseline
@@ -573,7 +573,7 @@ class AdvancedMLOptimizer:
             print(f"   Baseline comparison: {improvement:+.3f}")
             
             if improvement > 0:
-                print("   🎯 SUCCESS: Ensemble beat the baseline!")
+                print("   SUCCESS: Ensemble beat the baseline!")
             else:
                 print("   📉 Ensemble still below baseline")
         
@@ -582,7 +582,7 @@ class AdvancedMLOptimizer:
     
     def run_advanced_ml_part2(self):
         """Run Part 2 of advanced ML development"""
-        print("🚀 STARTING WEEK 2: ADVANCED ML DEVELOPMENT (PART 2/3)")
+        print("STARTING WEEK 2: ADVANCED ML DEVELOPMENT (PART 2/3)")
         print("="*80)
         
         try:
@@ -601,10 +601,10 @@ class AdvancedMLOptimizer:
             # Step 5: Generate comprehensive results
             summary = self.generate_part2_summary()
             
-            print(f"\n🎉 PART 2/3 COMPLETE!")
-            print(f"✅ Hyperparameter optimization: {len(gb_results) + len(nn_results)} models")
-            print(f"✅ Ensemble methods: {len(ensemble_results)} ensembles")
-            print(f"✅ Ready for Part 3: Model interpretability & deployment")
+            print(f"\nPART 2/3 COMPLETE!")
+            print(f"Hyperparameter optimization: {len(gb_results) + len(nn_results)} models")
+            print(f"Ensemble methods: {len(ensemble_results)} ensembles")
+            print(f"Ready for Part 3: Model interpretability & deployment")
             
             return {
                 'optimized_models': len(self.optimized_models),
@@ -613,7 +613,7 @@ class AdvancedMLOptimizer:
             }
             
         except Exception as e:
-            print(f"❌ Error in Advanced ML Part 2: {e}")
+            print(f"Error in Advanced ML Part 2: {e}")
             raise
     
     def generate_part2_summary(self):
@@ -638,17 +638,17 @@ class AdvancedMLOptimizer:
                 best_score = score
                 best_model_name = name
         
-        print(f"🏆 OVERALL BEST MODEL: {best_model_name}")
+        print(f"OVERALL BEST MODEL: {best_model_name}")
         print(f"   R² Score: {best_score:.3f}")
         
         # Compare with baseline
         baseline_improvement = best_score - self.baseline_score
-        print(f"\n📊 BASELINE COMPARISON:")
+        print(f"\nBASELINE COMPARISON:")
         print(f"   Week 1 Baseline: Elastic Net (R² = {self.baseline_score:.3f})")
         print(f"   Week 2 Best: {best_model_name} (R² = {best_score:.3f})")
         
         if baseline_improvement > 0:
-            print(f"   🎯 SUCCESS: +{baseline_improvement:.3f} improvement ({baseline_improvement/self.baseline_score*100:.1f}%)")
+            print(f"   SUCCESS: +{baseline_improvement:.3f} improvement ({baseline_improvement/self.baseline_score*100:.1f}%)")
             status = "ADVANCED MODELS SUCCESSFUL"
         else:
             print(f"   📉 Gap: {baseline_improvement:.3f} (baseline still better)")
@@ -658,7 +658,7 @@ class AdvancedMLOptimizer:
         optimized_count = len(self.optimized_models)
         ensemble_count = len(self.ensemble_models)
         
-        print(f"\n🔬 MODEL SUMMARY:")
+        print(f"\nMODEL SUMMARY:")
         print(f"   Optimized Models: {optimized_count}")
         print(f"   Ensemble Models: {ensemble_count}")
         print(f"   Total Advanced Models: {len(all_models)}")
@@ -673,7 +673,7 @@ class AdvancedMLOptimizer:
             score = info.get('best_score', info.get('r2_mean', 0))
             print(f"   {i}. {name}: R² = {score:.3f}")
         
-        print(f"\n📈 CLINICAL ASSESSMENT:")
+        print(f"\nCLINICAL ASSESSMENT:")
         if best_score >= 0.8:
             clinical_level = "EXCELLENT - Ready for clinical deployment"
         elif best_score >= 0.7:
@@ -706,7 +706,7 @@ def main():
     # Run Part 2 of advanced ML development
     results = optimizer.run_advanced_ml_part2()
     
-    print("\n🎯 READY FOR PART 3/3:")
+    print("\nREADY FOR PART 3/3:")
     print("• Model interpretability and feature importance")
     print("• Clinical validation metrics")
     print("• Model deployment preparation")

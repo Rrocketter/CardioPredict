@@ -41,7 +41,7 @@ class ClinicalDeploymentSystem:
         self.deployment_artifacts = {}
         self.monitoring_protocols = {}
         
-        print("🏥 Clinical Deployment System Initialized")
+        print("Clinical Deployment System Initialized")
         print(f"Deployment artifacts will be saved to: {self.deployment_dir}")
     
     def design_clinical_trial(self):
@@ -297,12 +297,12 @@ class ClinicalDeploymentSystem:
                 unified_scaler = joblib.load(unified_scaler_path)
                 print("✓ Loaded unified model and scaler")
             else:
-                print("⚠️  Unified model not found, using backup ElasticNet")
+                print("Unified model not found, using backup ElasticNet")
                 from sklearn.linear_model import ElasticNet
                 unified_model = ElasticNet(alpha=1.0, l1_ratio=0.5, random_state=42)
                 unified_scaler = StandardScaler()
         except Exception as e:
-            print(f"⚠️  Model loading error: {e}")
+            print(f"Model loading error: {e}")
             from sklearn.linear_model import ElasticNet
             unified_model = ElasticNet(alpha=1.0, l1_ratio=0.5, random_state=42)
             unified_scaler = StandardScaler()
@@ -976,20 +976,20 @@ class ClinicalDeploymentSystem:
         # Assessment of deployment readiness
         readiness_score = 0.85  # 85% ready based on comprehensive development
         
-        print(f"📊 DEPLOYMENT READINESS ASSESSMENT:")
+        print(f"DEPLOYMENT READINESS ASSESSMENT:")
         print(f"   Overall Readiness Score: {readiness_score:.1%}")
-        print(f"   Technical Development: ✅ Complete")
+        print(f"   Technical Development: Complete")
         print(f"   Clinical Validation: 🔄 Design Complete, Execution Pending")
-        print(f"   Regulatory Pathway: 📋 Documented, Submission Pending")
-        print(f"   Operational Planning: ✅ Complete")
+        print(f"   Regulatory Pathway: Documented, Submission Pending")
+        print(f"   Operational Planning: Complete")
         
-        print(f"\n🎯 NEXT STEPS:")
+        print(f"\nNEXT STEPS:")
         print(f"   1. Submit FDA pre-submission meeting request")
         print(f"   2. Initiate clinical validation study")
         print(f"   3. Complete security and performance testing")
         print(f"   4. Begin pilot deployment at lead sites")
         
-        print(f"\n🏥 CLINICAL IMPACT PROJECTION:")
+        print(f"\nCLINICAL IMPACT PROJECTION:")
         print(f"   • First AI-powered CV risk system for space medicine")
         print(f"   • Improved astronaut health monitoring capability")
         print(f"   • Translational benefits for terrestrial healthcare")
@@ -1005,7 +1005,7 @@ class ClinicalDeploymentSystem:
     
     def run_week4_clinical_translation(self):
         """Run complete Week 4 clinical translation and deployment preparation"""
-        print("🚀 STARTING WEEK 4: CLINICAL TRANSLATION & DEPLOYMENT")
+        print("STARTING WEEK 4: CLINICAL TRANSLATION & DEPLOYMENT")
         print("="*80)
         
         try:
@@ -1027,13 +1027,13 @@ class ClinicalDeploymentSystem:
             # Step 6: Generate deployment readiness report
             deployment_report = self.generate_deployment_report()
             
-            print(f"\n🎉 WEEK 4 COMPLETE!")
-            print(f"✅ Clinical trial designed and ready for execution")
-            print(f"✅ Regulatory pathway documented for FDA submission")
-            print(f"✅ Complete deployment package prepared")
-            print(f"✅ Training materials developed for clinical staff")
-            print(f"✅ Monitoring protocols established for post-deployment")
-            print(f"📊 System ready for clinical validation and regulatory submission")
+            print(f"\nWEEK 4 COMPLETE!")
+            print(f"Clinical trial designed and ready for execution")
+            print(f"Regulatory pathway documented for FDA submission")
+            print(f"Complete deployment package prepared")
+            print(f"Training materials developed for clinical staff")
+            print(f"Monitoring protocols established for post-deployment")
+            print(f"System ready for clinical validation and regulatory submission")
             
             return {
                 'clinical_translation_complete': True,
@@ -1045,7 +1045,7 @@ class ClinicalDeploymentSystem:
             }
             
         except Exception as e:
-            print(f"❌ Error in Week 4 clinical translation: {e}")
+            print(f"Error in Week 4 clinical translation: {e}")
             raise
 
 
@@ -1060,13 +1060,13 @@ def main():
     # Run complete Week 4 clinical translation
     results = deployment_system.run_week4_clinical_translation()
     
-    print("\n🌟 PROJECT COMPLETION:")
-    print("🚀 Space medicine AI system ready for clinical deployment")
-    print("🏥 Revolutionary cardiovascular risk prediction for astronauts")
+    print("\nPROJECT COMPLETION:")
+    print("Space medicine AI system ready for clinical deployment")
+    print("Revolutionary cardiovascular risk prediction for astronauts")
     print("🌍 Translational benefits for Earth-based healthcare")
-    print("📈 Foundation for future space medicine AI applications")
+    print("Foundation for future space medicine AI applications")
     
-    print("\n🏆 FINAL STATUS: MISSION ACCOMPLISHED!")
+    print("\nFINAL STATUS: MISSION ACCOMPLISHED!")
     print("The CardioPredict AI system is ready to protect astronaut health")
     print("on future missions to the Moon, Mars, and beyond!")
     

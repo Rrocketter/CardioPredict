@@ -1,17 +1,11 @@
 #!/usr/bin/env python3
 """
-Phase 2: ML Model Development for Cardiovascular Risk Prediction
-Week 2: Advanced Models and Deep Learning (Part 3/3)
+ml model stuff part 3 - clinical deployment
+week 2 - trying to make the models actually usable by doctors
 
-This module implements model interpretability and clinical deployment:
-- Feature importance analysis and biomarker insights
-- Model interpretability for clinical decision-making
-- Clinical validation metrics and risk stratification
-- Model deployment preparation and artifact generation
-- Final performance comparison and recommendations
-
-Building on Parts 1&2: Advanced models approaching baseline performance
-Goal: Create clinically deployable, interpretable cardiovascular risk prediction system
+making sure the models make sense and can be deployed
+looking at which biomarkers matter most
+trying to make it work in real hospitals
 """
 
 import pandas as pd
@@ -40,10 +34,10 @@ from scipy.stats import pearsonr
 try:
     import shap
     SHAP_AVAILABLE = True
-    print("✅ SHAP available for model interpretability")
+    print("SHAP available for model interpretability")
 except ImportError:
     SHAP_AVAILABLE = False
-    print("⚠️  SHAP not available - using sklearn interpretability")
+    print("SHAP not available - using sklearn interpretability")
 
 class ClinicalMLInterpreter:
     def __init__(self, processed_data_dir="processed_data", models_dir="models", results_dir="results"):
@@ -60,7 +54,7 @@ class ClinicalMLInterpreter:
         self.deployment_artifacts = {}
         self.interpretability_results = {}
         
-        print("🏥 Clinical ML Interpreter Initialized (Part 3/3)")
+        print("Clinical ML Interpreter Initialized (Part 3/3)")
         print(f"Final clinical validation and deployment preparation")
     
     def load_complete_pipeline(self):
@@ -96,7 +90,7 @@ class ClinicalMLInterpreter:
             print(f"✓ Week 1 baseline: {self.baseline_model_name} (R² = {self.baseline_score:.3f})")
             
         except Exception as e:
-            print(f"⚠️  Could not load Week 1 results: {e}")
+            print(f"Could not load Week 1 results: {e}")
             self.baseline_score = 0.770  # Known from previous runs
             self.baseline_model_name = "Elastic Net"
         
@@ -146,7 +140,7 @@ class ClinicalMLInterpreter:
                 self.best_models['Week1_ElasticNet'] = model
                 print("✓ Created fallback Week 1 Elastic Net model")
         except Exception as e:
-            print(f"⚠️  Could not load Week 1 model: {e}")
+            print(f"Could not load Week 1 model: {e}")
         
         # Create a representative Week 2 model (Optimized Gradient Boosting)
         try:
@@ -165,9 +159,9 @@ class ClinicalMLInterpreter:
             self.best_models['Week2_GradientBoosting'] = week2_model
             print("✓ Created Week 2 Optimized Gradient Boosting model")
         except Exception as e:
-            print(f"⚠️  Could not create Week 2 model: {e}")
+            print(f"Could not create Week 2 model: {e}")
         
-        print(f"✅ Loaded {len(self.best_models)} models for clinical analysis")
+        print(f"Loaded {len(self.best_models)} models for clinical analysis")
     
     def perform_feature_importance_analysis(self):
         """Comprehensive feature importance analysis for clinical insights"""
@@ -230,7 +224,7 @@ class ClinicalMLInterpreter:
                     print(f"       {i+1}. {row['Feature']:<25} {row['Importance_Mean']:.4f} ± {row['Importance_Std']:.4f}")
                 
             except Exception as e:
-                print(f"     ❌ Error with {model_name}: {e}")
+                print(f"     Error with {model_name}: {e}")
         
         # 3. Correlation-based importance
         print("\n3. Clinical Correlation Analysis:")
@@ -348,7 +342,7 @@ class ClinicalMLInterpreter:
         
         clinical_analysis = {}
         
-        print("🔬 TOP BIOMARKERS CLINICAL ANALYSIS:")
+        print("TOP BIOMARKERS CLINICAL ANALYSIS:")
         print("="*50)
         
         for i, biomarker in enumerate(top_biomarkers[:6], 1):
@@ -359,17 +353,17 @@ class ClinicalMLInterpreter:
                 info = biomarker_clinical_info[base_biomarker]
                 
                 print(f"\n{i}. {biomarker}")
-                print(f"   📋 Full Name: {info['full_name']}")
-                print(f"   🎯 Clinical Significance: {info['clinical_significance']}")
-                print(f"   📊 Normal Range: {info['normal_range']}")
-                print(f"   ⚠️  CV Risk Threshold: {info['cv_risk_threshold']}")
-                print(f"   🔬 Mechanism: {info['mechanism']}")
+                print(f"   Full Name: {info['full_name']}")
+                print(f"   Clinical Significance: {info['clinical_significance']}")
+                print(f"   Normal Range: {info['normal_range']}")
+                print(f"   CV Risk Threshold: {info['cv_risk_threshold']}")
+                print(f"   Mechanism: {info['mechanism']}")
                 
                 # Calculate statistics for this biomarker in the dataset
                 if biomarker in self.data.columns:
                     values = self.data[biomarker].dropna()
                     
-                    print(f"   📈 Dataset Statistics:")
+                    print(f"   Dataset Statistics:")
                     print(f"      Mean: {values.mean():.2f} ± {values.std():.2f}")
                     print(f"      Range: {values.min():.2f} - {values.max():.2f}")
                     print(f"      Samples: {len(values)}")
@@ -377,19 +371,19 @@ class ClinicalMLInterpreter:
                 clinical_analysis[biomarker] = info
             else:
                 print(f"\n{i}. {biomarker}")
-                print(f"   ⚠️  Clinical information not available for this specific biomarker")
+                print(f"   Clinical information not available for this specific biomarker")
         
         # Analyze biomarker patterns in microgravity
-        print(f"\n🚀 MICROGRAVITY-SPECIFIC INSIGHTS:")
+        print(f"\nMICROGRAVITY-SPECIFIC INSIGHTS:")
         print("="*40)
         
         microgravity_insights = [
-            "🔍 CRP elevation indicates cardiovascular deconditioning during spaceflight",
-            "🩸 Fibrinogen changes reflect altered coagulation in microgravity",
-            "⚡ AGP elevation suggests inflammatory response to space stressors", 
-            "🫀 PF4 activation indicates platelet dysfunction in weightlessness",
-            "🧬 Combined biomarker pattern provides comprehensive CV risk assessment",
-            "📊 Temporal tracking enables real-time astronaut health monitoring"
+            "CRP elevation indicates cardiovascular deconditioning during spaceflight",
+            "Fibrinogen changes reflect altered coagulation in microgravity",
+            "AGP elevation suggests inflammatory response to space stressors", 
+            "PF4 activation indicates platelet dysfunction in weightlessness",
+            "Combined biomarker pattern provides comprehensive CV risk assessment",
+            "Temporal tracking enables real-time astronaut health monitoring"
         ]
         
         for insight in microgravity_insights:
@@ -441,7 +435,7 @@ class ClinicalMLInterpreter:
         
         for biomarker in top_biomarkers:
             if biomarker in self.data.columns:
-                print(f"\n   📊 {biomarker}:")
+                print(f"\n   {biomarker}:")
                 
                 biomarker_by_risk = {}
                 for category in risk_thresholds.keys():
@@ -536,7 +530,7 @@ class ClinicalMLInterpreter:
         }
         
         # Dataset Summary
-        print("1. 📊 DATASET CLINICAL SUMMARY:")
+        print("1. DATASET CLINICAL SUMMARY:")
         validation_report['dataset_summary'] = {
             'total_samples': len(self.data),
             'unique_subjects': self.data['ID'].nunique(),
@@ -561,7 +555,7 @@ class ClinicalMLInterpreter:
         print(f"   • Selected biomarkers: {validation_report['dataset_summary']['selected_biomarkers']}")
         
         # Model Performance Validation
-        print("\n2. 🎯 MODEL PERFORMANCE VALIDATION:")
+        print("\n2. MODEL PERFORMANCE VALIDATION:")
         
         model_performance = {}
         
@@ -608,12 +602,12 @@ class ClinicalMLInterpreter:
                 print(f"     Statistical significance: p = {pvalue:.3f} {'***' if pvalue < 0.001 else '**' if pvalue < 0.01 else '*' if pvalue < 0.05 else 'ns'}")
                 
             except Exception as e:
-                print(f"     ❌ Error validating {model_name}: {e}")
+                print(f"     Error validating {model_name}: {e}")
         
         validation_report['model_performance'] = model_performance
         
         # Clinical Readiness Assessment
-        print("\n3. 🏥 CLINICAL READINESS ASSESSMENT:")
+        print("\n3. CLINICAL READINESS ASSESSMENT:")
         
         # Find best performing model
         best_model_name = max(model_performance.keys(), 
@@ -647,41 +641,41 @@ class ClinicalMLInterpreter:
         ])
         
         print(f"   Best Model: {best_model_name}")
-        print(f"   Performance (R² ≥ 0.70): {'✅' if readiness_assessment['meets_performance'] else '❌'} {best_performance['r2_mean']:.3f}")
-        print(f"   Statistical Significance: {'✅' if readiness_assessment['statistically_significant'] else '❌'} p = {best_performance['statistical_significance']:.3f}")
-        print(f"   Precision (MAE ≤ 10): {'✅' if readiness_assessment['acceptable_precision'] else '❌'} {best_performance['mae_mean']:.2f}")
-        print(f"   Interpretability: {'✅' if readiness_assessment['interpretable'] else '❌'}")
+        print(f"   Performance (R² ≥ 0.70): {'PASS' if readiness_assessment['meets_performance'] else 'FAIL'} {best_performance['r2_mean']:.3f}")
+        print(f"   Statistical Significance: {'PASS' if readiness_assessment['statistically_significant'] else 'FAIL'} p = {best_performance['statistical_significance']:.3f}")
+        print(f"   Precision (MAE ≤ 10): {'PASS' if readiness_assessment['acceptable_precision'] else 'FAIL'} {best_performance['mae_mean']:.2f}")
+        print(f"   Interpretability: {'PASS' if readiness_assessment['interpretable'] else 'FAIL'}")
         
         overall_status = "CLINICALLY READY" if readiness_assessment['overall_ready'] else "NEEDS IMPROVEMENT"
-        print(f"\n   🎯 OVERALL STATUS: {overall_status}")
+        print(f"\n   OVERALL STATUS: {overall_status}")
         
         validation_report['clinical_readiness'] = readiness_assessment
         
         # Generate Recommendations
-        print("\n4. 📋 CLINICAL RECOMMENDATIONS:")
+        print("\n4. CLINICAL RECOMMENDATIONS:")
         
         recommendations = []
         
         if readiness_assessment['overall_ready']:
             recommendations.extend([
-                "✅ Model is ready for clinical validation studies",
-                "✅ Proceed with Earth analog (bedrest) validation",
-                "✅ Implement real-time monitoring system",
-                "✅ Train clinical staff on biomarker interpretation"
+                "Model is ready for clinical validation studies",
+                "Proceed with Earth analog (bedrest) validation",
+                "Implement real-time monitoring system",
+                "Train clinical staff on biomarker interpretation"
             ])
         else:
             if not readiness_assessment['meets_performance']:
-                recommendations.append("🔧 Improve model performance through ensemble methods")
+                recommendations.append("Improve model performance through ensemble methods")
             if not readiness_assessment['statistically_significant']:
-                recommendations.append("📊 Collect more data to improve statistical power")
+                recommendations.append("Collect more data to improve statistical power")
             if not readiness_assessment['acceptable_precision']:
-                recommendations.append("🎯 Enhance precision through better feature engineering")
+                recommendations.append("Enhance precision through better feature engineering")
         
         # Always recommend these
         recommendations.extend([
-            "🏥 Validate with larger astronaut cohort",
-            "🔬 Establish clinical decision thresholds",
-            "📈 Implement continuous model monitoring",
+            "Validate with larger astronaut cohort",
+            "Establish clinical decision thresholds",
+            "Implement continuous model monitoring",
             "🌍 Test with Earth analog populations"
         ])
         
@@ -695,7 +689,7 @@ class ClinicalMLInterpreter:
         with open(report_path, 'w') as f:
             json.dump(validation_report, f, indent=2)
         
-        print(f"\n✅ Clinical validation report saved: {report_path}")
+        print(f"\nClinical validation report saved: {report_path}")
         
         self.clinical_insights['validation_report'] = validation_report
         return validation_report
@@ -736,7 +730,7 @@ class ClinicalMLInterpreter:
                 best_score = score
                 best_model_name = model_name
             
-            print(f"   ✅ Saved {model_name}: {model_path}")
+            print(f"   Saved {model_name}: {model_path}")
             
             deployment_package['models'][model_name] = {
                 'path': str(model_path),
@@ -745,7 +739,7 @@ class ClinicalMLInterpreter:
             }
         
         # 2. Preprocessing Pipeline
-        print("\n2. 🔧 Preprocessing Pipeline:")
+        print("\n2. Preprocessing Pipeline:")
         
         # Save feature scaler
         scaler = StandardScaler()
@@ -753,7 +747,7 @@ class ClinicalMLInterpreter:
         scaler_path = self.results_dir / "feature_scaler_deployment.joblib"
         joblib.dump(scaler, scaler_path)
         
-        print(f"   ✅ Saved feature scaler: {scaler_path}")
+        print(f"   Saved feature scaler: {scaler_path}")
         
         deployment_package['preprocessing'] = {
             'scaler_path': str(scaler_path),
@@ -762,7 +756,7 @@ class ClinicalMLInterpreter:
         }
         
         # 3. Feature Information
-        print("\n3. 📊 Feature Information:")
+        print("\n3. Feature Information:")
         
         feature_info = {
             'selected_features': self.selected_features,
@@ -774,12 +768,12 @@ class ClinicalMLInterpreter:
         with open(feature_info_path, 'w') as f:
             json.dump(feature_info, f, indent=2)
         
-        print(f"   ✅ Saved feature information: {feature_info_path}")
+        print(f"   Saved feature information: {feature_info_path}")
         
         deployment_package['features'] = feature_info
         
         # 4. Clinical Guidelines
-        print("\n4. 🏥 Clinical Guidelines:")
+        print("\n4. Clinical Guidelines:")
         
         clinical_guidelines = {
             'risk_thresholds': {
@@ -803,7 +797,7 @@ class ClinicalMLInterpreter:
         with open(guidelines_path, 'w') as f:
             json.dump(clinical_guidelines, f, indent=2)
         
-        print(f"   ✅ Saved clinical guidelines: {guidelines_path}")
+        print(f"   Saved clinical guidelines: {guidelines_path}")
         
         deployment_package['clinical_guidelines'] = clinical_guidelines
         
@@ -813,14 +807,14 @@ class ClinicalMLInterpreter:
             json.dump(deployment_package, f, indent=2)
         
         print(f"\n📦 Complete deployment package: {package_path}")
-        print(f"🏆 Recommended model for deployment: {best_model_name}")
+        print(f"Recommended model for deployment: {best_model_name}")
         
         self.deployment_artifacts = deployment_package
         return deployment_package
     
     def run_clinical_ml_part3(self):
         """Run Part 3 of advanced ML development"""
-        print("🚀 STARTING WEEK 2: ADVANCED ML DEVELOPMENT (PART 3/3)")
+        print("STARTING WEEK 2: ADVANCED ML DEVELOPMENT (PART 3/3)")
         print("="*80)
         
         try:
@@ -842,12 +836,12 @@ class ClinicalMLInterpreter:
             # Step 6: Final summary
             final_summary = self.generate_final_summary()
             
-            print(f"\n🎉 WEEK 2 COMPLETE! ADVANCED ML DEVELOPMENT FINISHED")
-            print(f"✅ Clinical interpretability analysis complete")
-            print(f"✅ Biomarker significance validated")
-            print(f"✅ Risk stratification implemented")
-            print(f"✅ Clinical validation report generated")
-            print(f"✅ Deployment artifacts prepared")
+            print(f"\nWEEK 2 COMPLETE! ADVANCED ML DEVELOPMENT FINISHED")
+            print(f"Clinical interpretability analysis complete")
+            print(f"Biomarker significance validated")
+            print(f"Risk stratification implemented")
+            print(f"Clinical validation report generated")
+            print(f"Deployment artifacts prepared")
             
             return {
                 'clinical_ready': validation_report['clinical_readiness']['overall_ready'],
@@ -857,7 +851,7 @@ class ClinicalMLInterpreter:
             }
             
         except Exception as e:
-            print(f"❌ Error in Clinical ML Part 3: {e}")
+            print(f"Error in Clinical ML Part 3: {e}")
             raise
     
     def generate_final_summary(self):
@@ -870,49 +864,49 @@ class ClinicalMLInterpreter:
         validation = self.clinical_insights.get('validation_report', {})
         readiness = validation.get('clinical_readiness', {})
         
-        print(f"🎯 PROJECT COMPLETION STATUS: WEEK 2 ADVANCED ML COMPLETE")
-        print(f"📅 Completion Date: {datetime.now().strftime('%B %d, %Y')}")
+        print(f"PROJECT COMPLETION STATUS: WEEK 2 ADVANCED ML COMPLETE")
+        print(f"Completion Date: {datetime.now().strftime('%B %d, %Y')}")
         
-        print(f"\n📊 FINAL PERFORMANCE METRICS:")
+        print(f"\nFINAL PERFORMANCE METRICS:")
         print(f"   Best Model: {readiness.get('best_model', 'Unknown')}")
         print(f"   R² Score: {readiness.get('performance_score', 0):.3f}")
-        print(f"   Clinical Ready: {'✅ YES' if readiness.get('overall_ready', False) else '❌ NO'}")
+        print(f"   Clinical Ready: {'YES' if readiness.get('overall_ready', False) else 'NO'}")
         
-        print(f"\n🏥 CLINICAL IMPACT:")
+        print(f"\nCLINICAL IMPACT:")
         print(f"   • Validated cardiovascular biomarkers for space medicine")
         print(f"   • Established real-time risk monitoring capability")
         print(f"   • Created interpretable prediction system")
         print(f"   • Prepared deployment-ready clinical tool")
         
-        print(f"\n🚀 SPACE MEDICINE ADVANCEMENT:")
+        print(f"\nSPACE MEDICINE ADVANCEMENT:")
         print(f"   • First ML-based CV risk prediction for astronauts")
         print(f"   • Validated temporal biomarker monitoring")
         print(f"   • Ready for ISS and deep space missions")
         print(f"   • Translatable to Earth analog populations")
         
-        print(f"\n🔬 SCIENTIFIC CONTRIBUTIONS:")
+        print(f"\nSCIENTIFIC CONTRIBUTIONS:")
         print(f"   • Identified key CV biomarkers in microgravity")
         print(f"   • Established temporal risk progression patterns")
         print(f"   • Validated ML approaches for small medical datasets")
         print(f"   • Created reproducible clinical ML pipeline")
         
-        print(f"\n🎯 NEXT STEPS:")
+        print(f"\nNEXT STEPS:")
         if readiness.get('overall_ready', False):
-            print(f"   ✅ Deploy for clinical validation studies")
-            print(f"   ✅ Implement on ISS for real astronaut monitoring")
-            print(f"   ✅ Validate with bedrest analog populations")
-            print(f"   ✅ Scale to larger astronaut cohorts")
+            print(f"   Deploy for clinical validation studies")
+            print(f"   Implement on ISS for real astronaut monitoring")
+            print(f"   Validate with bedrest analog populations")
+            print(f"   Scale to larger astronaut cohorts")
         else:
-            print(f"   🔧 Continue model optimization")
-            print(f"   📊 Collect additional astronaut data")
-            print(f"   🏥 Refine clinical validation criteria")
+            print(f"   Continue model optimization")
+            print(f"   Collect additional astronaut data")
+            print(f"   Refine clinical validation criteria")
         
-        print(f"\n🌟 PROJECT SUCCESS METRICS:")
-        print(f"   ✅ Advanced ML pipeline implemented")
-        print(f"   ✅ Clinical interpretability achieved")
-        print(f"   ✅ Biomarker validation completed") 
-        print(f"   ✅ Deployment artifacts prepared")
-        print(f"   ✅ Ready for Earth analog validation")
+        print(f"\nPROJECT SUCCESS METRICS:")
+        print(f"   Advanced ML pipeline implemented")
+        print(f"   Clinical interpretability achieved")
+        print(f"   Biomarker validation completed") 
+        print(f"   Deployment artifacts prepared")
+        print(f"   Ready for Earth analog validation")
         
         return {
             'project_complete': True,
@@ -932,7 +926,7 @@ def main():
     # Run Part 3 of advanced ML development
     results = interpreter.run_clinical_ml_part3()
     
-    print("\n🎉 CARDIOVASCULAR RISK PREDICTION PROJECT COMPLETE!")
+    print("\nCARDIOVASCULAR RISK PREDICTION PROJECT COMPLETE!")
     print("Ready for clinical validation and Earth analog testing")
     
     return interpreter, results

@@ -11,4 +11,4 @@ echo "📋 Installing requirements..."
 cd web_platform
 pip install -r requirements.txt
 
-echo "✅ Build completed successfully!"
+echo "Build completed successfully!"

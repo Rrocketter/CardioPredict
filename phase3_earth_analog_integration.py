@@ -342,7 +342,7 @@ class EarthAnalogIntegrator:
         significant_count = sum(1 for r in analysis_results.values() if r['significant'])
         large_effect_count = sum(1 for r in analysis_results.values() if abs(r['cohens_d']) > 0.8)
         
-        print(f"\n📊 SUMMARY:")
+        print(f"\nSUMMARY:")
         print(f"  • Biomarkers tested: {len(analysis_results)}")
         print(f"  • Significantly different: {significant_count}")
         print(f"  • Large effect sizes (>0.8): {large_effect_count}")
@@ -367,7 +367,7 @@ class EarthAnalogIntegrator:
                 print("✓ Created fallback space model")
         except Exception as e:
             space_model = ElasticNet(alpha=1.0, l1_ratio=0.5, random_state=42)
-            print(f"⚠️  Using fallback model due to: {e}")
+            print(f"Using fallback model due to: {e}")
         
         # Prepare feature columns (excluding target and metadata)
         exclude_cols = [
@@ -581,7 +581,7 @@ class EarthAnalogIntegrator:
                              key=lambda k: unified_results[k]['overall_r2'])
         best_score = unified_results[best_model_name]['overall_r2']
         
-        print(f"\n🏆 BEST UNIFIED MODEL: {best_model_name}")
+        print(f"\nBEST UNIFIED MODEL: {best_model_name}")
         print(f"   Overall R² Score: {best_score:.3f}")
         print(f"   Space Performance: {unified_results[best_model_name]['space_r2']:.3f}")
         print(f"   Earth Performance: {unified_results[best_model_name]['earth_r2']:.3f}")
@@ -625,7 +625,7 @@ class EarthAnalogIntegrator:
             'integration_date': datetime.now().isoformat()
         }
         
-        print(f"📊 INTEGRATION SUMMARY:")
+        print(f"INTEGRATION SUMMARY:")
         print(f"   • Space samples: {report['dataset_summary']['space_samples']}")
         print(f"   • Earth analog samples: {report['dataset_summary']['earth_samples']}")
         print(f"   • Total combined: {report['dataset_summary']['total_samples']}")
@@ -645,24 +645,24 @@ class EarthAnalogIntegrator:
             print(f"   • Overall R² Score: {best_score:.3f}")
         
         # Clinical implications
-        print(f"\n🏥 CLINICAL IMPLICATIONS:")
+        print(f"\nCLINICAL IMPLICATIONS:")
         if self.cross_domain_results:
             space_to_earth_r2 = self.cross_domain_results.get('Space → Earth', {}).get('r2_score', 0)
             earth_to_space_r2 = self.cross_domain_results.get('Earth → Space', {}).get('r2_score', 0)
             
             if space_to_earth_r2 >= 0.5:
-                print(f"   ✅ Space models transfer well to Earth analogs")
-                print(f"   ✅ Astronaut research applicable to bedrest patients")
+                print(f"   Space models transfer well to Earth analogs")
+                print(f"   Astronaut research applicable to bedrest patients")
             else:
-                print(f"   ⚠️  Limited transferability from space to Earth")
+                print(f"   Limited transferability from space to Earth")
             
             if earth_to_space_r2 >= 0.5:
-                print(f"   ✅ Earth analog models transfer to space")
-                print(f"   ✅ Bedrest research applicable to astronauts")
+                print(f"   Earth analog models transfer to space")
+                print(f"   Bedrest research applicable to astronauts")
             else:
-                print(f"   ⚠️  Limited transferability from Earth to space")
+                print(f"   Limited transferability from Earth to space")
         
-        print(f"\n🚀 SPACE MEDICINE IMPACT:")
+        print(f"\nSPACE MEDICINE IMPACT:")
         print(f"   • Unified cardiovascular risk prediction system")
         print(f"   • Cross-domain validation established")
         print(f"   • Translational research framework created")
@@ -678,7 +678,7 @@ class EarthAnalogIntegrator:
     
     def run_week3_integration(self):
         """Run complete Week 3 Earth analog integration pipeline"""
-        print("🚀 STARTING WEEK 3: EARTH ANALOG INTEGRATION")
+        print("STARTING WEEK 3: EARTH ANALOG INTEGRATION")
         print("="*80)
         
         try:
@@ -703,11 +703,11 @@ class EarthAnalogIntegrator:
             # Step 7: Generate comprehensive report
             integration_report = self.generate_integration_report()
             
-            print(f"\n🎉 WEEK 3 COMPLETE!")
-            print(f"✅ Earth analog integration successful")
-            print(f"✅ Cross-domain validation completed")
-            print(f"✅ Unified model developed and deployed")
-            print(f"📊 Ready for Week 4: Clinical translation")
+            print(f"\nWEEK 3 COMPLETE!")
+            print(f"Earth analog integration successful")
+            print(f"Cross-domain validation completed")
+            print(f"Unified model developed and deployed")
+            print(f"Ready for Week 4: Clinical translation")
             
             return {
                 'integration_successful': True,
@@ -717,7 +717,7 @@ class EarthAnalogIntegrator:
             }
             
         except Exception as e:
-            print(f"❌ Error in Week 3 integration: {e}")
+            print(f"Error in Week 3 integration: {e}")
             raise
 
 
@@ -732,7 +732,7 @@ def main():
     # Run complete Week 3 integration
     results = integrator.run_week3_integration()
     
-    print("\n🎯 READY FOR WEEK 4:")
+    print("\nREADY FOR WEEK 4:")
     print("• Clinical trial design and validation")
     print("• Regulatory pathway development")
     print("• Real-world deployment preparation")

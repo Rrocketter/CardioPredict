@@ -90,7 +90,7 @@ def analyze_cardiovascular_markers():
     print("-" * 40)
     
     for marker, info in biomarker_info.items():
-        print(f"\n🔬 {marker.upper()}:")
+        print(f"\n{marker.upper()}:")
         print(f"   Clinical: {info['clinical_significance']}")
         print(f"   CV Risk: {info['cardiovascular_relevance']}")
         print(f"   Microgravity: {info['microgravity_relevance']}")
@@ -192,7 +192,7 @@ def create_project_readiness_summary():
     print("PROJECT READINESS SUMMARY")
     print("="*80)
     
-    print("✅ EXCELLENT DATA SUITABILITY FOR YOUR PROJECT:")
+    print("EXCELLENT DATA SUITABILITY FOR YOUR PROJECT:")
     print()
     print("1. LONGITUDINAL CARDIOVASCULAR BIOMARKERS:")
     print("   • 9 clinically validated cardiovascular risk markers")
@@ -217,14 +217,14 @@ def create_project_readiness_summary():
     print("   • Clinical translation to ICU/post-surgical patients")
     print("   • Biomarker discovery for early risk detection")
     
-    print("\n🎯 RECOMMENDED NEXT STEPS:")
+    print("\nRECOMMENDED NEXT STEPS:")
     print("   1. Process RNA-seq data for gene expression profiles")
     print("   2. Calculate cardiovascular risk scores from biomarkers") 
     print("   3. Develop ML model using temporal biomarker changes")
     print("   4. Validate model using bed rest data")
     print("   5. Apply to clinical populations (immobilized patients)")
     
-    print(f"\n🚀 CONCLUSION: Your data is IDEAL for this groundbreaking project!")
+    print(f"\nCONCLUSION: Your data is IDEAL for this groundbreaking project!")
     print("   The combination of space + Earth data provides unique insights")
     print("   into cardiovascular deconditioning and risk prediction.")
 
@@ -240,7 +240,7 @@ def main():
     # Create project readiness summary
     create_project_readiness_summary()
     
-    print(f"\n📊 Analysis complete! Your data is ready for ML model development.")
+    print(f"\nAnalysis complete! Your data is ready for ML model development.")
 
 if __name__ == "__main__":
     main()

@@ -1,10 +1,10 @@
 #!/usr/bin/env python3
 """
-Phase 3 Enhanced: Validation & Earth Applications for Cardiovascular Risk Prediction
-Week 3: Rigorous Validation Against Published Research and Clinical Patterns
+phase 3 - validation and earth applications  
+week 3 - checking if our models actually work
 
-This module implements comprehensive validation against known bedrest deconditioning 
-effects, cardiovascular dysfunction patterns, and real-world hospitalized patient data.
+testing against real published studies and hospital data
+seeing if bedrest studies match our predictions
 """
 
 import pandas as pd
@@ -51,7 +51,7 @@ class EnhancedValidationSystem:
         # Validation results
         self.validation_results = {}
         
-        print("🔬 Enhanced Validation System Initialized")
+        print("Enhanced Validation System Initialized")
         print(f"Validation results will be saved to: {self.validation_dir}")
     
     def _load_published_benchmarks(self):
@@ -142,10 +142,10 @@ class EnhancedValidationSystem:
                     model_loaded = True
                     break
                 except Exception as e:
-                    print(f"⚠️  Failed to load {model_path}: {e}")
+                    print(f"Failed to load {model_path}: {e}")
         
         if not model_loaded:
-            print("⚠️  No pre-trained model found, creating fallback ElasticNet")
+            print("No pre-trained model found, creating fallback ElasticNet")
             self.space_model = ElasticNet(alpha=1.0, l1_ratio=0.5, random_state=42)
         
         # Load scaler
@@ -163,10 +163,10 @@ class EnhancedValidationSystem:
                     scaler_loaded = True
                     break
                 except Exception as e:
-                    print(f"⚠️  Failed to load {scaler_path}: {e}")
+                    print(f"Failed to load {scaler_path}: {e}")
         
         if not scaler_loaded:
-            print("⚠️  No pre-trained scaler found, will create new StandardScaler")
+            print("No pre-trained scaler found, will create new StandardScaler")
             self.scaler = StandardScaler()
         
         return model_loaded and scaler_loaded
@@ -510,7 +510,7 @@ class EnhancedValidationSystem:
                 selected_features = list(set(space_feature_cols).intersection(set(validation_feature_cols)))
                 print(f"✓ Using common features: {len(selected_features)}")
         except Exception as e:
-            print(f"⚠️  Feature selection file issue: {e}")
+            print(f"Feature selection file issue: {e}")
             # Use minimal common features
             selected_features = ['CRP', 'Fetuin A36', 'PF4', 'SAP', 'a-2 Macroglobulin', 
                                'Fibrinogen_mg_dl', 'Haptoglobin', 'AGP_Change_From_Baseline',
@@ -529,7 +529,7 @@ class EnhancedValidationSystem:
             if X_validation.shape[1] == self.scaler.n_features_in_:
                 X_scaled = self.scaler.transform(X_validation)
             else:
-                print(f"⚠️  Feature count mismatch. Retraining scaler.")
+                print(f"Feature count mismatch. Retraining scaler.")
                 self.scaler = StandardScaler()
                 X_scaled = self.scaler.fit_transform(X_validation)
                 # Retrain model with new scaler
@@ -552,7 +552,7 @@ class EnhancedValidationSystem:
         rmse = np.sqrt(mean_squared_error(y_true, y_pred))
         correlation, p_value = pearsonr(y_true, y_pred)
         
-        print(f"📊 OVERALL VALIDATION PERFORMANCE:")
+        print(f"OVERALL VALIDATION PERFORMANCE:")
         print(f"   R² Score: {r2:.3f}")
         print(f"   MAE: {mae:.2f}")
         print(f"   RMSE: {rmse:.2f}")
@@ -582,11 +582,11 @@ class EnhancedValidationSystem:
                     "meets_threshold": validation_accuracy >= 0.70  # 70% accuracy threshold
                 }
                 
-                print(f"\n📈 14-DAY BEDREST STUDY VALIDATION:")
+                print(f"\n14-DAY BEDREST STUDY VALIDATION:")
                 print(f"   Expected CV risk increase: {expected_increase:.1f}")
                 print(f"   Predicted CV risk increase: {predicted_increase:.1f}")
                 print(f"   Validation accuracy: {validation_accuracy:.1%}")
-                print(f"   Meets 70% threshold: {'✅' if validation_accuracy >= 0.70 else '❌'}")
+                print(f"   Meets 70% threshold: {'PASS' if validation_accuracy >= 0.70 else 'FAIL'}")
         
         # 84-day study validation
         br84_mask = self.bedrest_validation_data['ID'].str.contains('BR84')
@@ -609,11 +609,11 @@ class EnhancedValidationSystem:
                     "meets_threshold": validation_accuracy >= 0.70
                 }
                 
-                print(f"\n📈 84-DAY BEDREST STUDY VALIDATION:")
+                print(f"\n84-DAY BEDREST STUDY VALIDATION:")
                 print(f"   Expected CV risk increase: {expected_increase:.1f}")
                 print(f"   Predicted CV risk increase: {predicted_increase:.1f}")
                 print(f"   Validation accuracy: {validation_accuracy:.1%}")
-                print(f"   Meets 70% threshold: {'✅' if validation_accuracy >= 0.70 else '❌'}")
+                print(f"   Meets 70% threshold: {'PASS' if validation_accuracy >= 0.70 else 'FAIL'}")
         
         self.validation_results["published_studies"] = {
             "overall_performance": {
@@ -682,7 +682,7 @@ class EnhancedValidationSystem:
         mae_hospital = mean_absolute_error(y_true_hospital, y_pred_hospital)
         correlation_hospital = pearsonr(y_true_hospital, y_pred_hospital)[0]
         
-        print(f"📊 HOSPITAL PATIENT VALIDATION:")
+        print(f"HOSPITAL PATIENT VALIDATION:")
         print(f"   R² Score: {r2_hospital:.3f}")
         print(f"   MAE: {mae_hospital:.2f}")
         print(f"   Correlation: {correlation_hospital:.3f}")
@@ -700,7 +700,7 @@ class EnhancedValidationSystem:
         )[0, 1]
         
         print(f"   Bedrest-CV risk correlation: {bedrest_cv_correlation:.3f}")
-        print(f"   Expected positive correlation: {'✅' if bedrest_cv_correlation > 0.3 else '❌'}")
+        print(f"   Expected positive correlation: {'PASS' if bedrest_cv_correlation > 0.3 else 'FAIL'}")
         
         self.validation_results["hospital_applications"] = {
             "r2_score": r2_hospital,
@@ -783,7 +783,7 @@ class EnhancedValidationSystem:
         print(f"\n📚 PUBLISHED BENCHMARK COMPARISON:")
         print(f"   Published space-bedrest correlation: {benchmark_correlation:.3f}")
         print(f"   Our cross-domain correlation: {avg_cross_correlation:.3f}")
-        print(f"   Meets benchmark (≥80%): {'✅' if correlation_validation else '❌'}")
+        print(f"   Meets benchmark (≥80%): {'PASS' if correlation_validation else 'FAIL'}")
         
         self.validation_results["cross_domain"] = {
             "space_to_bedrest_r2": space_to_bedrest_r2,
@@ -820,7 +820,7 @@ class EnhancedValidationSystem:
         
         overall_validation_score = sum(validation_scores) if validation_scores else 0
         
-        print(f"📊 VALIDATION SUMMARY:")
+        print(f"VALIDATION SUMMARY:")
         print(f"   Overall Validation Score: {overall_validation_score:.3f}")
         
         # Detailed validation results
@@ -835,20 +835,20 @@ class EnhancedValidationSystem:
         
         if "hospital_applications" in self.validation_results:
             hosp_results = self.validation_results["hospital_applications"]
-            print(f"\n🏥 HOSPITAL APPLICATION VALIDATION:")
+            print(f"\nHOSPITAL APPLICATION VALIDATION:")
             print(f"   R² Score: {hosp_results['r2_score']:.3f}")
             print(f"   Bedrest-CV correlation: {hosp_results['bedrest_cv_correlation']:.3f}")
-            print(f"   Clinically relevant: {'✅' if hosp_results['clinically_relevant'] else '❌'}")
+            print(f"   Clinically relevant: {'PASS' if hosp_results['clinically_relevant'] else 'FAIL'}")
         
         if "cross_domain" in self.validation_results:
             cross_results = self.validation_results["cross_domain"]
             print(f"\n🔄 CROSS-DOMAIN VALIDATION:")
             print(f"   Space→Bedrest R²: {cross_results['space_to_bedrest_r2']:.3f}")
             print(f"   Bedrest→Space R²: {cross_results['bedrest_to_space_r2']:.3f}")
-            print(f"   Meets benchmark: {'✅' if cross_results['meets_benchmark'] else '❌'}")
+            print(f"   Meets benchmark: {'PASS' if cross_results['meets_benchmark'] else 'FAIL'}")
         
         # Clinical validation assessment
-        print(f"\n🏥 CLINICAL VALIDATION ASSESSMENT:")
+        print(f"\nCLINICAL VALIDATION ASSESSMENT:")
         
         validation_criteria = {
             "Published Study Accuracy": overall_validation_score >= 0.6,
@@ -859,16 +859,16 @@ class EnhancedValidationSystem:
         passed_criteria = sum(validation_criteria.values())
         
         for criterion, passed in validation_criteria.items():
-            print(f"   {criterion}: {'✅ PASS' if passed else '❌ FAIL'}")
+            print(f"   {criterion}: {'PASS' if passed else 'FAIL'}")
         
-        print(f"\n🎯 VALIDATION STATUS:")
+        print(f"\nVALIDATION STATUS:")
         if passed_criteria >= 2:
             status = "VALIDATED FOR CLINICAL USE"
-            print(f"   ✅ {status}")
+            print(f"   {status}")
             print(f"   Ready for clinical deployment and FDA submission")
         else:
             status = "REQUIRES ADDITIONAL VALIDATION"
-            print(f"   ⚠️  {status}")
+            print(f"   {status}")
             print(f"   Need to improve model performance or validation approach")
         
         # Save comprehensive validation report
@@ -890,7 +890,7 @@ class EnhancedValidationSystem:
     
     def run_enhanced_validation(self):
         """Run complete enhanced validation pipeline"""
-        print("🚀 STARTING ENHANCED VALIDATION & EARTH APPLICATIONS")
+        print("STARTING ENHANCED VALIDATION & EARTH APPLICATIONS")
         print("="*80)
         
         try:
@@ -918,16 +918,16 @@ class EnhancedValidationSystem:
             # Step 8: Generate comprehensive validation report
             validation_report = self.generate_validation_report()
             
-            print(f"\n🎉 ENHANCED VALIDATION COMPLETE!")
-            print(f"✅ Published study validation completed")
-            print(f"✅ Hospital application validation completed")
-            print(f"✅ Cross-domain validation completed")
-            print(f"📊 Validation status: {validation_report['validation_status']}")
+            print(f"\nENHANCED VALIDATION COMPLETE!")
+            print(f"Published study validation completed")
+            print(f"Hospital application validation completed")
+            print(f"Cross-domain validation completed")
+            print(f"Validation status: {validation_report['validation_status']}")
             
             return validation_report
             
         except Exception as e:
-            print(f"❌ Error in enhanced validation: {e}")
+            print(f"Error in enhanced validation: {e}")
             raise
 
 
@@ -942,7 +942,7 @@ def main():
     # Run complete enhanced validation
     validation_report = validator.run_enhanced_validation()
     
-    print("\n🎯 VALIDATION COMPLETE - READY FOR:")
+    print("\nVALIDATION COMPLETE - READY FOR:")
     print("• Clinical deployment in space medicine")
     print("• Hospital bedrest patient monitoring")
     print("• FDA regulatory submission")

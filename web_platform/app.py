@@ -27,7 +27,7 @@ try:
     logger = logging.getLogger(__name__)
     logger.info("✓ ML packages loaded successfully")
 except ImportError as e:
-    print(f"⚠️ ML packages not available: {e}")
+    print(f"ML packages not available: {e}")
     print("🔄 Running in web-only mode with mock predictions")
     ML_AVAILABLE = False
     # Mock implementations
@@ -62,7 +62,7 @@ try:
     from websocket_server import socketio
     from celery_tasks import make_celery
 except ImportError as e:
-    print(f"⚠️ Phase 3 dependencies not available: {e}")
+    print(f"Phase 3 dependencies not available: {e}")
     print("🔄 Running without Phase 3 features (JWT, WebSocket, Celery)")
     PHASE3_AVAILABLE = False
     api_v3 = None
@@ -103,7 +103,7 @@ if PHASE3_AVAILABLE:
     
     print("✓ Phase 3 features initialized (JWT, WebSocket, Celery)")
 else:
-    print("⚠️ Phase 3 features disabled due to missing dependencies")
+    print("Phase 3 features disabled due to missing dependencies")
 
 # Register the API blueprints
 app.register_blueprint(api)
@@ -141,7 +141,7 @@ class CardioPredict:
                     self.scaler = joblib.load(scaler_path)
                     logger.info("✓ Loaded development models successfully")
                 else:
-                    logger.warning("⚠️ No trained models found")
+                    logger.warning("No trained models found")
                     
             # Load feature information
             feature_file = Path('../models/feature_selection.json')
@@ -584,7 +584,7 @@ if __name__ == '__main__':
                 init_phase3_database()
                 print("✓ Phase 3 database initialized successfully")
             except Exception as e:
-                print(f"⚠️ Phase 3 database initialization failed: {e}")
+                print(f"Phase 3 database initialization failed: {e}")
     
     # Get port from environment variable or use default
     port = int(os.environ.get('PORT', 5001))
@@ -593,8 +593,8 @@ if __name__ == '__main__':
     
     # Run the application with WebSocket support if available
     if PHASE3_AVAILABLE and socketio:
-        print(f"🚀 Starting CardioPredict with Phase 3 features on {host}:{port}")
+        print(f"Starting CardioPredict with Phase 3 features on {host}:{port}")
         socketio.run(app, debug=debug, host=host, port=port)
     else:
-        print(f"🚀 Starting CardioPredict (Phase 1-2) on {host}:{port}")
+        print(f"Starting CardioPredict (Phase 1-2) on {host}:{port}")
         app.run(debug=debug, host=host, port=port)

@@ -40,7 +40,7 @@ class CardiovascularDataPreprocessor:
             'crew_size': 4
         }
         
-        print("🚀 Cardiovascular Data Preprocessor Initialized")
+        print("Cardiovascular Data Preprocessor Initialized")
         print(f"Data directory: {self.data_dir}")
         print(f"Output directory: {self.output_dir}")
     
@@ -495,19 +495,19 @@ class CardiovascularDataPreprocessor:
         print("="*80)
         
         if self.processed_features is None:
-            print("❌ No processed data available. Run full preprocessing pipeline first.")
+            print("No processed data available. Run full preprocessing pipeline first.")
             return
         
         df = self.processed_features
         
-        print(f"📊 DATASET OVERVIEW:")
+        print(f"DATASET OVERVIEW:")
         print(f"   • Subjects: {df['ID'].nunique()}")
         print(f"   • Total samples: {len(df)}")
         print(f"   • Features: {df.shape[1]}")
         print(f"   • Timepoints: {df['Days_From_Launch'].nunique()}")
         print(f"   • Mission duration: {df['Mission_Duration_Days'].iloc[0]} days")
         
-        print(f"\n🎯 RISK SCORE DISTRIBUTION:")
+        print(f"\nRISK SCORE DISTRIBUTION:")
         risk_stats = df['CV_Risk_Score'].describe()
         print(f"   • Mean risk score: {risk_stats['mean']:.1f}")
         print(f"   • Risk range: {risk_stats['min']:.1f} - {risk_stats['max']:.1f}")
@@ -528,12 +528,12 @@ class CardiovascularDataPreprocessor:
                 sex = 'Male' if subject_data.get('Sex_Encoded', 0) == 1 else 'Female'
                 print(f"   • {subject}: {sex}, Age {age}")
         
-        print(f"\n✅ DATA QUALITY:")
+        print(f"\nDATA QUALITY:")
         missing_count = df.isnull().sum().sum()
         print(f"   • Missing values: {missing_count}")
         print(f"   • Data completeness: {((df.size - missing_count) / df.size * 100):.1f}%")
         
-        print(f"\n🚀 READY FOR MODEL DEVELOPMENT:")
+        print(f"\nREADY FOR MODEL DEVELOPMENT:")
         print(f"   ✓ Cardiovascular biomarkers processed")
         print(f"   ✓ Risk scores calculated")
         print(f"   ✓ Temporal features engineered")
@@ -568,7 +568,7 @@ class CardiovascularDataPreprocessor:
     
     def run_full_preprocessing_pipeline(self):
         """Run the complete preprocessing pipeline"""
-        print("🚀 STARTING FULL PREPROCESSING PIPELINE")
+        print("STARTING FULL PREPROCESSING PIPELINE")
         print("="*80)
         
         try:
@@ -598,14 +598,14 @@ class CardiovascularDataPreprocessor:
             # Step 7: Generate report
             self.generate_preprocessing_report()
             
-            print(f"\n🎉 PREPROCESSING COMPLETE!")
+            print(f"\nPREPROCESSING COMPLETE!")
             print(f"📁 Processed data saved to: {output_file}")
-            print(f"🔬 Ready for Phase 2: Model Development")
+            print(f"Ready for Phase 2: Model Development")
             
             return df_final
             
         except Exception as e:
-            print(f"❌ Error in preprocessing pipeline: {e}")
+            print(f"Error in preprocessing pipeline: {e}")
             raise
 
 
@@ -620,7 +620,7 @@ def main():
     # Run full pipeline
     processed_data = preprocessor.run_full_preprocessing_pipeline()
     
-    print("\n🎯 NEXT STEPS:")
+    print("\nNEXT STEPS:")
     print("1. Review processed data in 'processed_data' directory")
     print("2. Proceed to Phase 2: Model Development")
     print("3. Use 'cardiovascular_features.csv' for ML training")

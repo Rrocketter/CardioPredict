@@ -235,7 +235,7 @@ class CardiovascularDataAssessment:
         print("     - Microarray data requires normalization")
         print("     - Multiple file formats need standardization")
         
-        print("\n✅ RECOMMENDATIONS FOR YOUR PROJECT:")
+        print("\nRECOMMENDATIONS FOR YOUR PROJECT:")
         print("  1. Primary Analysis:")
         print("     - Use OSD-575 as main dataset for biomarker identification")
         print("     - Focus on pre/post-flight changes in cardiovascular markers")
@@ -251,7 +251,7 @@ class CardiovascularDataAssessment:
         print("     - Use cardiomyocyte responses to understand mechanisms")
         print("     - Apply machine learning to multi-omics integration")
         
-        print(f"\n🎯 CONCLUSION: Your data is WELL-SUITED for the project!")
+        print(f"\nCONCLUSION: Your data is WELL-SUITED for the project!")
         print("   The combination provides both biomarker and mechanistic insights")
         print("   for cardiovascular risk prediction in microgravity and bed rest.")
         
@@ -325,8 +325,8 @@ def main():
             'integration_plan': integration_plan
         }, f, indent=2)
     
-    print(f"\n📊 Assessment results saved to: data_assessment_results.json")
-    print("🚀 Ready to proceed with cardiovascular risk prediction model!")
+    print(f"\nAssessment results saved to: data_assessment_results.json")
+    print("Ready to proceed with cardiovascular risk prediction model!")
 
 if __name__ == "__main__":
     main()

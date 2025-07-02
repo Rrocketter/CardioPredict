@@ -34,21 +34,21 @@ try:
     XGBOOST_AVAILABLE = True
 except ImportError:
     XGBOOST_AVAILABLE = False
-    print("⚠️  XGBoost not available - will skip XGBoost models")
+    print("XGBoost not available - will skip XGBoost models")
 
 try:
     import lightgbm as lgb
     LIGHTGBM_AVAILABLE = True
 except ImportError:
     LIGHTGBM_AVAILABLE = False
-    print("⚠️  LightGBM not available - will skip LightGBM models")
+    print("LightGBM not available - will skip LightGBM models")
 
 try:
     import catboost as cb
     CATBOOST_AVAILABLE = True
 except ImportError:
     CATBOOST_AVAILABLE = False
-    print("⚠️  CatBoost not available - will skip CatBoost models")
+    print("CatBoost not available - will skip CatBoost models")
 
 # Deep learning alternative (if tensorflow not available)
 from sklearn.ensemble import GradientBoostingRegressor
@@ -94,10 +94,10 @@ class AdvancedCardiovascularRiskML:
                 print(f"✓ Loaded Week 1 results: {best_model} (R² = {best_score:.3f})")
                 return {'best_model': best_model, 'best_score': best_score, 'all_results': results}
             else:
-                print("⚠️  No baseline results found - will establish new baseline")
+                print("No baseline results found - will establish new baseline")
                 return {'best_model': 'None', 'best_score': 0.0}
         except Exception as e:
-            print(f"⚠️  Error loading baseline results: {e}")
+            print(f"Error loading baseline results: {e}")
             return {'best_model': 'None', 'best_score': 0.0}
     
     def load_processed_data_and_features(self):
@@ -121,7 +121,7 @@ class AdvancedCardiovascularRiskML:
             self.selected_features = feature_info['consensus_features']
             print(f"✓ Loaded Week 1 selected features: {len(self.selected_features)}")
         else:
-            print("⚠️  No feature selection from Week 1 found - will perform new selection")
+            print("No feature selection from Week 1 found - will perform new selection")
             self.selected_features = None
         
         print(f"✓ Loaded data: {self.data.shape}")
@@ -145,7 +145,7 @@ class AdvancedCardiovascularRiskML:
             available_features = [f for f in self.selected_features if f in self.data.columns]
             if len(available_features) != len(self.selected_features):
                 missing = set(self.selected_features) - set(available_features)
-                print(f"⚠️  Missing features from Week 1: {missing}")
+                print(f"Missing features from Week 1: {missing}")
             
             self.selected_features = available_features
             feature_cols = self.selected_features
@@ -218,7 +218,7 @@ class AdvancedCardiovascularRiskML:
             'original': self.X  # Keep original for tree-based models
         }
         
-        print(f"\n✅ Created {len(self.preprocessed_data)} preprocessing pipelines")
+        print(f"\nCreated {len(self.preprocessed_data)} preprocessing pipelines")
         return self.preprocessed_data
     
     def setup_advanced_cross_validation(self):
@@ -353,7 +353,7 @@ class AdvancedCardiovascularRiskML:
                     model.fit(X_prep, self.y)
                     
                 except Exception as e:
-                    print(f"   ❌ Error training {nn_name}: {e}")
+                    print(f"   Error training {nn_name}: {e}")
                     continue
         
         # Find best NN model
@@ -431,7 +431,7 @@ class AdvancedCardiovascularRiskML:
             gb_sklearn.fit(self.X, self.y)
             
         except Exception as e:
-            print(f"   ❌ Error with Sklearn GB: {e}")
+            print(f"   Error with Sklearn GB: {e}")
         
         # 2. XGBoost (if available)
         if XGBOOST_AVAILABLE:
@@ -486,7 +486,7 @@ class AdvancedCardiovascularRiskML:
                 xgb_model.fit(self.X, self.y)
                 
             except Exception as e:
-                print(f"   ❌ Error with XGBoost: {e}")
+                print(f"   Error with XGBoost: {e}")
         
         # 3. LightGBM (if available)
         if LIGHTGBM_AVAILABLE:
@@ -540,7 +540,7 @@ class AdvancedCardiovascularRiskML:
                 lgb_model.fit(self.X, self.y)
                 
             except Exception as e:
-                print(f"   ❌ Error with LightGBM: {e}")
+                print(f"   Error with LightGBM: {e}")
         
         # 4. CatBoost (if available)
         if CATBOOST_AVAILABLE:
@@ -594,7 +594,7 @@ class AdvancedCardiovascularRiskML:
                 cat_model.fit(self.X, self.y)
                 
             except Exception as e:
-                print(f"   ❌ Error with CatBoost: {e}")
+                print(f"   Error with CatBoost: {e}")
         
         # Find best boosting model
         if boosting_results:
@@ -640,9 +640,9 @@ class AdvancedCardiovascularRiskML:
             self.generate_part1_summary()
             
             print(f"\n� PART 1/3 COMPLETE!")
-            print(f"✅ Neural Networks trained: {len(nn_results)} models")
-            print(f"✅ Gradient Boosting trained: {len(boosting_results)} models")
-            print(f"✅ Ready for Part 2: Hyperparameter optimization & ensembles")
+            print(f"Neural Networks trained: {len(nn_results)} models")
+            print(f"Gradient Boosting trained: {len(boosting_results)} models")
+            print(f"Ready for Part 2: Hyperparameter optimization & ensembles")
             
             return {
                 'neural_networks': nn_results,
@@ -651,7 +651,7 @@ class AdvancedCardiovascularRiskML:
             }
             
         except Exception as e:
-            print(f"❌ Error in Advanced ML Part 1: {e}")
+            print(f"Error in Advanced ML Part 1: {e}")
             raise
     
     def generate_part1_summary(self):
