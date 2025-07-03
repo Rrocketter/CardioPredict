@@ -217,6 +217,26 @@ p {
   transform: translateY(-3px);
 }
 
+.btn-outline-custom {
+  background: transparent;
+  border: 1px solid var(--white);
+  padding: 0.75rem 1.5rem;
+  font-weight: 500;
+  border-radius: var(--border-radius);
+  color: var(--white);
+  text-decoration: none;
+  display: inline-block;
+  transition: all 0.3s ease;
+  opacity: 0.8;
+}
+
+.btn-outline-custom:hover {
+  background: rgba(255, 255, 255, 0.1);
+  color: var(--white);
+  opacity: 1;
+  transform: translateY(-2px);
+}
+
 /* ===== FEATURE SECTIONS ===== */
 .section {
   padding: var(--section-padding);

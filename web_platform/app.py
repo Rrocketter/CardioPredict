@@ -60,6 +60,33 @@ def research():
     """Research methodology and results"""
     return render_template('research.html')
 
+@app.route('/paper')
+def paper():
+    """Research paper access page"""
+    return render_template('paper.html')
+
+@app.route('/paper/pdf')
+def paper_pdf():
+    """Serve the research paper PDF with proper headers"""
+    from flask import send_file, Response
+    import os
+    
+    pdf_path = os.path.join(app.static_folder, 'papers', 'research_paper.pdf')
+    
+    if os.path.exists(pdf_path):
+        return send_file(
+            pdf_path,
+            mimetype='application/pdf',
+            as_attachment=False,
+            download_name='CardioPredict_Research_Paper.pdf'
+        )
+    else:
+        return Response(
+            "PDF not found. Please generate the PDF first using the LaTeX source.",
+            status=404,
+            mimetype='text/plain'
+        )
+
 @app.route('/predict')
 def predict():
     """Advanced prediction interface"""

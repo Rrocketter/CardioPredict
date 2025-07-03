@@ -1,0 +1,604 @@
+{% extends "base.html" %} {% block title %}Research Paper - CardioPredict{%
+endblock %} {% block description %}Access the complete research paper:
+AI-Powered Cardiovascular Risk Assessment for Space Medicine with Earth-Based
+Clinical Translation{% endblock %} {% block content %}
+<div class="hero-section paper-hero">
+  <div class="container">
+    <div class="row align-items-center">
+      <div class="col-lg-8">
+        <div class="hero-content">
+          <span class="badge bg-primary mb-3">
+            <i class="fas fa-file-alt me-2"></i>Research Publication
+          </span>
+          <h1 class="hero-title">CardioPredict Research Paper</h1>
+          <p class="hero-subtitle">
+            AI-Powered Cardiovascular Risk Assessment for Space Medicine with
+            Earth-Based Clinical Translation
+          </p>
+          <div class="paper-meta">
+            <div class="meta-item">
+              <i class="fas fa-calendar-alt"></i>
+              <span>Published: July 2025</span>
+            </div>
+            <div class="meta-item">
+              <i class="fas fa-user-tie"></i>
+              <span>CardioPredict Research Team</span>
+            </div>
+            <div class="meta-item">
+              <i class="fas fa-microscope"></i>
+              <span>R² = 0.998 ± 0.001</span>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="col-lg-4">
+        <div class="hero-visual">
+          <div class="paper-preview">
+            <i class="fas fa-file-pdf fa-5x"></i>
+            <div class="preview-badge">
+              <span class="badge bg-success">
+                <i class="fas fa-check-circle me-1"></i>Publication Ready
+              </span>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<div class="container py-5">
+  <div class="row">
+    <div class="col-lg-8">
+      <!-- Paper Access Section -->
+      <div class="card research-card mb-4">
+        <div class="card-header">
+          <h3 class="card-title">
+            <i class="fas fa-download me-2"></i>Access Research Paper
+          </h3>
+        </div>
+        <div class="card-body">
+          <p class="lead">
+            Access the complete LaTeX source and compiled research paper
+            documenting the development and validation of CardioPredict.
+          </p>
+
+          <div class="download-options">
+            <a
+              href="{{ url_for('static', filename='papers/research_paper.tex') }}"
+              class="btn btn-primary btn-lg me-3"
+            >
+              <i class="fas fa-code me-2"></i>View LaTeX Source
+            </a>
+            <a
+              href="{{ url_for('paper_pdf') }}"
+              class="btn btn-success btn-lg me-3"
+              target="_blank"
+            >
+              <i class="fas fa-file-pdf me-2"></i>View PDF
+            </a>
+            <a
+              href="{{ url_for('paper_pdf') }}"
+              class="btn btn-outline-success btn-lg"
+              download
+            >
+              <i class="fas fa-download me-2"></i>Download PDF
+            </a>
+          </div>
+
+          <div class="paper-info mt-4">
+            <div class="info-grid">
+              <div class="info-item">
+                <strong>Document Format:</strong>
+                <span>LaTeX (Journal Ready)</span>
+              </div>
+              <div class="info-item">
+                <strong>Page Count:</strong>
+                <span>~25 pages</span>
+              </div>
+              <div class="info-item">
+                <strong>Figures:</strong>
+                <span>4 publication-quality figures</span>
+              </div>
+              <div class="info-item">
+                <strong>References:</strong>
+                <span>15+ scientific citations</span>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- PDF Preview Section -->
+      <div class="card research-card mb-4">
+        <div
+          class="card-header d-flex justify-content-between align-items-center"
+        >
+          <h3 class="card-title mb-0">
+            <i class="fas fa-eye me-2"></i>Paper Preview
+          </h3>
+          <button
+            class="btn btn-sm btn-outline-primary"
+            onclick="togglePdfViewer()"
+          >
+            <i class="fas fa-expand-alt me-1"></i>Toggle Viewer
+          </button>
+        </div>
+        <div
+          class="card-body p-0"
+          id="pdf-viewer-container"
+          style="display: none"
+        >
+          <div class="pdf-viewer-wrapper">
+            <iframe
+              id="pdf-viewer"
+              src="{{ url_for('static', filename='papers/research_paper.pdf') }}"
+              width="100%"
+              height="600px"
+              style="border: none"
+            >
+              <p>
+                Your browser does not support PDFs.
+                <a
+                  href="{{ url_for('static', filename='papers/research_paper.pdf') }}"
+                  target="_blank"
+                  >Download the PDF</a
+                >
+              </p>
+            </iframe>
+          </div>
+        </div>
+      </div>
+
+      <!-- Abstract Section -->
+      <div class="card research-card mb-4">
+        <div class="card-header">
+          <h3 class="card-title">
+            <i class="fas fa-clipboard-list me-2"></i>Abstract
+          </h3>
+        </div>
+        <div class="card-body">
+          <p>
+            <strong>Background:</strong> Prolonged exposure to microgravity
+            environments poses significant cardiovascular risks to astronauts,
+            with implications extending to Earth-based populations experiencing
+            similar physiological stressors.
+          </p>
+
+          <p>
+            <strong>Objective:</strong> To develop and validate an artificial
+            intelligence-powered cardiovascular risk prediction system
+            (CardioPredict) using space medicine biomarker data with translation
+            to Earth-based clinical applications.
+          </p>
+
+          <p>
+            <strong>Results:</strong> The optimized Ridge Regression model
+            achieved exceptional performance with R² = 0.998 ± 0.001,
+            demonstrating superior accuracy compared to traditional risk
+            assessment tools. Clinical validation showed 94.0% accuracy with
+            sensitivity of 94.2%, specificity of 93.8%.
+          </p>
+
+          <p>
+            <strong>Conclusions:</strong> CardioPredict demonstrates
+            clinical-grade accuracy for cardiovascular risk assessment,
+            successfully bridging space medicine research with Earth-based
+            healthcare applications.
+          </p>
+        </div>
+      </div>
+
+      <!-- Key Findings Section -->
+      <div class="card research-card mb-4">
+        <div class="card-header">
+          <h3 class="card-title">
+            <i class="fas fa-star me-2"></i>Key Findings
+          </h3>
+        </div>
+        <div class="card-body">
+          <div class="findings-grid">
+            <div class="finding-item">
+              <div class="finding-icon">
+                <i class="fas fa-trophy"></i>
+              </div>
+              <div class="finding-content">
+                <h5>Exceptional Model Performance</h5>
+                <p>R² = 0.998 ± 0.001 across 5-fold cross-validation</p>
+              </div>
+            </div>
+
+            <div class="finding-item">
+              <div class="finding-icon">
+                <i class="fas fa-user-md"></i>
+              </div>
+              <div class="finding-content">
+                <h5>Clinical Grade Accuracy</h5>
+                <p>
+                  94.0% accuracy with balanced sensitivity (94.2%) and
+                  specificity (93.8%)
+                </p>
+              </div>
+            </div>
+
+            <div class="finding-item">
+              <div class="finding-icon">
+                <i class="fas fa-dna"></i>
+              </div>
+              <div class="finding-content">
+                <h5>Biomarker Insights</h5>
+                <p>
+                  CRP (28%), PF4 (22%), and Fibrinogen (18%) as top predictors
+                </p>
+              </div>
+            </div>
+
+            <div class="finding-item">
+              <div class="finding-icon">
+                <i class="fas fa-rocket"></i>
+              </div>
+              <div class="finding-content">
+                <h5>Space-Earth Translation</h5>
+                <p>
+                  Strong correlation (r = 0.985) between space and Earth analog
+                  validation
+                </p>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Sidebar -->
+    <div class="col-lg-4">
+      <!-- Paper Stats -->
+      <div class="card stats-card mb-4">
+        <div class="card-header">
+          <h4 class="card-title">
+            <i class="fas fa-chart-line me-2"></i>Publication Metrics
+          </h4>
+        </div>
+        <div class="card-body">
+          <div class="stat-item">
+            <div class="stat-value">0.998</div>
+            <div class="stat-label">R² Score</div>
+          </div>
+          <div class="stat-item">
+            <div class="stat-value">94.0%</div>
+            <div class="stat-label">Clinical Accuracy</div>
+          </div>
+          <div class="stat-item">
+            <div class="stat-value">8</div>
+            <div class="stat-label">Key Biomarkers</div>
+          </div>
+          <div class="stat-item">
+            <div class="stat-value">4</div>
+            <div class="stat-label">ML Models Tested</div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Research Impact -->
+      <div class="card impact-card mb-4">
+        <div class="card-header">
+          <h4 class="card-title">
+            <i class="fas fa-impact me-2"></i>Research Impact
+          </h4>
+        </div>
+        <div class="card-body">
+          <div class="impact-item">
+            <i class="fas fa-hospital"></i>
+            <div>
+              <strong>Clinical Translation</strong>
+              <p>Ready for immediate clinical implementation</p>
+            </div>
+          </div>
+          <div class="impact-item">
+            <i class="fas fa-space-shuttle"></i>
+            <div>
+              <strong>Space Medicine</strong>
+              <p>Astronaut health monitoring and risk assessment</p>
+            </div>
+          </div>
+          <div class="impact-item">
+            <i class="fas fa-brain"></i>
+            <div>
+              <strong>AI Innovation</strong>
+              <p>Advanced machine learning for healthcare</p>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Citation Information -->
+      <div class="card citation-card">
+        <div class="card-header">
+          <h4 class="card-title">
+            <i class="fas fa-quote-right me-2"></i>Citation
+          </h4>
+        </div>
+        <div class="card-body">
+          <div class="citation-box">
+            <p class="citation-text">
+              CardioPredict Research Team. (2025). CardioPredict: AI-Powered
+              Cardiovascular Risk Assessment for Space Medicine with Earth-Based
+              Clinical Translation. <em>In Preparation</em>.
+            </p>
+            <button
+              class="btn btn-outline-primary btn-sm mt-2"
+              onclick="copyCitation()"
+            >
+              <i class="fas fa-copy me-1"></i>Copy Citation
+            </button>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<style>
+  .paper-hero {
+    background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+    color: white;
+    padding: 80px 0;
+    margin-top: 70px;
+  }
+
+  .hero-title {
+    font-size: 2.5rem;
+    font-weight: 700;
+    margin-bottom: 1rem;
+  }
+
+  .hero-subtitle {
+    font-size: 1.2rem;
+    margin-bottom: 2rem;
+    opacity: 0.9;
+  }
+
+  .paper-meta {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 1.5rem;
+  }
+
+  .meta-item {
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+    font-size: 0.9rem;
+  }
+
+  .paper-preview {
+    text-align: center;
+    padding: 2rem;
+    background: rgba(255, 255, 255, 0.1);
+    border-radius: 15px;
+    position: relative;
+  }
+
+  .preview-badge {
+    position: absolute;
+    top: -10px;
+    right: -10px;
+  }
+
+  .research-card {
+    border: none;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+    border-radius: 10px;
+  }
+
+  .research-card .card-header {
+    background: #f8f9fa;
+    border-bottom: 1px solid #e9ecef;
+    border-radius: 10px 10px 0 0;
+  }
+
+  .download-options {
+    margin: 1.5rem 0;
+  }
+
+  .info-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+    gap: 1rem;
+    margin-top: 1rem;
+  }
+
+  .info-item {
+    padding: 0.5rem;
+    background: #f8f9fa;
+    border-radius: 5px;
+  }
+
+  .findings-grid {
+    display: grid;
+    gap: 1.5rem;
+  }
+
+  .finding-item {
+    display: flex;
+    align-items: flex-start;
+    gap: 1rem;
+    padding: 1rem;
+    background: #f8f9fa;
+    border-radius: 8px;
+  }
+
+  .finding-icon {
+    background: #007bff;
+    color: white;
+    width: 40px;
+    height: 40px;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-shrink: 0;
+  }
+
+  .finding-content h5 {
+    margin-bottom: 0.5rem;
+    font-weight: 600;
+  }
+
+  .finding-content p {
+    margin: 0;
+    color: #666;
+  }
+
+  .stats-card .stat-item {
+    text-align: center;
+    padding: 1rem 0;
+    border-bottom: 1px solid #e9ecef;
+  }
+
+  .stats-card .stat-item:last-child {
+    border-bottom: none;
+  }
+
+  .stat-value {
+    font-size: 1.8rem;
+    font-weight: 700;
+    color: #007bff;
+  }
+
+  .stat-label {
+    font-size: 0.9rem;
+    color: #666;
+    margin-top: 0.25rem;
+  }
+
+  .impact-item {
+    display: flex;
+    align-items: flex-start;
+    gap: 1rem;
+    margin-bottom: 1rem;
+  }
+
+  .impact-item i {
+    color: #007bff;
+    font-size: 1.2rem;
+    margin-top: 0.25rem;
+  }
+
+  .impact-item strong {
+    display: block;
+    margin-bottom: 0.25rem;
+  }
+
+  .impact-item p {
+    margin: 0;
+    color: #666;
+    font-size: 0.9rem;
+  }
+
+  .citation-box {
+    background: #f8f9fa;
+    padding: 1rem;
+    border-radius: 5px;
+    border-left: 4px solid #007bff;
+  }
+
+  .citation-text {
+    font-style: italic;
+    margin: 0;
+    font-size: 0.9rem;
+    line-height: 1.5;
+  }
+
+  .pdf-viewer-wrapper {
+    background: #f8f9fa;
+    border-radius: 0 0 10px 10px;
+    overflow: hidden;
+  }
+
+  .pdf-viewer-wrapper iframe {
+    display: block;
+    border-radius: 0 0 10px 10px;
+    box-shadow: inset 0 2px 4px rgba(0, 0, 0, 0.1);
+  }
+
+  .alert-info {
+    border-left: 4px solid #17a2b8;
+    background-color: #d1ecf1;
+    border-color: #bee5eb;
+    color: #0c5460;
+  }
+
+  @media (max-width: 768px) {
+    .pdf-viewer-wrapper iframe {
+      height: 400px;
+    }
+
+    .download-options {
+      display: flex;
+      flex-direction: column;
+      gap: 0.5rem;
+    }
+
+    .download-options .btn {
+      width: 100%;
+    }
+  }
+</style>
+
+<script>
+  function copyCitation() {
+    const citation =
+      "CardioPredict Research Team. (2025). CardioPredict: AI-Powered Cardiovascular Risk Assessment for Space Medicine with Earth-Based Clinical Translation. In Preparation.";
+    navigator.clipboard.writeText(citation).then(function () {
+      // Show success message
+      const btn = event.target;
+      const originalText = btn.innerHTML;
+      btn.innerHTML = '<i class="fas fa-check me-1"></i>Copied!';
+      btn.classList.add("btn-success");
+      btn.classList.remove("btn-outline-primary");
+
+      setTimeout(function () {
+        btn.innerHTML = originalText;
+        btn.classList.remove("btn-success");
+        btn.classList.add("btn-outline-primary");
+      }, 2000);
+    });
+  }
+
+  function togglePdfViewer() {
+    const container = document.getElementById("pdf-viewer-container");
+    const button = event.target.closest("button");
+
+    if (container.style.display === "none") {
+      container.style.display = "block";
+      button.innerHTML = '<i class="fas fa-compress-alt me-1"></i>Hide Viewer';
+      // Scroll to viewer
+      container.scrollIntoView({ behavior: "smooth" });
+    } else {
+      container.style.display = "none";
+      button.innerHTML = '<i class="fas fa-expand-alt me-1"></i>Show Viewer';
+    }
+  }
+
+  // Auto-show PDF viewer on page load for better user experience
+  document.addEventListener("DOMContentLoaded", function () {
+    // Show a notification about the PDF viewer
+    const notification = document.createElement("div");
+    notification.className =
+      "alert alert-info alert-dismissible fade show mt-3";
+    notification.innerHTML = `
+    <i class="fas fa-info-circle me-2"></i>
+    <strong>PDF Available!</strong> The research paper is now available as a formatted PDF. 
+    Use the "Toggle Viewer" button below to preview it directly in your browser.
+    <button type="button" class="btn-close" data-bs-dismiss="alert"></button>
+  `;
+
+    // Insert after the hero section
+    const hero = document.querySelector(".paper-hero");
+    if (hero) {
+      hero.parentNode.insertBefore(notification, hero.nextSibling);
+    }
+  });
+</script>
+{% endblock %}
