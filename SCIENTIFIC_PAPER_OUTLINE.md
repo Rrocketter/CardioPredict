@@ -1,15 +1,5 @@
 # Scientific Paper: Machine Learning for Cardiovascular Risk Prediction in Microgravity Environments with Earth Analog Validation
 
-## Suggested Paper Titles (in order of preference):
-
-### **Primary Recommendation:**
-**"Machine Learning-Based Cardiovascular Risk Prediction in Microgravity: A Cross-Domain Validation Study from Space Medicine to Terrestrial Immobilization Care"**
-
-### **Alternative Titles:**
-1. "Artificial Intelligence for Cardiovascular Risk Assessment in Microgravity Environments: Development and Validation Using NASA Astronaut Data"
-2. "Cross-Domain Machine Learning for Cardiovascular Deconditioning: From Space Station to Hospital Bedrest"
-3. "Predictive Modeling of Microgravity-Induced Cardiovascular Risk Using Multi-Biomarker Analysis and Earth Analog Validation"
-
 ---
 
 ## **Abstract (250 words)**
