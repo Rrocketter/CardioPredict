@@ -1,5 +1,5 @@
 {
-  "timestamp": "2025-07-01T20:40:45.249723",
+  "timestamp": "2025-07-05T15:51:55.121884",
   "dataset_info": {
     "n_samples": 28,
     "n_features": 6,
@@ -101,8 +101,8 @@
       "r2_std": NaN,
       "r2_ci_lower": NaN,
       "r2_ci_upper": NaN,
-      "mae": 0.22741605044391072,
-      "rmse": 0.29816026563851256,
+      "mae": 0.22741605044390795,
+      "rmse": 0.29816026563850884,
       "cv_scores": [
         NaN,
         NaN,
@@ -177,8 +177,8 @@
       "r2_std": NaN,
       "r2_ci_lower": NaN,
       "r2_ci_upper": NaN,
-      "mae": 1.4292337901070655,
-      "rmse": 1.809751171669787,
+      "mae": 1.4292337901070644,
+      "rmse": 1.8097511716697854,
       "cv_scores": [
         NaN,
         NaN,

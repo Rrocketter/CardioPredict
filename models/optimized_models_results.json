@@ -1,6 +1,6 @@
 {
   "Ridge Regression": {
-    "r2_score": 0.7504654443755968,
+    "r2_score": 0.7558622123504701,
     "mae": 0.0,
     "rmse": 0.0,
     "best_params": {
@@ -8,7 +8,7 @@
     }
   },
   "Elastic Net": {
-    "r2_score": 0.7696882891110463,
+    "r2_score": 0.7748007131020679,
     "mae": 0.0,
     "rmse": 0.0,
     "best_params": {

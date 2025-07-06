@@ -6,13 +6,12 @@
     "SAP",
     "a-2 Macroglobulin",
     "AGP_Change_From_Baseline",
-    "AGP_Pct_Change_From_Baseline",
     "PF4_Change_From_Baseline",
     "CRP_zscore",
     "a-2 Macroglobulin_zscore",
     "PF4_zscore",
     "SAP_zscore",
-    "PF4_Change_From_Baseline.1"
+    "AGP_Pct_Change_From_Baseline.1"
   ],
   "consensus_features": [
     "CRP",
@@ -21,13 +20,12 @@
     "SAP",
     "a-2 Macroglobulin",
     "AGP_Change_From_Baseline",
-    "AGP_Pct_Change_From_Baseline",
     "PF4_Change_From_Baseline",
     "CRP_zscore",
     "a-2 Macroglobulin_zscore",
     "PF4_zscore",
     "SAP_zscore",
-    "PF4_Change_From_Baseline.1"
+    "AGP_Pct_Change_From_Baseline.1"
   ],
   "kbest_features": [
     "CRP",
@@ -52,14 +50,13 @@
     "a-2 Macroglobulin_Change_From_Baseline.1"
   ],
   "rfe_features": [
-    "CRP",
     "Fetuin A36",
     "PF4",
     "SAP",
-    "AGP_Pct_Change_From_Baseline",
-    "a-2 Macroglobulin_zscore",
-    "SAP_zscore",
-    "Fibrinogen_Change_From_Baseline.1",
-    "PF4_Change_From_Baseline.1"
+    "Fibrinogen_Change_From_Baseline",
+    "PF4_Change_From_Baseline",
+    "CRP_zscore",
+    "PF4_zscore",
+    "AGP_Pct_Change_From_Baseline.1"
   ]
 }

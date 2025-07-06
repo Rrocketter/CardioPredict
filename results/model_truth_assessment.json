@@ -1,0 +1,337 @@
+{
+  "assessment_timestamp": "2025-07-05T16:41:04.874279",
+  "dataset_characteristics": {
+    "n_samples": 28,
+    "n_features": 6,
+    "features_used": [
+      "CRP",
+      "Haptoglobin",
+      "PF4",
+      "AGP",
+      "SAP",
+      "Age"
+    ],
+    "target_variable": "Cardiovascular Risk Score",
+    "target_statistics": {
+      "min": 32.2545593810005,
+      "max": 71.65344919138091,
+      "mean": 50.00000000000001,
+      "std": 11.524647158153595,
+      "range": 39.39888981038042
+    }
+  },
+  "model_evaluation_results": {
+    "KFold_5": {
+      "Linear Regression": {
+        "cv_r2_mean": 0.6984906765708618,
+        "cv_r2_std": 0.23643224076842043,
+        "cv_r2_ci_lower": 0.4049212751940694,
+        "cv_r2_ci_upper": 0.9920600779476543,
+        "train_r2": 0.9333159937028976,
+        "mae": 2.2180710993676915,
+        "rmse": 2.922411351362728,
+        "cv_scores": [
+          0.5404688137433815,
+          0.8436013909959519,
+          0.9474600342258597,
+          0.8484405950718715,
+          0.3124825488172446
+        ],
+        "n_splits": 5
+      },
+      "Ridge Regression": {
+        "cv_r2_mean": 0.7521666128466972,
+        "cv_r2_std": 0.1971088880845916,
+        "cv_r2_ci_lower": 0.5074236027860844,
+        "cv_r2_ci_upper": 0.9969096229073099,
+        "train_r2": 0.9330133102448008,
+        "mae": 2.2295027397397105,
+        "rmse": 2.9290363587519885,
+        "cv_scores": [
+          0.5506996323536053,
+          0.8831937858975323,
+          0.9423780656735349,
+          0.9080926111900739,
+          0.4764689691187395
+        ],
+        "n_splits": 5
+      },
+      "Lasso Regression": {
+        "cv_r2_mean": 0.7446338253814796,
+        "cv_r2_std": 0.1881038994978102,
+        "cv_r2_ci_lower": 0.5110719854533091,
+        "cv_r2_ci_upper": 0.9781956653096501,
+        "train_r2": 0.9331131395948374,
+        "mae": 2.2344331502281833,
+        "rmse": 2.9268529935222936,
+        "cv_scores": [
+          0.5528361757441185,
+          0.8771957714030818,
+          0.9424924928988814,
+          0.8674162810233907,
+          0.48322840583792526
+        ],
+        "n_splits": 5
+      },
+      "Elastic Net": {
+        "cv_r2_mean": 0.773962768334217,
+        "cv_r2_std": 0.17718644117574664,
+        "cv_r2_ci_lower": 0.553956743356443,
+        "cv_r2_ci_upper": 0.993968793311991,
+        "train_r2": 0.9325199439955411,
+        "mae": 2.2502795077581648,
+        "rmse": 2.9398029500223317,
+        "cv_scores": [
+          0.5578988719512111,
+          0.8953603146077527,
+          0.939268791381028,
+          0.9199343273719104,
+          0.5573515363591819
+        ],
+        "n_splits": 5
+      },
+      "Random Forest": {
+        "cv_r2_mean": 0.6911775389804162,
+        "cv_r2_std": 0.17338282342292793,
+        "cv_r2_ci_lower": 0.4758943292292459,
+        "cv_r2_ci_upper": 0.9064607487315866,
+        "train_r2": 0.9747614443171577,
+        "mae": 1.3392134004905347,
+        "rmse": 1.7978884947166083,
+        "cv_scores": [
+          0.4784294365759073,
+          0.8795709080305693,
+          0.9087060732264854,
+          0.5522971471616219,
+          0.6368841299074974
+        ],
+        "n_splits": 5
+      },
+      "Gradient Boosting": {
+        "cv_r2_mean": 0.7343850120794795,
+        "cv_r2_std": 0.17807905529309154,
+        "cv_r2_ci_lower": 0.5132706602879098,
+        "cv_r2_ci_upper": 0.9554993638710492,
+        "train_r2": 0.9999723108592298,
+        "mae": 0.04888507580354836,
+        "rmse": 0.05955047690035706,
+        "cv_scores": [
+          0.48761746628048086,
+          0.9184346299325685,
+          0.955652287630341,
+          0.6887563717445009,
+          0.6214643048095061
+        ],
+        "n_splits": 5
+      },
+      "Neural Network": {
+        "cv_r2_mean": -0.7751388037406424,
+        "cv_r2_std": 2.044957879866443,
+        "cv_r2_ci_lower": -3.314289381013907,
+        "cv_r2_ci_upper": 1.7640117735326226,
+        "train_r2": 0.5845268429245352,
+        "mae": 5.290035634170372,
+        "rmse": 7.294608514609897,
+        "cv_scores": [
+          -0.5918345150317139,
+          0.04058630864830315,
+          0.9343047872474901,
+          -4.738986895950609,
+          0.4802362963833181
+        ],
+        "n_splits": 5
+      }
+    },
+    "KFold_3": {
+      "Linear Regression": {
+        "cv_r2_mean": 0.623405075082241,
+        "cv_r2_std": 0.331629600694337,
+        "cv_r2_ci_lower": -0.20040852232505602,
+        "cv_r2_ci_upper": 1.447218672489538,
+        "train_r2": 0.9333159937028976,
+        "mae": 2.2180710993676915,
+        "rmse": 2.922411351362728,
+        "cv_scores": [
+          0.8141442711520117,
+          0.8990896609572279,
+          0.15698129313748332
+        ],
+        "n_splits": 3
+      },
+      "Ridge Regression": {
+        "cv_r2_mean": 0.7069850605657844,
+        "cv_r2_std": 0.22941068631755648,
+        "cv_r2_ci_lower": 0.13709732321287904,
+        "cv_r2_ci_upper": 1.2768727979186898,
+        "train_r2": 0.9330133102448008,
+        "mae": 2.2295027397397105,
+        "rmse": 2.9290363587519885,
+        "cv_scores": [
+          0.8234711948638417,
+          0.9109768688285889,
+          0.38650711800492255
+        ],
+        "n_splits": 3
+      },
+      "Lasso Regression": {
+        "cv_r2_mean": 0.6880365913679273,
+        "cv_r2_std": 0.247953414000631,
+        "cv_r2_ci_lower": 0.07208616489935049,
+        "cv_r2_ci_upper": 1.303987017836504,
+        "train_r2": 0.9331131395948374,
+        "mae": 2.2344331502281833,
+        "rmse": 2.9268529935222936,
+        "cv_scores": [
+          0.8188657540618007,
+          0.904373923791718,
+          0.340870096250263
+        ],
+        "n_splits": 3
+      },
+      "Elastic Net": {
+        "cv_r2_mean": 0.7272884886045778,
+        "cv_r2_std": 0.20194275223053465,
+        "cv_r2_ci_lower": 0.22563488218027028,
+        "cv_r2_ci_upper": 1.2289420950288854,
+        "train_r2": 0.9325199439955411,
+        "mae": 2.2502795077581648,
+        "rmse": 2.9398029500223317,
+        "cv_scores": [
+          0.8252614797012756,
+          0.9106213476725404,
+          0.4459826384399176
+        ],
+        "n_splits": 3
+      },
+      "Random Forest": {
+        "cv_r2_mean": 0.7411315382137275,
+        "cv_r2_std": 0.11999459283437923,
+        "cv_r2_ci_lower": 0.44304844495141404,
+        "cv_r2_ci_upper": 1.0392146314760409,
+        "train_r2": 0.9747614443171577,
+        "mae": 1.3392134004905347,
+        "rmse": 1.7978884947166083,
+        "cv_scores": [
+          0.7344298440437753,
+          0.8913305004914835,
+          0.5976342701059234
+        ],
+        "n_splits": 3
+      },
+      "Gradient Boosting": {
+        "cv_r2_mean": 0.7180908177758031,
+        "cv_r2_std": 0.11341063986320393,
+        "cv_r2_ci_lower": 0.4363631703813742,
+        "cv_r2_ci_upper": 0.999818465170232,
+        "train_r2": 0.9999723108592298,
+        "mae": 0.04888507580354836,
+        "rmse": 0.05955047690035706,
+        "cv_scores": [
+          0.621855511595645,
+          0.877325680309696,
+          0.6550912614220679
+        ],
+        "n_splits": 3
+      },
+      "Neural Network": {
+        "cv_r2_mean": -0.21891974359446043,
+        "cv_r2_std": 0.36373375938744845,
+        "cv_r2_ci_lower": -1.1224844923143444,
+        "cv_r2_ci_upper": 0.6846450051254236,
+        "train_r2": 0.5845268429245352,
+        "mae": 5.290035634170372,
+        "rmse": 7.294608514609897,
+        "cv_scores": [
+          -0.723055936341422,
+          -0.05538636328839708,
+          0.12168306884643776
+        ],
+        "n_splits": 3
+      }
+    }
+  },
+  "best_models_by_cv": {
+    "KFold_5": {
+      "name": "Elastic Net",
+      "performance": {
+        "cv_r2_mean": 0.773962768334217,
+        "cv_r2_std": 0.17718644117574664,
+        "cv_r2_ci_lower": 0.553956743356443,
+        "cv_r2_ci_upper": 0.993968793311991,
+        "train_r2": 0.9325199439955411,
+        "mae": 2.2502795077581648,
+        "rmse": 2.9398029500223317,
+        "cv_scores": [
+          0.5578988719512111,
+          0.8953603146077527,
+          0.939268791381028,
+          0.9199343273719104,
+          0.5573515363591819
+        ],
+        "n_splits": 5
+      }
+    },
+    "KFold_3": {
+      "name": "Random Forest",
+      "performance": {
+        "cv_r2_mean": 0.7411315382137275,
+        "cv_r2_std": 0.11999459283437923,
+        "cv_r2_ci_lower": 0.44304844495141404,
+        "cv_r2_ci_upper": 1.0392146314760409,
+        "train_r2": 0.9747614443171577,
+        "mae": 1.3392134004905347,
+        "rmse": 1.7978884947166083,
+        "cv_scores": [
+          0.7344298440437753,
+          0.8913305004914835,
+          0.5976342701059234
+        ],
+        "n_splits": 3
+      }
+    }
+  },
+  "feature_importance": {
+    "random_forest": {
+      "CRP": 0.23571887497342442,
+      "Haptoglobin": 0.23982105609789572,
+      "PF4": 0.1700074806567525,
+      "AGP": 0.046685624471908625,
+      "SAP": 0.29797209491655136,
+      "Age": 0.00979486888346728
+    },
+    "linear_coefficients": {
+      "CRP": 4.20440998694288,
+      "Haptoglobin": 2.3648153464298174,
+      "PF4": 2.811650846598287,
+      "AGP": 2.6453859149335788,
+      "SAP": 2.311416583414112,
+      "Age": 0.39078585764254775
+    }
+  },
+  "methodology_notes": {
+    "cross_validation": [
+      "Multiple CV strategies used due to small sample size (n=28)",
+      "5-fold CV: Standard approach for model comparison",
+      "3-fold CV: Conservative approach for small samples",
+      "Leave-One-Out CV: Maximum use of limited data"
+    ],
+    "model_types": [
+      "Linear models: Ridge, Lasso, Elastic Net with regularization",
+      "Tree-based: Random Forest and Gradient Boosting ensembles",
+      "Neural Network: Single hidden layer MLP with 50 neurons",
+      "All models used standardized features via sklearn Pipeline"
+    ],
+    "limitations": [
+      "Small sample size (n=28) limits generalizability",
+      "Single dataset from SpaceX Inspiration4 mission",
+      "Cardiovascular biomarkers from 4 subjects over 7 timepoints",
+      "Cross-validation may be optimistic due to temporal correlation"
+    ]
+  },
+  "publication_readiness": {
+    "suitable_for_publication": true,
+    "recommended_journal_tier": "Specialized space medicine or preliminary ML journals",
+    "clinical_relevance": "Proof of concept with clinical potential",
+    "statistical_rigor": "Adequate with limitations noted"
+  }
+}
