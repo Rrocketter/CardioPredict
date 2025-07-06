@@ -76,18 +76,24 @@
         align-items: center;
         margin: 0 auto 1rem;
         font-weight: 700;
-        color: white;
+        color: #2c3e50;
         position: relative;
+        box-shadow: 0 4px 8px rgba(0,0,0,0.1);
+        border: 3px solid white;
       }
 
       .risk-score-value {
         font-size: 2rem;
         line-height: 1;
+        color: #2c3e50;
+        text-shadow: 1px 1px 2px rgba(255,255,255,0.8);
       }
 
       .risk-score-label {
         font-size: 0.8rem;
-        opacity: 0.9;
+        opacity: 0.8;
+        color: #34495e;
+        text-shadow: 1px 1px 2px rgba(255,255,255,0.8);
       }
 
       .risk-low {
@@ -232,7 +238,7 @@
             </p>
             <div class="mb-3">
               <span class="badge bg-success me-2">
-                <i class="fas fa-check me-1"></i>Publication Ready (R² = 0.998)
+                <i class="fas fa-check me-1"></i>Publication Ready (R² = 0.976)
               </span>
               <span class="badge bg-primary me-2">
                 <i class="fas fa-rocket me-1"></i>Space Medicine Validated
@@ -254,14 +260,14 @@
               <div class="row">
                 <div class="col-md-4">
                   <div
-                    class="environment-option active"
+                    class="environment-option {% if not prediction or prediction.environment == 'space' %}active{% endif %}"
                     data-environment="space"
                   >
                     <input
                       type="radio"
                       name="environment"
                       value="space"
-                      checked
+                      {% if not prediction or prediction.environment == 'space' %}checked{% endif %}
                     />
                     <div class="environment-icon">
                       <i class="fas fa-rocket text-primary"></i>
@@ -275,8 +281,8 @@
                   </div>
                 </div>
                 <div class="col-md-4">
-                  <div class="environment-option" data-environment="bedrest">
-                    <input type="radio" name="environment" value="bedrest" />
+                  <div class="environment-option {% if prediction and prediction.environment == 'bedrest' %}active{% endif %}" data-environment="bedrest">
+                    <input type="radio" name="environment" value="bedrest" {% if prediction and prediction.environment == 'bedrest' %}checked{% endif %} />
                     <div class="environment-icon">
                       <i class="fas fa-bed text-warning"></i>
                     </div>
@@ -289,8 +295,8 @@
                   </div>
                 </div>
                 <div class="col-md-4">
-                  <div class="environment-option" data-environment="hospital">
-                    <input type="radio" name="environment" value="hospital" />
+                  <div class="environment-option {% if prediction and prediction.environment == 'hospital' %}active{% endif %}" data-environment="hospital">
+                    <input type="radio" name="environment" value="hospital" {% if prediction and prediction.environment == 'hospital' %}checked{% endif %} />
                     <div class="environment-icon">
                       <i class="fas fa-hospital text-success"></i>
                     </div>
@@ -326,213 +332,76 @@
               </div>
               <div class="card-body">
                 <form id="predictionForm" method="POST" action="{{ url_for('make_prediction') }}">
+                  <!-- Hidden field to preserve environment selection -->
+                  <input type="hidden" name="environment" value="{% if prediction %}{{ prediction.environment }}{% else %}space{% endif %}" />
+                  
                   <div class="biomarker-grid">
-                    <!-- High-Impact Biomarkers -->
+                    <!-- Core Biomarkers from Improved Model -->
                     <div class="biomarker-input">
-                      <label class="biomarker-label"
-                        >C-Reactive Protein (CRP)</label
-                      >
-                      <div class="biomarker-info">
-                        Inflammation marker (mg/L)
-                      </div>
-                      <input
-                        type="number"
-                        class="form-control"
-                        name="crp"
-                        step="0.1"
-                        min="0"
-                        max="100"
-                        placeholder="Enter CRP level"
-                        {% if prediction and prediction.biomarker_data.crp %}value="{{ prediction.biomarker_data.crp }}"{% endif %}
-                      />
-                      <div class="invalid-feedback"></div>
+                      <label class="biomarker-label">C-Reactive Protein (CRP)</label>
+                      <div class="biomarker-info">Inflammation marker (mg/L)</div>
+                      <input type="number" class="form-control" name="crp" step="0.1" min="0" max="100" placeholder="Enter CRP level" value="{% if prediction %}{{ prediction.biomarker_data.get('CRP', '') }}{% endif %}" />
                     </div>
 
                     <div class="biomarker-input">
-                      <label class="biomarker-label"
-                        >Platelet Factor 4 (PF4)</label
-                      >
-                      <div class="biomarker-info">
-                        Platelet activation marker (ng/mL)
-                      </div>
-                      <input
-                        type="number"
-                        class="form-control"
-                        name="pf4"
-                        step="0.01"
-                        min="0"
-                        max="50"
-                        placeholder="Enter PF4 level"
-                      
-                        {% if prediction and prediction.biomarker_data.pf4 %}value="{{ prediction.biomarker_data.pf4 }}"{% endif %}
-                      />
-                      <div class="invalid-feedback"></div>
+                      <label class="biomarker-label">Haptoglobin</label>
+                      <div class="biomarker-info">Acute-phase protein (mg/dL)</div>
+                      <input type="number" class="form-control" name="haptoglobin" step="1" min="0" max="500" placeholder="Enter Haptoglobin level" value="{% if prediction %}{{ prediction.biomarker_data.get('Haptoglobin', '') }}{% endif %}" />
+                    </div>
+
+                    <div class="biomarker-input">
+                      <label class="biomarker-label">Platelet Factor 4 (PF4)</label>
+                      <div class="biomarker-info">Thrombosis marker (ng/mL)</div>
+                      <input type="number" class="form-control" name="pf4" step="0.1" min="0" max="50" placeholder="Enter PF4 level" value="{% if prediction %}{{ prediction.biomarker_data.get('PF4', '') }}{% endif %}" />
+                    </div>
+
+                    <div class="biomarker-input">
+                      <label class="biomarker-label">α1-Acid Glycoprotein (AGP)</label>
+                      <div class="biomarker-info">Inflammatory response (mg/dL)</div>
+                      <input type="number" class="form-control" name="agp" step="1" min="0" max="200" placeholder="Enter AGP level" value="{% if prediction %}{{ prediction.biomarker_data.get('AGP', '') }}{% endif %}" />
+                    </div>
+
+                    <div class="biomarker-input">
+                      <label class="biomarker-label">Serum Amyloid P (SAP)</label>
+                      <div class="biomarker-info">Acute-phase response (μg/mL)</div>
+                      <input type="number" class="form-control" name="sap" step="0.1" min="0" max="100" placeholder="Enter SAP level" value="{% if prediction %}{{ prediction.biomarker_data.get('SAP', '') }}{% endif %}" />
+                    </div>
+
+                    <div class="biomarker-input">
+                      <label class="biomarker-label">Age</label>
+                      <div class="biomarker-info">Subject age (years)</div>
+                      <input type="number" class="form-control" name="age" step="1" min="18" max="80" placeholder="Enter age" value="{% if prediction %}{{ prediction.biomarker_data.get('Age', '') }}{% endif %}" />
                     </div>
 
                     <div class="biomarker-input">
                       <label class="biomarker-label">Fetuin A36</label>
-                      <div class="biomarker-info">
-                        Vascular calcification inhibitor (μg/mL)
-                      </div>
-                      <input
-                        type="number"
-                        class="form-control"
-                        name="fetuin_a36"
-                        step="0.1"
-                        min="0"
-                        max="500"
-                        placeholder="Enter Fetuin A36 level"
-                      
-                        {% if prediction and prediction.biomarker_data.fetuin_a36 %}value="{{ prediction.biomarker_data.fetuin_a36 }}"{% endif %}
-                      />
-                      <div class="invalid-feedback"></div>
+                      <div class="biomarker-info">Metabolic marker (μg/mL)</div>
+                      <input type="number" class="form-control" name="fetuin_a36" step="1" min="0" max="500" placeholder="Enter Fetuin A36 level" value="{% if prediction %}{{ prediction.biomarker_data.get('Fetuin A36', '') }}{% endif %}" />
                     </div>
 
                     <div class="biomarker-input">
                       <label class="biomarker-label">Fibrinogen</label>
-                      <div class="biomarker-info">
-                        Coagulation factor (mg/dL)
-                      </div>
-                      <input
-                        type="number"
-                        class="form-control"
-                        name="fibrinogen"
-                        step="1"
-                        min="100"
-                        max="800"
-                        placeholder="Enter Fibrinogen level"
-                      
-                        {% if prediction and prediction.biomarker_data.fibrinogen %}value="{{ prediction.biomarker_data.fibrinogen }}"{% endif %}
-                      />
-                      <div class="invalid-feedback"></div>
-                    </div>
-
-                    <!-- Clinical Standard Markers -->
-                    <div class="biomarker-input">
-                      <label class="biomarker-label">Troponin I</label>
-                      <div class="biomarker-info">
-                        Cardiac injury marker (ng/mL)
-                      </div>
-                      <input
-                        type="number"
-                        class="form-control"
-                        name="troponin_i"
-                        step="0.001"
-                        min="0"
-                        max="10"
-                        placeholder="Enter Troponin I level"
-                      
-                        {% if prediction and prediction.biomarker_data.troponin_i %}value="{{ prediction.biomarker_data.troponin_i }}"{% endif %}
-                      />
-                      <div class="invalid-feedback"></div>
+                      <div class="biomarker-info">Coagulation marker (mg/dL)</div>
+                      <input type="number" class="form-control" name="fibrinogen" step="1" min="100" max="800" placeholder="Enter Fibrinogen level" value="{% if prediction %}{{ prediction.biomarker_data.get('Fibrinogen', '') }}{% endif %}" />
                     </div>
 
                     <div class="biomarker-input">
-                      <label class="biomarker-label"
-                        >B-type Natriuretic Peptide (BNP)</label
-                      >
-                      <div class="biomarker-info">
-                        Heart failure marker (pg/mL)
-                      </div>
-                      <input
-                        type="number"
-                        class="form-control"
-                        name="bnp"
-                        step="1"
-                        min="0"
-                        max="5000"
-                        placeholder="Enter BNP level"
-                      
-                        {% if prediction and prediction.biomarker_data.bnp %}value="{{ prediction.biomarker_data.bnp }}"{% endif %}
-                      />
-                      <div class="invalid-feedback"></div>
-                    </div>
-
-                    <!-- Additional Key Markers -->
-                    <div class="biomarker-input">
-                      <label class="biomarker-label">LDL Cholesterol</label>
-                      <div class="biomarker-info">
-                        Low-density lipoprotein (mg/dL)
-                      </div>
-                      <input
-                        type="number"
-                        class="form-control"
-                        name="ldl_cholesterol"
-                        step="1"
-                        min="50"
-                        max="300"
-                        placeholder="Enter LDL level"
-                      
-                        {% if prediction and prediction.biomarker_data.ldl_cholesterol %}value="{{ prediction.biomarker_data.ldl_cholesterol }}"{% endif %}
-                      />
-                      <div class="invalid-feedback"></div>
-                    </div>
-
-                    <div class="biomarker-input">
-                      <label class="biomarker-label">HDL Cholesterol</label>
-                      <div class="biomarker-info">
-                        High-density lipoprotein (mg/dL)
-                      </div>
-                      <input
-                        type="number"
-                        class="form-control"
-                        name="hdl_cholesterol"
-                        step="1"
-                        min="20"
-                        max="150"
-                        placeholder="Enter HDL level"
-                      
-                        {% if prediction and prediction.biomarker_data.hdl_cholesterol %}value="{{ prediction.biomarker_data.hdl_cholesterol }}"{% endif %}
-                      />
-                      <div class="invalid-feedback"></div>
-                    </div>
-
-                    <div class="biomarker-input">
-                      <label class="biomarker-label"
-                        >Systolic Blood Pressure</label
-                      >
-                      <div class="biomarker-info">Systolic pressure (mmHg)</div>
-                      <input
-                        type="number"
-                        class="form-control"
-                        name="systolic_bp"
-                        step="1"
-                        min="80"
-                        max="200"
-                        placeholder="Enter systolic BP"
-                      
-                        {% if prediction and prediction.biomarker_data.systolic_bp %}value="{{ prediction.biomarker_data.systolic_bp }}"{% endif %}
-                      />
-                      <div class="invalid-feedback"></div>
-                    </div>
-
-                    <div class="biomarker-input">
-                      <label class="biomarker-label"
-                        >Mission Duration (Days)</label
-                      >
-                      <div class="biomarker-info">
-                        Days in microgravity/bedrest
-                      </div>
-                      <input
-                        type="number"
-                        class="form-control"
-                        name="mission_duration"
-                        step="1"
-                        min="1"
-                        max="1000"
-                        placeholder="Enter duration"
-                      
-                        {% if prediction and prediction.biomarker_data.mission_duration %}value="{{ prediction.biomarker_data.mission_duration }}"{% endif %}
-                      />
-                      <div class="invalid-feedback"></div>
+                      <label class="biomarker-label">L-Selectin</label>
+                      <div class="biomarker-info">Endothelial function (ng/mL)</div>
+                      <input type="number" class="form-control" name="l-selectin" step="10" min="0" max="3000" placeholder="Enter L-Selectin level" value="{% if prediction %}{{ prediction.biomarker_data.get('L-Selectin', '') }}{% endif %}" />
                     </div>
                   </div>
 
                   <div class="text-center mt-4">
                     <button type="submit" class="btn btn-primary btn-lg">
-                      <i class="fas fa-brain me-2"></i>Predict Cardiovascular
-                      Risk
+                      <i class="fas fa-brain me-2"></i>Predict Cardiovascular Risk
                     </button>
+                    {% if prediction %}
+                    <div class="alert alert-success mt-3" role="alert">
+                      <i class="fas fa-check-circle me-2"></i>
+                      <strong>Prediction Complete!</strong> Your cardiovascular risk assessment is displayed on the right.
+                    </div>
+                    {% endif %}
                   </div>
                 </form>
               </div>
@@ -617,27 +486,27 @@
                       {% if prediction %}
                         {% set biomarkers = prediction.biomarker_data %}
                         <div class="mb-2">
-                          <span class="fw-medium">Inflammation:</span>
-                          <span class="badge bg-{% if biomarkers.crp > 3 %}warning{% else %}success{% endif %} ms-2">
-                            {% if biomarkers.crp > 3 %}Elevated{% else %}Normal{% endif %}
+                          <span class="fw-medium">Inflammation (CRP):</span>
+                          <span class="badge bg-{% if biomarkers.get('CRP', 0) > 3 %}warning{% else %}success{% endif %} ms-2">
+                            {% if biomarkers.get('CRP', 0) > 3 %}Elevated{% else %}Normal{% endif %}
                           </span>
                         </div>
                         <div class="mb-2">
-                          <span class="fw-medium">Platelet Function:</span>
-                          <span class="badge bg-{% if biomarkers.pf4 > 15 %}warning{% else %}success{% endif %} ms-2">
-                            {% if biomarkers.pf4 > 15 %}Activated{% else %}Normal{% endif %}
+                          <span class="fw-medium">Thrombosis (PF4):</span>
+                          <span class="badge bg-{% if biomarkers.get('PF4', 0) > 15 %}warning{% else %}success{% endif %} ms-2">
+                            {% if biomarkers.get('PF4', 0) > 15 %}Activated{% else %}Normal{% endif %}
                           </span>
                         </div>
                         <div class="mb-2">
-                          <span class="fw-medium">Cardiac Injury:</span>
-                          <span class="badge bg-{% if biomarkers.troponin_i > 0.02 %}danger{% else %}success{% endif %} ms-2">
-                            {% if biomarkers.troponin_i > 0.02 %}Detected{% else %}None{% endif %}
+                          <span class="fw-medium">Coagulation:</span>
+                          <span class="badge bg-{% if biomarkers.get('Fibrinogen', 0) > 400 %}warning{% else %}success{% endif %} ms-2">
+                            {% if biomarkers.get('Fibrinogen', 0) > 400 %}Elevated{% else %}Normal{% endif %}
                           </span>
                         </div>
                         <div class="mb-2">
-                          <span class="fw-medium">Heart Function:</span>
-                          <span class="badge bg-{% if biomarkers.bnp > 80 %}warning{% else %}success{% endif %} ms-2">
-                            {% if biomarkers.bnp > 80 %}Impaired{% else %}Normal{% endif %}
+                          <span class="fw-medium">Metabolic Risk:</span>
+                          <span class="badge bg-{% if biomarkers.get('Fetuin A36', 300) < 250 %}warning{% else %}success{% endif %} ms-2">
+                            {% if biomarkers.get('Fetuin A36', 300) < 250 %}Elevated{% else %}Protected{% endif %}
                           </span>
                         </div>
                       {% else %}
@@ -669,8 +538,8 @@
                     <small class="text-muted">
                       <i class="fas fa-info-circle me-1"></i>
                       Prediction based on
-                      <span id="model-used">Ridge Regression Model</span> (R²
-                      = <span id="model-accuracy">0.998</span>)
+                      <span id="model-used">{% if prediction %}{{ prediction.model_used }}{% else %}ElasticNet Regression Model{% endif %}</span> (R²
+                      = <span id="model-accuracy">0.976</span>)
                       {% if prediction %}
                         <br><strong>Environment:</strong> {{ prediction.environment.title() }}
                         <br><strong>Timestamp:</strong> {{ prediction.timestamp }}
@@ -691,11 +560,11 @@
               <div class="card-body">
                 <div class="row text-center">
                   <div class="col-6">
-                    <div class="metric-badge">99.8%</div>
+                    <div class="metric-badge">97.6%</div>
                     <small class="d-block">Accuracy</small>
                   </div>
                   <div class="col-6">
-                    <div class="metric-badge">0.998</div>
+                    <div class="metric-badge">0.976</div>
                     <small class="d-block">R² Score</small>
                   </div>
                 </div>
@@ -800,6 +669,13 @@
         // Form submission handling
         const form = document.getElementById("predictionForm");
         form.addEventListener("submit", function (e) {
+          // Update hidden environment field before submission
+          const selectedEnvironment = document.querySelector('input[name="environment"]:checked').value;
+          const hiddenEnvironmentField = form.querySelector('input[name="environment"][type="hidden"]');
+          if (hiddenEnvironmentField) {
+            hiddenEnvironmentField.value = selectedEnvironment;
+          }
+          
           // Don't prevent default for our Flask form submission
           // e.preventDefault();
           // handlePredictionSubmission();
@@ -837,39 +713,36 @@
         const sampleData = {
           space: {
             crp: 2.1,
+            haptoglobin: 85.0,
             pf4: 12.5,
+            agp: 95.0,
+            sap: 28.5,
+            age: 42,
             fetuin_a36: 285.0,
             fibrinogen: 320,
-            troponin_i: 0.012,
-            bnp: 45,
-            ldl_cholesterol: 105,
-            hdl_cholesterol: 52,
-            systolic_bp: 118,
-            mission_duration: 14,
+            'l-selectin': 1250,
           },
           bedrest: {
             crp: 3.8,
+            haptoglobin: 110.0,
             pf4: 18.2,
+            agp: 125.0,
+            sap: 35.2,
+            age: 45,
             fetuin_a36: 245.0,
             fibrinogen: 380,
-            troponin_i: 0.008,
-            bnp: 62,
-            ldl_cholesterol: 125,
-            hdl_cholesterol: 45,
-            systolic_bp: 125,
-            mission_duration: 60,
+            'l-selectin': 980,
           },
           hospital: {
             crp: 5.2,
+            haptoglobin: 140.0,
             pf4: 22.1,
+            agp: 155.0,
+            sap: 42.8,
+            age: 58,
             fetuin_a36: 210.0,
             fibrinogen: 420,
-            troponin_i: 0.025,
-            bnp: 95,
-            ldl_cholesterol: 145,
-            hdl_cholesterol: 38,
-            systolic_bp: 135,
-            mission_duration: 21,
+            'l-selectin': 850,
           },
         };
 

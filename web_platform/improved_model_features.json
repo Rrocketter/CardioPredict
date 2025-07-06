@@ -1,0 +1,21 @@
+[
+  "CRP",
+  "Haptoglobin",
+  "PF4",
+  "AGP",
+  "SAP",
+  "Age",
+  "CRP_zscore",
+  "Haptoglobin_zscore",
+  "PF4_zscore",
+  "AGP_zscore",
+  "SAP_zscore",
+  "CRP_Change_From_Baseline",
+  "PF4_Change_From_Baseline",
+  "AGP_Change_From_Baseline",
+  "CRP_Pct_Change_From_Baseline",
+  "PF4_Pct_Change_From_Baseline",
+  "Fetuin A36",
+  "Fibrinogen",
+  "L-Selectin"
+]
