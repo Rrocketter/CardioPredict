@@ -165,7 +165,7 @@ def implement_feature_expansion():
         'baseline_accuracy': 77.4,
         'improved_accuracy': best_performance['accuracy_percent'],
         'improvement_gain': best_performance['accuracy_percent'] - 77.4,
-        'target_achieved': best_performance['accuracy_percent'] >= 85,
+        'target_achieved': bool(best_performance['accuracy_percent'] >= 85),
         'best_model': best_model_name,
         'features_used': len(available_features),
         'feature_list': available_features,

@@ -1,7 +1,125 @@
 {
   "improvement_strategy": "Feature Expansion",
-  "implementation_date": "2025-07-05T16:52:39.188272",
+  "implementation_date": "2025-07-06T13:38:36.502751",
   "baseline_accuracy": 77.4,
   "improved_accuracy": 97.62308929137242,
   "improvement_gain": 20.223089291372418,
-  "target_achieved": 
+  "target_achieved": true,
+  "best_model": "ElasticNet_Optimized",
+  "features_used": 19,
+  "feature_list": [
+    "CRP",
+    "Haptoglobin",
+    "PF4",
+    "AGP",
+    "SAP",
+    "Age",
+    "CRP_zscore",
+    "Haptoglobin_zscore",
+    "PF4_zscore",
+    "AGP_zscore",
+    "SAP_zscore",
+    "CRP_Change_From_Baseline",
+    "PF4_Change_From_Baseline",
+    "AGP_Change_From_Baseline",
+    "CRP_Pct_Change_From_Baseline",
+    "PF4_Pct_Change_From_Baseline",
+    "Fetuin A36",
+    "Fibrinogen",
+    "L-Selectin"
+  ],
+  "performance_metrics": {
+    "cv_r2_mean": 0.9762308929137242,
+    "cv_r2_std": 0.015197946245482439,
+    "cv_r2_ci_lower": 0.9573601502140726,
+    "cv_r2_ci_upper": 0.9951016356133758,
+    "train_r2": 0.9968734254919962,
+    "mae": 0.516437954659297,
+    "rmse": 0.632797705125481,
+    "accuracy_percent": 97.62308929137242
+  },
+  "all_model_results": {
+    "ElasticNet_Optimized": {
+      "cv_r2_mean": 0.9762308929137242,
+      "cv_r2_std": 0.015197946245482439,
+      "cv_r2_ci_lower": 0.9573601502140726,
+      "cv_r2_ci_upper": 0.9951016356133758,
+      "train_r2": 0.9968734254919962,
+      "mae": 0.516437954659297,
+      "rmse": 0.632797705125481,
+      "accuracy_percent": 97.62308929137242
+    },
+    "Ridge_Optimized": {
+      "cv_r2_mean": 0.9733778381840528,
+      "cv_r2_std": 0.023627042546305405,
+      "cv_r2_ci_lower": 0.9440409900702768,
+      "cv_r2_ci_upper": 1.002714686297829,
+      "train_r2": 0.9983158263692654,
+      "mae": 0.38316578109486016,
+      "rmse": 0.4644339251818457,
+      "accuracy_percent": 97.33778381840527
+    },
+    "Random_Forest": {
+      "cv_r2_mean": 0.7981279196910457,
+      "cv_r2_std": 0.10475685921251303,
+      "cv_r2_ci_lower": 0.6680550990419677,
+      "cv_r2_ci_upper": 0.9282007403401237,
+      "train_r2": 0.9832210956749811,
+      "mae": 1.0805787001866183,
+      "rmse": 1.4659268619713113,
+      "accuracy_percent": 79.81279196910457
+    },
+    "Gradient_Boosting": {
+      "cv_r2_mean": 0.7130730975275368,
+      "cv_r2_std": 0.20536535245937995,
+      "cv_r2_ci_lower": 0.45807833290029737,
+      "cv_r2_ci_upper": 0.9680678621547762,
+      "train_r2": 1.0,
+      "mae": 1.0482386768119665e-08,
+      "rmse": 1.4822479100971955e-08,
+      "accuracy_percent": 71.30730975275368
+    }
+  },
+  "top_features": [
+    {
+      "feature": "Fetuin A36",
+      "importance": 0.17509600395288155
+    },
+    {
+      "feature": "Fibrinogen",
+      "importance": 0.12318977772696628
+    },
+    {
+      "feature": "PF4_Change_From_Baseline",
+      "importance": 0.10291185885857601
+    },
+    {
+      "feature": "SAP",
+      "importance": 0.08285332665175714
+    },
+    {
+      "feature": "SAP_zscore",
+      "importance": 0.07317099130146532
+    },
+    {
+      "feature": "CRP",
+      "importance": 0.06918851162047547
+    },
+    {
+      "feature": "PF4",
+      "importance": 0.06768958251668009
+    },
+    {
+      "feature": "Haptoglobin",
+      "importance": 0.054234270802276656
+    },
+    {
+      "feature": "PF4_zscore",
+      "importance": 0.05290192336907641
+    },
+    {
+      "feature": "Haptoglobin_zscore",
+      "importance": 0.051494597765531704
+    }
+  ]
+}
