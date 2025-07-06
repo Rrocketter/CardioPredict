@@ -15,8 +15,8 @@ requests>=2.25.0
 # Utilities  
 python-dateutil>=2.8.0
 
-# Optional: Add back ML packages only if needed
-# numpy>=1.21.0
-# pandas>=1.5.0
-# scikit-learn>=1.1.0
-# joblib>=1.1.0
+# Machine Learning packages - Required for CardioPredict model
+numpy>=1.21.0
+pandas>=1.5.0
+scikit-learn>=1.1.0
+joblib>=1.1.0
